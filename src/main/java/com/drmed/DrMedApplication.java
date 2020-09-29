@@ -16,7 +16,7 @@ public class DrMedApplication {
 /*
 
 - obliczanie kosztów pacjenta dekoratorem np
-
+- gdy doktor dostanie nowe zamówienie to na tablicy w trello pojawia mu się order i jego status czy coś :v
 
 
  */

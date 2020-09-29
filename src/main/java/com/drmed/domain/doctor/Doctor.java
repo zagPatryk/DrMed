@@ -39,6 +39,10 @@ public class Doctor {
     )
     private List<Patient> patients = new ArrayList<>();
 
+//    @Enumerated(EnumType.STRING)
+//    @Column(name = "DOCTOR_STATUS")
+//    private Status doctorStatus = Status.ACTIVE;
+
     public Doctor(String primaryId, String firstName, String lastName) {
         this.primaryId = primaryId;
         this.firstName = firstName;
@@ -49,11 +53,11 @@ public class Doctor {
         this.primaryId = primaryId;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.patients = patients;
         setDoctorForPatients(patients);
+        this.patients = patients;
     }
 
-    public void setDoctor(Patient patient) {
+    public void addPatient(Patient patient) {
         if (!patients.contains(patient)) {
             patients.add(patient);
         }
@@ -64,4 +68,12 @@ public class Doctor {
             patient.setDoctor(this);
         }
     }
+
+//    public void saveDeleteDoctor() {
+//        this.doctorStatus = Status.DELETED;
+//        for (Patient patient : patients) {
+//            patient.disconnectDoctor();
+//        }
+//        patients.clear();
+//    }
 }

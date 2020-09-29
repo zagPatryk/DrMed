@@ -1,14 +1,14 @@
 package com.drmed.domain.test;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class TestDto {
     private Long id;
     private String code;
@@ -20,5 +20,10 @@ public class TestDto {
         this.code = code;
         this.name = name;
         this.performingWorkstationsIds = performingWorkstationsIds;
+    }
+
+    public TestDto(String code, String name) {
+        this.code = code;
+        this.name = name;
     }
 }

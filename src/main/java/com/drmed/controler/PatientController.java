@@ -37,4 +37,9 @@ public class PatientController {
     public PatientDto updatePatient(@RequestBody PatientDto patientDto) {
         return patientMapper.mapToPatientDto(patientService.savePatient(patientMapper.mapToPatient(patientDto)));
     }
+
+//    @RequestMapping(method = RequestMethod.PUT, value = "deletePatient")
+//    public PatientDto deletePatient(@RequestParam Long patientId) {
+//        return patientMapper.mapToPatientDto(patientService.deletePatient(patientId);
+//    }
 }

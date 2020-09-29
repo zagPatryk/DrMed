@@ -1,5 +1,7 @@
 package com.drmed.controler;
 
+import com.drmed.domain.exceptions.OrderNotFoundException;
+import com.drmed.domain.exceptions.TestNotFoundException;
 import com.drmed.domain.order.OrderDto;
 import com.drmed.mapper.OrderMapper;
 import com.drmed.service.OrderService;
@@ -29,8 +31,12 @@ public class OrderController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "addTestToOrder")
-    public OrderDto addTestToOrder(@RequestParam Long testId, @RequestParam Long orderId) {
-        orderService.addTestToOrder(testId, orderId);
-        return new OrderDto();
+    public OrderDto addTestToOrder(@RequestParam Long testId, @RequestParam Long orderId) throws TestNotFoundException {
+        return orderMapper.mapToOrderDto(orderService.addTestToOrder(testId, orderId));
+    }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "cancelOrder")
+    public OrderDto cancelOrder(@RequestParam Long orderId) throws OrderNotFoundException {
+        return orderMapper.mapToOrderDto(orderService.cancelOrder(orderId));
     }
 }

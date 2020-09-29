@@ -30,7 +30,7 @@ public class PatientService {
     public Patient savePatient(Patient patient) {
         patientRepository.save(patient);
         Doctor doctor = doctorRepository.findById(patient.getDoctor().getId()).get();
-        doctor.setDoctor(patient);
+        doctor.addPatient(patient);
         doctorRepository.save(doctor);
         return patient;
     }

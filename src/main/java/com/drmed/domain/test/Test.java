@@ -6,6 +6,7 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,18 +24,20 @@ import java.util.List;
 //        query = "FROM SingleTest t WHERE t.id = :ID"
 //)
 @NoArgsConstructor
+@ToString
 @AllArgsConstructor
 @Getter
 @Setter
 @Entity
 @Table(name = "SINGLE_TEST")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Test {
+public class Test implements Serializable {
+
     @Id
-    @NotNull
     @GeneratedValue
     @EqualsAndHashCode.Include
-    @Column(name = "ID", unique = true)
+    @NotNull
+    @Column(name = "TEST_ID", unique = true)
     private Long id;
 
     @Column(name = "TEST_CODE")
@@ -46,7 +49,12 @@ public class Test {
     @ManyToMany(mappedBy = "availableTests")
     private List<Workstation> performingWorkstations = new ArrayList<>();
 
-    @OneToMany
-    @JoinColumn(name = "ORDERED_TEST_ID")
+    @OneToMany(
+            targetEntity = OrderedTest.class,
+            mappedBy = "test",
+            fetch = FetchType.EAGER
+    )
     private List<OrderedTest> orderedTest;
 }
+
+

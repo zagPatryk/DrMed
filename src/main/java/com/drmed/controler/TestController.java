@@ -1,5 +1,6 @@
 package com.drmed.controler;
 
+import com.drmed.domain.exceptions.WorkstationNotFoundException;
 import com.drmed.domain.test.TestDto;
 import com.drmed.mapper.TestMapper;
 import com.drmed.service.TestService;
@@ -7,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("/v1/test")
@@ -27,9 +30,19 @@ public class TestController {
         return testMapper.mapToTestDto(testService.findTestById(testId));
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "addNewTest")
-    public TestDto addNewTest(@RequestBody TestDto testDto) {
-        return null;
+    @RequestMapping(method = RequestMethod.POST, value = "addNewTest", consumes = APPLICATION_JSON_VALUE)
+    public TestDto addNewTest(@RequestBody TestDto testDto) throws WorkstationNotFoundException {
+        return testMapper.mapToTestDto(testService.addNewTest(testDto));
     }
+
+    @RequestMapping(method = RequestMethod.PUT, value = "updateTest", consumes = APPLICATION_JSON_VALUE)
+    public TestDto updateTest(@RequestBody TestDto testDto) throws WorkstationNotFoundException {
+        return testMapper.mapToTestDto(testService.updateTest(testDto));
+    }
+
+//    @RequestMapping(method = RequestMethod.PUT, value = "addTestToWorkstation", consumes = APPLICATION_JSON_VALUE)
+//    public TestDto addTestToWorkstation(@RequestBody Long testId) throws WorkstationNotFoundException {
+//        return testMapper.mapToTestDto(testService.addTestToWorkstation(testId));
+//    }
 
 }

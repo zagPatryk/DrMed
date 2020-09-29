@@ -27,4 +27,13 @@ public class DoctorService {
         doctorRepository.findAll().forEach(doctors::add);
         return doctors;
     }
+
+//    public List<Patient> getAllDoctorPatients(Long doctorId) {
+//        List<Patient> Patient = new ArrayList<>();
+//
+//    }
+
+//    public Doctor deleteDoctorById(Long doctorId) {
+//
+//    }
 }

@@ -1,5 +1,8 @@
 package com.drmed.service;
 
+import com.drmed.domain.additional.Status;
+import com.drmed.domain.exceptions.OrderNotFoundException;
+import com.drmed.domain.exceptions.TestNotFoundException;
 import com.drmed.domain.order.Order;
 import com.drmed.domain.ordered.OrderedTest;
 import com.drmed.domain.test.Test;
@@ -10,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -34,9 +38,12 @@ public class OrderService {
         return orderRepository.findByPatientId(id);
     }
 
-    public Order addTestToOrder(Long testId, Long orderId) {
-        Order order = orderRepository.findById(orderId).get();
-        Test test = testRepository.findById(testId).get();
+    public Order addTestToOrder(Long testId, Long orderId) throws TestNotFoundException {
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        Order order = optionalOrder.orElseGet(Order::new);
+
+        Optional<Test> optionalTest = testRepository.findById(testId);
+        Test test = optionalTest.orElseThrow(TestNotFoundException::new);
 
         OrderedTest orderedTest = new OrderedTest(order, test);
         order.getOrderedTests().add(orderedTest);
@@ -45,5 +52,23 @@ public class OrderService {
         testRepository.save(test);
         orderedTestRepository.save(orderedTest);
         return order;
+    }
+
+    public Order cancelOrder(Long orderId) throws OrderNotFoundException {
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+        if (optionalOrder.isPresent()) {
+            optionalOrder.get().setOrderStatus(Status.CANCELLED);
+            for (OrderedTest orderedTest : optionalOrder.get().getOrderedTests()) {
+                if (orderedTest.getTestStatus() == Status.PENDING) {
+                    orderedTest.setResults(orderedTest.getResults() + "canceled by user");
+                    orderedTest.setTestStatus(Status.CANCELLED);
+                }
+                orderedTestRepository.save(orderedTest);
+            }
+            orderRepository.save(optionalOrder.get());
+        } else {
+            throw new OrderNotFoundException();
+        }
+        return optionalOrder.get();
     }
 }

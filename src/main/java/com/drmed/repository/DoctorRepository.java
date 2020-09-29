@@ -11,4 +11,6 @@ import javax.transaction.Transactional;
 public interface DoctorRepository extends CrudRepository<Doctor, Long> {
     @Override
     void deleteById(Long id);
+
+    // QUERY
 }
