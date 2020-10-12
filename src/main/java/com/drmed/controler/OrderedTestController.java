@@ -1,7 +1,7 @@
 package com.drmed.controler;
 
 import com.drmed.domain.exceptions.OrderNotFoundException;
-import com.drmed.domain.exceptions.OrderedTestNotFound;
+import com.drmed.domain.exceptions.OrderedTestNotFoundException;
 import com.drmed.domain.ordered.OrderedTestDto;
 import com.drmed.mapper.OrderedTestMapper;
 import com.drmed.service.OrderedTestService;
@@ -28,13 +28,13 @@ public class OrderedTestController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "getOrderedTestById")
-    public OrderedTestDto getOrderedTestById(@RequestParam Long orderedTestId) throws OrderedTestNotFound {
+    public OrderedTestDto getOrderedTestById(@RequestParam Long orderedTestId) throws OrderedTestNotFoundException {
         return orderedTestMapper.mapToOrderedTestDto(orderedTestService.getOrderedTestById(orderedTestId));
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "resultOrderedTest")
     public OrderedTestDto resultOrderedTest(@RequestParam Long orderedTestId, @RequestParam String results)
-            throws OrderNotFoundException, OrderedTestNotFound {
+            throws OrderNotFoundException, OrderedTestNotFoundException {
         return orderedTestMapper.mapToOrderedTestDto(orderedTestService.resultOrderedTest(orderedTestId, results));
     }
 

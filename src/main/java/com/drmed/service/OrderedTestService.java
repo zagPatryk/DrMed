@@ -2,7 +2,7 @@ package com.drmed.service;
 
 import com.drmed.domain.additional.Status;
 import com.drmed.domain.exceptions.OrderNotFoundException;
-import com.drmed.domain.exceptions.OrderedTestNotFound;
+import com.drmed.domain.exceptions.OrderedTestNotFoundException;
 import com.drmed.domain.order.Order;
 import com.drmed.domain.ordered.OrderedTest;
 import com.drmed.repository.OrderRepository;
@@ -27,13 +27,13 @@ public class OrderedTestService {
         return orderRepository.findById(orderId).orElseThrow(OrderNotFoundException::new).getOrderedTests();
     }
 
-    public OrderedTest getOrderedTestById(Long orderedTestId) throws OrderedTestNotFound {
-        return orderedTestRepository.findById(orderedTestId).orElseThrow(OrderedTestNotFound::new);
+    public OrderedTest getOrderedTestById(Long orderedTestId) throws OrderedTestNotFoundException {
+        return orderedTestRepository.findById(orderedTestId).orElseThrow(OrderedTestNotFoundException::new);
     }
 
     public OrderedTest resultOrderedTest(Long orderedTestId, String results)
-            throws OrderedTestNotFound, OrderNotFoundException {
-        OrderedTest orderedTest = orderedTestRepository.findById(orderedTestId).orElseThrow(OrderedTestNotFound::new);
+            throws OrderedTestNotFoundException, OrderNotFoundException {
+        OrderedTest orderedTest = orderedTestRepository.findById(orderedTestId).orElseThrow(OrderedTestNotFoundException::new);
         if (orderedTest.getTestStatus() == Status.FINISHED) {
             orderedTest.setResults(results + " previously reported: " + orderedTest.getResults());
             orderedTest.setTestStatus(Status.CORRECTED);

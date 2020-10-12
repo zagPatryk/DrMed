@@ -34,4 +34,6 @@ public class PatientService {
         doctorRepository.save(doctor);
         return patient;
     }
+
+    // poprawić ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 }

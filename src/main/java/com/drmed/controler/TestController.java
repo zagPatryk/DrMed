@@ -32,12 +32,12 @@ public class TestController {
 
     @RequestMapping(method = RequestMethod.POST, value = "addNewTest", consumes = APPLICATION_JSON_VALUE)
     public TestDto addNewTest(@RequestBody TestDto testDto) throws WorkstationNotFoundException {
-        return testMapper.mapToTestDto(testService.addNewTest(testDto));
+        return testMapper.mapToTestDto(testService.saveTest(testDto));
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateTest", consumes = APPLICATION_JSON_VALUE)
     public TestDto updateTest(@RequestBody TestDto testDto) throws WorkstationNotFoundException {
-        return testMapper.mapToTestDto(testService.updateTest(testDto));
+        return testMapper.mapToTestDto(testService.saveTest(testDto));
     }
 
 //    @RequestMapping(method = RequestMethod.PUT, value = "addTestToWorkstation", consumes = APPLICATION_JSON_VALUE)

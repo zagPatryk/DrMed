@@ -31,6 +31,7 @@ public class DoctorController {
         return doctorMapper.mapToDoctorDtoList(doctorService.findAllDoctors());
     }
 
+
 //    @RequestMapping(method = RequestMethod.GET, value = "getAllDoctorPatients")
 //    public List<PatientDto> getAllDoctorPatients(@RequestParam Long doctorId) {
 //        return patientMapper.mapToPatientDtoList(doctorService.getAllDoctorPatients(doctorId));
