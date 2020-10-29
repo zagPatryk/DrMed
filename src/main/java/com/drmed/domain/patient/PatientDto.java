@@ -12,7 +12,6 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class PatientDto {
-
     private Long id;
     private String MRN;
     private String firstName;

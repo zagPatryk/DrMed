@@ -1,7 +1,7 @@
 package com.drmed.controler;
 
-import com.drmed.domain.exceptions.OrderNotFoundException;
-import com.drmed.domain.exceptions.TestNotFoundException;
+import com.drmed.exceptions.OrderNotFoundException;
+import com.drmed.exceptions.TestNotFoundException;
 import com.drmed.domain.order.OrderDto;
 import com.drmed.mapper.OrderMapper;
 import com.drmed.service.OrderService;
@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/order")
 public class OrderController {
-
     @Autowired
     private OrderService orderService;
     @Autowired

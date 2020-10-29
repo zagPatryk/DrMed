@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class DoctorMapper {
-
     @Autowired
     private DoctorRepository doctorRepository;
     @Autowired
@@ -31,6 +30,7 @@ public class DoctorMapper {
         doctor.setFirstName(doctorDto.getFirstName());
         doctor.setLastName(doctorDto.getLastName());
         doctor.setPrimaryId(doctorDto.getPrimaryId());
+        doctor.setDoctorStatus(doctorDto.getActivityStatus());
         for (Long patientId : doctorDto.getPatientsIds()) {
             Optional<Patient> optionalPatient = patientRepository.findById(patientId);
             if (optionalPatient.isPresent()) {
@@ -48,7 +48,8 @@ public class DoctorMapper {
                 doctor.getLastName(),
                 doctor.getPatients().stream()
                         .map(Patient::getId)
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toList()),
+                doctor.getDoctorStatus()
         );
     }
 

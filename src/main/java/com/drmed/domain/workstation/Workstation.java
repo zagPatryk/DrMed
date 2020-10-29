@@ -1,5 +1,6 @@
 package com.drmed.domain.workstation;
 
+import com.drmed.domain.additional.ActivityStatus;
 import com.drmed.domain.test.Test;
 import com.sun.istack.NotNull;
 import lombok.*;
@@ -36,4 +37,8 @@ public class Workstation {
             inverseJoinColumns = {@JoinColumn(name = "TEST_CODE", referencedColumnName = "TEST_CODE")}
     )
     private List<Test> availableTests = new ArrayList<>();
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "WORKSTATION_STATUS")
+    private ActivityStatus workstationStatus = ActivityStatus.ACTIVE;
 }

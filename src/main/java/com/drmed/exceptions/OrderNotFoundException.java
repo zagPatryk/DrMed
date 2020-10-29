@@ -1,4 +1,4 @@
-package com.drmed.domain.exceptions;
+package com.drmed.exceptions;
 
 public class OrderNotFoundException extends Exception {
 

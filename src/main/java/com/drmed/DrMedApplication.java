@@ -14,9 +14,10 @@ public class DrMedApplication {
 
 
 /*
-
+- dodać logi do bazy danych i stworzyć 'MOMa' do sprawdzania ich z poziomu aplikacji
+- dodać jakaś klasę z przygotowaniem dodatkowych tabel i logów, np
 - obliczanie kosztów pacjenta dekoratorem np
 - gdy doktor dostanie nowe zamówienie to na tablicy w trello pojawia mu się order i jego status czy coś :v
-
+- wykorzystując factory zrobić testy singlowe/grupowe/różne technologie
 
  */

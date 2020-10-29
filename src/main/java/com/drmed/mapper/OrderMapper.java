@@ -1,6 +1,6 @@
 package com.drmed.mapper;
 
-import com.drmed.domain.exceptions.TestNotFoundException;
+import com.drmed.exceptions.TestNotFoundException;
 import com.drmed.domain.order.Order;
 import com.drmed.domain.order.OrderDto;
 import com.drmed.domain.ordered.OrderedTest;
@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class OrderMapper {
-
     @Autowired
     private OrderRepository orderRepository;
     @Autowired
@@ -42,7 +41,7 @@ public class OrderMapper {
             orderedTestList.add(orderedTestMapper.mapToOrderedTest(orderedTestDto));
         }
         order.setOrderedTests(orderedTestList);
-        order.setOrderStatus(orderDto.getOrderStatus());
+        order.setOrderResultStatus(orderDto.getOrderResultStatus());
         return order;
     }
 
@@ -52,7 +51,7 @@ public class OrderMapper {
                 order.getCode(),
                 patientMapper.mapToPatientDto(order.getPatient()),
                 orderedTestMapper.mapToOrderedTestDtoList(order.getOrderedTests()),
-                order.getOrderStatus()
+                order.getOrderResultStatus()
         );
     }
 

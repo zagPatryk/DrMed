@@ -1,6 +1,6 @@
 package com.drmed.domain.ordered;
 
-import com.drmed.domain.additional.Status;
+import com.drmed.domain.additional.ResultStatus;
 import com.drmed.domain.order.Order;
 import com.drmed.domain.test.Test;
 import com.sun.istack.NotNull;
@@ -16,7 +16,6 @@ import javax.persistence.*;
 @Table(name = "ORDERED_TEST")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class OrderedTest {
-
     @Id
     @Column(name = "ID", unique = true)
     @GeneratedValue
@@ -34,7 +33,7 @@ public class OrderedTest {
 
     @Column(name = "TEST_STATUS")
     @Enumerated(EnumType.STRING)
-    private Status testStatus;
+    private ResultStatus testResultStatus;
 
     @Column(name = "RESULTS")
     private String results;
@@ -42,7 +41,7 @@ public class OrderedTest {
     public OrderedTest(Order order, Test test) {
         this.order = order;
         this.test = test;
-        this.testStatus = Status.PENDING;
+        this.testResultStatus = ResultStatus.PENDING;
         this.results = "";
     }
 }

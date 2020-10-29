@@ -1,6 +1,6 @@
 package com.drmed.domain.order;
 
-import com.drmed.domain.additional.Status;
+import com.drmed.domain.additional.ResultStatus;
 import com.drmed.domain.ordered.OrderedTest;
 import com.drmed.domain.patient.Patient;
 import com.sun.istack.NotNull;
@@ -40,23 +40,23 @@ public class Order {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "ORDER_STATUS")
-    private Status orderStatus;
+    private ResultStatus orderResultStatus;
 
-    public Status updateStatus() {
-        if (orderedTests.stream().map(OrderedTest::getTestStatus)
-                .anyMatch(orderedTestStatus -> orderedTestStatus == Status.PENDING)) {
-            orderStatus = Status.PENDING;
-            return Status.PENDING;
-        } else if (orderedTests.stream().map(OrderedTest::getTestStatus)
-                .anyMatch(orderedTestStatus -> orderedTestStatus == Status.CORRECTED)) {
-            orderStatus = Status.CORRECTED;
-            return Status.CORRECTED;
-        } else if (orderedTests.stream().map(OrderedTest::getTestStatus)
-                .allMatch(orderedTestStatus -> orderedTestStatus == Status.CANCELLED)) {
-            orderStatus = Status.CANCELLED;
-            return Status.CANCELLED;
+    public ResultStatus updateStatus() {
+        if (orderedTests.stream().map(OrderedTest::getTestResultStatus)
+                .anyMatch(orderedTestStatus -> orderedTestStatus == ResultStatus.PENDING)) {
+            orderResultStatus = ResultStatus.PENDING;
+            return ResultStatus.PENDING;
+        } else if (orderedTests.stream().map(OrderedTest::getTestResultStatus)
+                .anyMatch(orderedTestStatus -> orderedTestStatus == ResultStatus.CORRECTED)) {
+            orderResultStatus = ResultStatus.CORRECTED;
+            return ResultStatus.CORRECTED;
+        } else if (orderedTests.stream().map(OrderedTest::getTestResultStatus)
+                .allMatch(orderedTestStatus -> orderedTestStatus == ResultStatus.CANCELLED)) {
+            orderResultStatus = ResultStatus.CANCELLED;
+            return ResultStatus.CANCELLED;
         } else {
-            return orderStatus;
+            return orderResultStatus;
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.drmed.domain.test;
 
+import com.drmed.domain.additional.ActivityStatus;
 import com.drmed.domain.ordered.OrderedTest;
 import com.drmed.domain.workstation.Workstation;
 import com.sun.istack.NotNull;
@@ -32,7 +33,6 @@ import java.util.List;
 @Table(name = "SINGLE_TEST")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Test implements Serializable {
-
     @Id
     @GeneratedValue
     @EqualsAndHashCode.Include
@@ -55,6 +55,10 @@ public class Test implements Serializable {
             fetch = FetchType.EAGER
     )
     private List<OrderedTest> orderedTest;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "TEST_ACTIVITY_STATUS")
+    private ActivityStatus testActivityStatus = ActivityStatus.ACTIVE;
 }
 
 

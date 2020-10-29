@@ -1,7 +1,7 @@
 package com.drmed.controler;
 
-import com.drmed.domain.exceptions.TestNotFoundException;
-import com.drmed.domain.exceptions.WorkstationNotFoundException;
+import com.drmed.exceptions.TestNotFoundException;
+import com.drmed.exceptions.WorkstationNotFoundException;
 import com.drmed.domain.workstation.WorkstationDto;
 import com.drmed.mapper.WorkstationMapper;
 import com.drmed.service.WorkstationService;
@@ -41,8 +41,5 @@ public class WorkstationController {
         return workstationMapper.mapToWorkstationDto(workstationService.connectWorkstationAndTest(workstationId, testId));
     }
 
-//    @RequestMapping(method = RequestMethod.GET, value = "getOrderableTestsAtWorkstation")
-//    public List<PatientDto> getOrderableTestsAtWorkstation(@RequestParam Long workstationId) {
-//        return workstationMapper.mapToWorkstationDto(workstationService.getOrderableTestsAtWorkstation(workstationId));
-//    }
+
 }

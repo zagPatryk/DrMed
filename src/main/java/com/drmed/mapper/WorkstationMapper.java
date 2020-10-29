@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class WorkstationMapper {
-
     @Autowired
     private WorkstationRepository workstationRepository;
     @Autowired
@@ -30,6 +29,7 @@ public class WorkstationMapper {
         }
         workstation.setCode(workstationDto.getCode());
         workstation.setName(workstationDto.getName());
+        workstation.setWorkstationStatus(workstationDto.getActivityStatus());
         for (Long testId : workstationDto.getAvailableTestsIds()) {
             Optional<Test> optionalTest = testRepository.findById(testId);
             if(optionalTest.isPresent()) {
@@ -46,7 +46,8 @@ public class WorkstationMapper {
                 workstation.getName(),
                 workstation.getAvailableTests().stream()
                         .map(Test::getId)
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toList()),
+                workstation.getWorkstationStatus()
         );
     }
 

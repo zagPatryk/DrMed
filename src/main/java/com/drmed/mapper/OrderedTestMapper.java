@@ -1,7 +1,7 @@
 package com.drmed.mapper;
 
-import com.drmed.domain.additional.Status;
-import com.drmed.domain.exceptions.TestNotFoundException;
+import com.drmed.domain.additional.ResultStatus;
+import com.drmed.exceptions.TestNotFoundException;
 import com.drmed.domain.order.Order;
 import com.drmed.domain.ordered.OrderedTest;
 import com.drmed.domain.ordered.OrderedTestDto;
@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class OrderedTestMapper {
-
     @Autowired
     private OrderedTestRepository orderedTestRepository;
     @Autowired
@@ -49,10 +48,10 @@ public class OrderedTestMapper {
         } else {
             throw new TestNotFoundException();
         }
-        if (orderedTestDto.getTestStatus() != null) {
-            orderedTest.setTestStatus(orderedTestDto.getTestStatus());
+        if (orderedTestDto.getTestResultStatus() != null) {
+            orderedTest.setTestResultStatus(orderedTestDto.getTestResultStatus());
         } else {
-            orderedTest.setTestStatus(Status.PENDING);
+            orderedTest.setTestResultStatus(ResultStatus.PENDING);
         }
         return orderedTest;
     }
@@ -62,7 +61,7 @@ public class OrderedTestMapper {
                 orderedTest.getId(),
                 orderedTest.getOrder().getId(),
                 testMapper.mapToTestDto(orderedTest.getTest()),
-                orderedTest.getTestStatus(),
+                orderedTest.getTestResultStatus(),
                 orderedTest.getResults()
         );
     }

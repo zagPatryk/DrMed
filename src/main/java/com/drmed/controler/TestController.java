@@ -1,6 +1,6 @@
 package com.drmed.controler;
 
-import com.drmed.domain.exceptions.WorkstationNotFoundException;
+import com.drmed.exceptions.WorkstationNotFoundException;
 import com.drmed.domain.test.TestDto;
 import com.drmed.mapper.TestMapper;
 import com.drmed.service.TestService;
@@ -14,7 +14,6 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping("/v1/test")
 public class TestController {
-
     @Autowired
     private TestService testService;
     @Autowired
@@ -39,6 +38,11 @@ public class TestController {
     public TestDto updateTest(@RequestBody TestDto testDto) throws WorkstationNotFoundException {
         return testMapper.mapToTestDto(testService.saveTest(testDto));
     }
+
+//    @RequestMapping(method = RequestMethod.GET, value = "getOrderableTestsAtWorkstation")
+//    public List<PatientDto> getOrderableTestsAtWorkstation(@RequestParam Long workstationId) {
+//        return workstationMapper.mapToWorkstationDto(workstationService.getOrderableTestsAtWorkstation(workstationId));
+//    }
 
 //    @RequestMapping(method = RequestMethod.PUT, value = "addTestToWorkstation", consumes = APPLICATION_JSON_VALUE)
 //    public TestDto addTestToWorkstation(@RequestBody Long testId) throws WorkstationNotFoundException {

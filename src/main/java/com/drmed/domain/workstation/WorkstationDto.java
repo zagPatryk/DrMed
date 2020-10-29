@@ -1,5 +1,6 @@
 package com.drmed.domain.workstation;
 
+import com.drmed.domain.additional.ActivityStatus;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,11 +11,11 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 public class WorkstationDto {
-
     private Long id;
     private String code;
     private String name;
     private List<Long> availableTestsIds;
+    private ActivityStatus activityStatus = ActivityStatus.ACTIVE;
 
     public WorkstationDto(String code, String name, List<Long> availableTestsIds) {
         this.code = code;

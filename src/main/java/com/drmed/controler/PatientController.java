@@ -1,7 +1,9 @@
 package com.drmed.controler;
 
 import com.drmed.domain.patient.PatientDto;
+import com.drmed.exceptions.DoctorNotFoundException;
 import com.drmed.mapper.PatientMapper;
+import com.drmed.service.DoctorService;
 import com.drmed.service.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,8 @@ public class PatientController {
     private PatientService patientService;
     @Autowired
     private PatientMapper patientMapper;
+    @Autowired
+    private DoctorService doctorService;
 
     @RequestMapping(method = RequestMethod.GET, value = "getPatientById")
     public PatientDto getPatientById(@RequestParam Long patientId) {
@@ -29,17 +33,17 @@ public class PatientController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "addNewPatient", consumes = APPLICATION_JSON_VALUE)
-    public PatientDto getAllPatients(@RequestBody PatientDto patientDto) {
+    public PatientDto getAllPatients(@RequestBody PatientDto patientDto) throws DoctorNotFoundException {
         return patientMapper.mapToPatientDto(patientService.savePatient(patientMapper.mapToPatient(patientDto)));
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updatePatient", consumes = APPLICATION_JSON_VALUE)
-    public PatientDto updatePatient(@RequestBody PatientDto patientDto) {
+    public PatientDto updatePatient(@RequestBody PatientDto patientDto) throws DoctorNotFoundException {
         return patientMapper.mapToPatientDto(patientService.savePatient(patientMapper.mapToPatient(patientDto)));
     }
 
-//    @RequestMapping(method = RequestMethod.PUT, value = "deletePatient")
-//    public PatientDto deletePatient(@RequestParam Long patientId) {
-//        return patientMapper.mapToPatientDto(patientService.deletePatient(patientId);
-//    }
+    @RequestMapping(method = RequestMethod.GET, value = "getDoctorPatients")
+    public List<PatientDto> getDoctorPatients(@RequestParam Long doctorId) {
+        return patientMapper.mapToPatientDtoList(doctorService.getDoctorPatients(doctorId));
+    }
 }

@@ -1,5 +1,6 @@
 package com.drmed.domain.test;
 
+import com.drmed.domain.additional.ActivityStatus;
 import lombok.*;
 
 import java.util.List;
@@ -7,14 +8,16 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @ToString
 public class TestDto {
     private Long id;
+    @NonNull
     private String code;
+    @NonNull
     private String name;
     private List<Long> performingWorkstationsIds;
     private List<Long> orderedTest;
+    private ActivityStatus activityStatus = ActivityStatus.ACTIVE;
 
     public TestDto(String code, String name, List<Long> performingWorkstationsIds) {
         this.code = code;

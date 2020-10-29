@@ -1,5 +1,6 @@
 package com.drmed.domain.doctor;
 
+import com.drmed.domain.additional.ActivityStatus;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,7 +15,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DoctorDto {
-
     private Long id;
     @NotNull
     private String primaryId;
@@ -23,6 +23,7 @@ public class DoctorDto {
     @NotNull
     private String lastName;
     private List<Long> patientsIds = new ArrayList<>();
+    private ActivityStatus activityStatus = ActivityStatus.ACTIVE;
 
     public DoctorDto(String primaryId, String firstName, String lastName, List<Long> patientsIds) {
         this.primaryId = primaryId;

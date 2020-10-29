@@ -1,8 +1,8 @@
 package com.drmed.service;
 
-import com.drmed.domain.additional.Status;
-import com.drmed.domain.exceptions.OrderNotFoundException;
-import com.drmed.domain.exceptions.TestNotFoundException;
+import com.drmed.domain.additional.ResultStatus;
+import com.drmed.exceptions.OrderNotFoundException;
+import com.drmed.exceptions.TestNotFoundException;
 import com.drmed.domain.order.Order;
 import com.drmed.domain.ordered.OrderedTest;
 import com.drmed.domain.test.Test;
@@ -18,7 +18,6 @@ import java.util.Optional;
 
 @Service
 public class OrderService {
-
     @Autowired
     private OrderRepository orderRepository;
     @Autowired
@@ -57,11 +56,11 @@ public class OrderService {
     public Order cancelOrder(Long orderId) throws OrderNotFoundException {
         Optional<Order> optionalOrder = orderRepository.findById(orderId);
         if (optionalOrder.isPresent()) {
-            optionalOrder.get().setOrderStatus(Status.CANCELLED);
+            optionalOrder.get().setOrderResultStatus(ResultStatus.CANCELLED);
             for (OrderedTest orderedTest : optionalOrder.get().getOrderedTests()) {
-                if (orderedTest.getTestStatus() == Status.PENDING) {
-                    orderedTest.setResults(orderedTest.getResults() + "canceled by user");
-                    orderedTest.setTestStatus(Status.CANCELLED);
+                if (orderedTest.getTestResultStatus() == ResultStatus.PENDING) {
+                    orderedTest.setResults(orderedTest.getResults() + " canceled by user");
+                    orderedTest.setTestResultStatus(ResultStatus.CANCELLED);
                 }
                 orderedTestRepository.save(orderedTest);
             }

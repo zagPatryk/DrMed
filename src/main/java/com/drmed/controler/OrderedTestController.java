@@ -1,7 +1,7 @@
 package com.drmed.controler;
 
-import com.drmed.domain.exceptions.OrderNotFoundException;
-import com.drmed.domain.exceptions.OrderedTestNotFoundException;
+import com.drmed.exceptions.OrderNotFoundException;
+import com.drmed.exceptions.OrderedTestNotFoundException;
 import com.drmed.domain.ordered.OrderedTestDto;
 import com.drmed.mapper.OrderedTestMapper;
 import com.drmed.service.OrderedTestService;
@@ -16,7 +16,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/v1/orderedTest")
 public class OrderedTestController {
-
     @Autowired
     private OrderedTestService orderedTestService;
     @Autowired
@@ -42,9 +41,7 @@ public class OrderedTestController {
     public OrderedTestDto cancelOrderedTest(@RequestParam Long orderedTestId) {
         return orderedTestMapper.mapToOrderedTestDto(orderedTestService.cancelOrderedTest(orderedTestId));
     }
-
-//    @RequestMapping(method = RequestMethod.PUT, value = "deleteOrderedTest")
-//    public OrderDto deleteOrderedTest(@RequestParam Long orderId) {
-//        return orderedTestMapper.mapToOrderedTestDto(orderedTestService.deleteOrderedTest(orderId));
-//    }
 }
+
+
+

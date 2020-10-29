@@ -1,5 +1,6 @@
 package com.drmed.domain.doctor;
 
+import com.drmed.domain.additional.ActivityStatus;
 import com.drmed.domain.patient.Patient;
 import com.sun.istack.NotNull;
 import lombok.*;
@@ -16,7 +17,6 @@ import java.util.List;
 @Table(name = "DOCTOR")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Doctor {
-
     @Id
     @Column(name = "DOCTOR_ID")
     @GeneratedValue
@@ -39,9 +39,9 @@ public class Doctor {
     )
     private List<Patient> patients = new ArrayList<>();
 
-//    @Enumerated(EnumType.STRING)
-//    @Column(name = "DOCTOR_STATUS")
-//    private Status doctorStatus = Status.ACTIVE;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "DOCTOR_STATUS")
+    private ActivityStatus doctorStatus = ActivityStatus.ACTIVE;
 
     public Doctor(String primaryId, String firstName, String lastName) {
         this.primaryId = primaryId;
@@ -69,11 +69,7 @@ public class Doctor {
         }
     }
 
-//    public void saveDeleteDoctor() {
-//        this.doctorStatus = Status.DELETED;
-//        for (Patient patient : patients) {
-//            patient.disconnectDoctor();
-//        }
-//        patients.clear();
-//    }
+    public void safeDeleteDoctor() {
+        this.doctorStatus = ActivityStatus.DELETED;
+    }
 }

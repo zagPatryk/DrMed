@@ -2,7 +2,6 @@ package com.drmed.controler;
 
 import com.drmed.domain.doctor.DoctorDto;
 import com.drmed.mapper.DoctorMapper;
-import com.drmed.mapper.PatientMapper;
 import com.drmed.service.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +17,6 @@ public class DoctorController {
     private DoctorService doctorService;
     @Autowired
     private DoctorMapper doctorMapper;
-    @Autowired
-    private PatientMapper patientMapper;
 
     @RequestMapping(method = RequestMethod.GET, value = "getDoctorById")
     public DoctorDto getDoctorsById(@RequestParam Long doctorId) {
@@ -31,12 +28,6 @@ public class DoctorController {
         return doctorMapper.mapToDoctorDtoList(doctorService.findAllDoctors());
     }
 
-
-//    @RequestMapping(method = RequestMethod.GET, value = "getAllDoctorPatients")
-//    public List<PatientDto> getAllDoctorPatients(@RequestParam Long doctorId) {
-//        return patientMapper.mapToPatientDtoList(doctorService.getAllDoctorPatients(doctorId));
-//    }
-
     @RequestMapping(method = RequestMethod.POST, value = "addNewDoctor", consumes = APPLICATION_JSON_VALUE)
     public DoctorDto addNewDoctor(@RequestBody DoctorDto doctorDto) {
         return doctorMapper.mapToDoctorDto(doctorService.saveDoctor(doctorMapper.mapToDoctor(doctorDto)));
@@ -47,8 +38,8 @@ public class DoctorController {
         return doctorMapper.mapToDoctorDto(doctorService.saveDoctor(doctorMapper.mapToDoctor(doctorDto)));
     }
 
-//    @RequestMapping(method = RequestMethod.PUT, value = "deleteDoctorById")
-//    public DoctorDto deleteDoctorById(@RequestParam Long doctorId) {
-//        return doctorMapper.mapToDoctorDto(doctorService.deleteDoctorById(doctorId));
-//    }
+    @RequestMapping(method = RequestMethod.PUT, value = "deleteDoctorById")
+    public DoctorDto safeDeleteDoctorById(@RequestParam Long doctorId) {
+        return doctorMapper.mapToDoctorDto(doctorService.deleteDoctorById(doctorId));
+    }
 }

@@ -1,7 +1,7 @@
 package com.drmed.service;
 
-import com.drmed.domain.exceptions.TestNotFoundException;
-import com.drmed.domain.exceptions.WorkstationNotFoundException;
+import com.drmed.exceptions.TestNotFoundException;
+import com.drmed.exceptions.WorkstationNotFoundException;
 import com.drmed.domain.test.Test;
 import com.drmed.domain.workstation.Workstation;
 import com.drmed.domain.workstation.WorkstationDto;
@@ -16,7 +16,6 @@ import java.util.Optional;
 
 @Service
 public class WorkstationService {
-
     @Autowired
     private WorkstationRepository workstationRepository;
     @Autowired
@@ -83,18 +82,4 @@ public class WorkstationService {
         }
         return workstationRepository.save(workstation);
     }
-
-    /*
-    @RequestMapping(method = RequestMethod.GET, value = "getOrderableTestsAtWorkstation")
-    public List<PatientDto> getOrderableTestsAtWorkstation(@RequestParam Long workstationId) {
-        return workstationMapper.mapToWorkstationDto(workstationService.getOrderableTestsAtWorkstation(workstationId));
-    }
-
-    @RequestMapping(method = RequestMethod.GET, value = "addWorkstation")
-    public List<PatientDto> addWorkstation(@RequestBody WorkstationDto workstationDto) {
-        return workstationMapper.mapToWorkstationDto(
-                workstationService.addWorkstation(workstationMapper.mapToWorkstation(workstationDto))
-        );
-    }
-     */
 }

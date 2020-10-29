@@ -1,6 +1,7 @@
 package com.drmed.service;
 
 import com.drmed.domain.doctor.Doctor;
+import com.drmed.domain.patient.Patient;
 import com.drmed.repository.DoctorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +11,6 @@ import java.util.List;
 
 @Service
 public class DoctorService {
-
     @Autowired
     private DoctorRepository doctorRepository;
 
@@ -28,12 +28,13 @@ public class DoctorService {
         return doctors;
     }
 
-//    public List<Patient> getAllDoctorPatients(Long doctorId) {
-//        List<Patient> Patient = new ArrayList<>();
-//
-//    }
+    public Doctor deleteDoctorById(Long doctorId) {
+        Doctor doctor = doctorRepository.findById(doctorId).orElseGet(Doctor::new);
+        doctor.safeDeleteDoctor();
+        return doctorRepository.save(doctor);
+    }
 
-//    public Doctor deleteDoctorById(Long doctorId) {
-//
-//    }
+    public List<Patient> getDoctorPatients(Long doctorId) {
+        return new ArrayList<>();
+    }
 }

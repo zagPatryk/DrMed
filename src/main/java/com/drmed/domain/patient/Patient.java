@@ -18,7 +18,6 @@ import java.util.List;
 @Table(name = "PATIENT")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Patient {
-
     @Id
     @Column(name = "PATIENT_ID", unique = true)
     @GeneratedValue
