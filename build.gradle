@@ -29,6 +29,8 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     compile group: 'mysql', name: 'mysql-connector-java'
+
+    compile group: 'com.vaadin', name: 'vaadin', version: '14.4.4'
 }
 
 test {
