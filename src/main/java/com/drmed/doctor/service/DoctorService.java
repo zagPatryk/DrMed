@@ -61,6 +61,7 @@ public class DoctorService {
         doctor.setLastName(newDoctorDto.getLastName());
         doctor.setEmail(newDoctorDto.getEmail());
         doctor.setDoctorStatus(ActivityStatus.ACTIVE);
+//        createTrelloBoardForDoctor();
         return doctorMapper.mapToDoctorDto(doctorRepository.saveDoctor(doctor));
     }
 

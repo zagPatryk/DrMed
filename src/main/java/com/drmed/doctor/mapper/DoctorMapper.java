@@ -25,7 +25,8 @@ public class DoctorMapper {
                 doctor.getLastName(),
                 patientMapper.mapToPatientHibernateList(doctor.getPatientList()),
                 doctor.getDoctorStatus(),
-                doctor.getEmail()
+                doctor.getEmail(),
+                doctor.getTrelloBoardId()
         );
     }
 
@@ -37,7 +38,8 @@ public class DoctorMapper {
                 doctorDto.getLastName(),
                 doctorDto.getDoctorStatus(),
                 doctorDto.getEmail(),
-                doctorDto.getPatientsIds()
+                doctorDto.getPatientsIds(),
+                ""
         );
     }
 
@@ -49,7 +51,8 @@ public class DoctorMapper {
                 doctorHibernate.getLastName(),
                 doctorHibernate.getDoctorStatus(),
                 doctorHibernate.getEmail(),
-                doctorHibernate.getPatients().stream().map(PatientHibernate::getId).collect(Collectors.toList())
+                doctorHibernate.getPatients().stream().map(PatientHibernate::getId).collect(Collectors.toList()),
+                doctorHibernate.getTrelloBoardId()
         );
     }
 

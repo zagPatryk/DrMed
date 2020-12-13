@@ -25,6 +25,8 @@ public class Doctor {
     private List<Long> patientsIds = new ArrayList<>();
     private List<Patient> patientList = new ArrayList<>();
 
+    private String trelloBoardId;
+
     public Doctor(String primaryId, String firstName, String lastName, ActivityStatus doctorStatus, String email) {
         this.primaryId = primaryId;
         this.firstName = firstName;
@@ -33,7 +35,8 @@ public class Doctor {
         this.email = email;
     }
 
-    public Doctor(Long id, String primaryId, String firstName, String lastName, ActivityStatus doctorStatus, String email, List<Long> patientsIds) {
+    public Doctor(Long id, String primaryId, String firstName, String lastName, ActivityStatus doctorStatus,
+                  String email, List<Long> patientsIds, String trelloBoardId) {
         this.id = id;
         this.primaryId = primaryId;
         this.firstName = firstName;
@@ -41,5 +44,6 @@ public class Doctor {
         this.doctorStatus = doctorStatus;
         this.email = email;
         this.patientsIds = patientsIds;
+        this.trelloBoardId = trelloBoardId;
     }
 }

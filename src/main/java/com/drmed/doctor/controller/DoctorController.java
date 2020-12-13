@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-
 @RestController
 @RequestMapping("/v1/doctor")
 public class DoctorController {
@@ -48,12 +46,12 @@ public class DoctorController {
         return doctorService.getDoctorByFirstNameContainsAndLastNameContaining(firstName, lastName);
     }
 
-    @PostMapping(value = "addNewDoctor", consumes = APPLICATION_JSON_VALUE)
+    @PostMapping(value = "addNewDoctor")
     public DoctorDto addNewDoctor(@RequestBody NewDoctorDto newDoctorDto) {
         return doctorService.addNewDoctor(newDoctorDto);
     }
 
-    @PutMapping(value = "updateDoctor", consumes = APPLICATION_JSON_VALUE)
+    @PutMapping(value = "updateDoctor")
     public DoctorDto updateDoctor(@RequestBody DoctorDto doctorDto) throws DataNotFoundInDatabase {
         return doctorService.updateDoctor(doctorDto);
     }
