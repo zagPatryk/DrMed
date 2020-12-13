@@ -4,6 +4,7 @@ import com.drmed.additional.statuses.ResultStatus;
 import com.drmed.order.domain.Order;
 import com.drmed.order.dto.OrderDto;
 import com.drmed.order.dto.OrderInfoDto;
+import com.drmed.order.dto.OrderInfoTrelloDto;
 import com.drmed.order.repository.OrderHibernate;
 import com.drmed.orderedTest.mapper.OrderedTestMapper;
 import com.drmed.patient.mapper.PatientMapper;
@@ -67,6 +68,14 @@ public class OrderMapper {
                 order.getId(),
                 order.getCode(),
                 orderedTestMapper.mapToOrderedTestInfoDtoList(order.getOrderedTests())
+        );
+    }
+
+    public OrderInfoTrelloDto mapToOrderInfoTrelloDto(Order order) {
+        return new OrderInfoTrelloDto(
+                order.getCode(),
+                orderedTestMapper.mapToOrderedTestInfoDtoList(order.getOrderedTests()),
+                order.getTrelloOrderCardId()
         );
     }
 
