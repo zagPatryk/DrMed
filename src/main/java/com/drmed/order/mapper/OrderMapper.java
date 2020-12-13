@@ -26,17 +26,19 @@ public class OrderMapper {
                 order.getCode(),
                 patientMapper.mapToPatientHibernate(order.getPatient()),
                 orderedTestMapper.mapToOrderedTestHibernateList(order.getOrderedTests()),
-                order.getOrderResultStatus()
+                order.getOrderResultStatus(),
+                ""
         );
     }
 
     public Order mapToOrder(OrderHibernate orderHibernate) {
         return new Order(
-            orderHibernate.getId(),
-            orderHibernate.getCode(),
-            patientMapper.mapToPatient(orderHibernate.getPatient()),
-            orderedTestMapper.mapToOrderedTestList(orderHibernate.getOrderedTests()),
-            orderHibernate.getOrderResultStatus()
+                orderHibernate.getId(),
+                orderHibernate.getCode(),
+                patientMapper.mapToPatient(orderHibernate.getPatient()),
+                orderedTestMapper.mapToOrderedTestList(orderHibernate.getOrderedTests()),
+                orderHibernate.getOrderResultStatus(),
+                orderHibernate.getTrelloOrderCardId()
         );
     }
 
@@ -55,7 +57,8 @@ public class OrderMapper {
                 orderDto.getCode(),
                 patientMapper.mapToPatient(orderDto.getPatient()),
                 orderedTestMapper.mapToOrderedTestListFromDto(orderDto.getOrderedTests()),
-                ResultStatus.TEMPORARY
+                ResultStatus.TEMPORARY,
+                ""
         );
     }
 

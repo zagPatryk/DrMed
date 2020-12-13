@@ -1,13 +1,14 @@
 package com.drmed.order.service;
 
+import com.drmed.additional.exceptions.dataNotFoundInDatabase.OrderNotFoundException;
 import com.drmed.additional.exceptions.dataNotFoundInDatabase.OrderedTestNotFoundException;
 import com.drmed.additional.exceptions.dataNotFoundInDatabase.PatientNotFoundException;
 import com.drmed.additional.exceptions.dataNotFoundInDatabase.TestNotFoundException;
 import com.drmed.additional.statuses.ResultStatus;
-import com.drmed.additional.exceptions.dataNotFoundInDatabase.OrderNotFoundException;
 import com.drmed.order.domain.Order;
 import com.drmed.order.dto.NewOrderDto;
 import com.drmed.order.dto.OrderDto;
+import com.drmed.order.dto.OrderInfoDto;
 import com.drmed.order.mapper.OrderMapper;
 import com.drmed.order.repository.OrderRepository;
 import com.drmed.orderedTest.domain.OrderedTest;
@@ -38,8 +39,12 @@ public class OrderService {
         return orderRepository.getOrderById(orderId);
     }
 
-    public List<OrderDto> getAllOrdersFromPatient(Long patientId) {
-        return orderMapper.mapToOrderDtoList(orderRepository.getAllOrdersForPatient(patientId));
+    public List<OrderInfoDto> getAllOrdersFromPatient(Long patientId) {
+        return orderMapper.mapToOrderInfoDtoList(orderRepository.getAllOrdersForPatient(patientId));
+    }
+
+    public List<OrderInfoDto> getAllOrdersByCodeContains(Integer code) {
+        return orderMapper.mapToOrderInfoDtoList(orderRepository.getAllByCodeContains(code));
     }
 
     public Order saveOrder(Order order) throws OrderNotFoundException, OrderedTestNotFoundException, TestNotFoundException {
@@ -58,7 +63,6 @@ public class OrderService {
             orderedTestService.saveOrderedTest(orderedTest);
         }
         temporaryOrder.setOrderResultStatus(order.getOrderResultStatus());
-
         return orderRepository.saveOrder(temporaryOrder);
     }
 
@@ -111,4 +115,5 @@ public class OrderService {
         }
         orderRepository.saveOrder(order);
     }
+
 }

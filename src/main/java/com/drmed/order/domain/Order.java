@@ -17,30 +17,15 @@ public class Order {
     private Patient patient;
     private List<OrderedTest> orderedTests = new ArrayList<>();
     private ResultStatus orderResultStatus;
+    private String trelloOrderCardId;
 
-    public Order(Long id, Integer code, Patient patient, List<OrderedTest> orderedTests, ResultStatus orderResultStatus) {
+    public Order(Long id, Integer code, Patient patient, List<OrderedTest> orderedTests, ResultStatus orderResultStatus,
+                 String trelloOrderCardId) {
         this.id = id;
         this.code = code;
         this.patient = patient;
         this.orderedTests = orderedTests;
         this.orderResultStatus = orderResultStatus;
+        this.trelloOrderCardId = trelloOrderCardId;
     }
-
-//    private ResultStatus updateStatus() {
-//        if (orderedTests.stream().map(OrderedTest::getTestResultStatus)
-//                .anyMatch(orderedTestStatus -> orderedTestStatus == ResultStatus.PENDING)) {
-//            orderResultStatus = ResultStatus.PENDING;
-//            return ResultStatus.PENDING;
-//        } else if (orderedTests.stream().map(OrderedTest::getTestResultStatus)
-//                .anyMatch(orderedTestStatus -> orderedTestStatus == ResultStatus.CORRECTED)) {
-//            orderResultStatus = ResultStatus.CORRECTED;
-//            return ResultStatus.CORRECTED;
-//        } else if (orderedTests.stream().map(OrderedTest::getTestResultStatus)
-//                .allMatch(orderedTestStatus -> orderedTestStatus == ResultStatus.CANCELLED)) {
-//            orderResultStatus = ResultStatus.CANCELLED;
-//            return ResultStatus.CANCELLED;
-//        } else {
-//            return orderResultStatus;
-//        }
-//    }
 }

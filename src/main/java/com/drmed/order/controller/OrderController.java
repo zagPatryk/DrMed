@@ -3,6 +3,7 @@ package com.drmed.order.controller;
 import com.drmed.additional.exceptions.DataNotFoundInDatabase;
 import com.drmed.order.dto.NewOrderDto;
 import com.drmed.order.dto.OrderDto;
+import com.drmed.order.dto.OrderInfoDto;
 import com.drmed.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,12 +21,17 @@ public class OrderController {
         return orderService.getOrderDtoById(orderId);
     }
 
+    @GetMapping(value = "getAllOrdersByCodeContains")
+    public List<OrderInfoDto> getAllOrdersByCodeContains(@RequestParam Integer code) {
+        return orderService.getAllOrdersByCodeContains(code);
+    }
+
     @GetMapping(value = "getAllOrdersFromPatient")
-    public List<OrderDto> getAllOrdersFromPatient(@RequestParam Long patientId) {
+    public List<OrderInfoDto> getAllOrdersFromPatient(@RequestParam Long patientId) {
         return orderService.getAllOrdersFromPatient(patientId);
     }
 
-    @PostMapping( value = "addOrderForPatient")
+    @PostMapping(value = "addOrderForPatient")
     public OrderDto addOrderForPatient(@RequestBody NewOrderDto newOrderDto) throws DataNotFoundInDatabase {
         return orderService.addOrderForPatient(newOrderDto);
     }
