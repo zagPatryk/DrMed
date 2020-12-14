@@ -1,7 +1,7 @@
 package com.drmed.base.doctor.repository;
 
 import com.drmed.base.additional.statuses.ActivityStatus;
-import com.drmed.base.patient.repository.PatientHibernate;
+import com.drmed.base.visit.repository.VisitHibernate;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -24,8 +24,8 @@ public class DoctorHibernate {
     private Long id;
 
     @NotNull
-    @Column(name = "PRIMARY_ID")
-    private String primaryId;
+    @Column(name = "CODE")
+    private String code;
 
     @Column(name = "FIRST_NAME")
     private String firstName;
@@ -34,10 +34,10 @@ public class DoctorHibernate {
     private String lastName;
 
     @OneToMany(
-            targetEntity = PatientHibernate.class,
+            targetEntity = VisitHibernate.class,
             mappedBy = "doctor"
     )
-    private List<PatientHibernate> patients = new ArrayList<>();
+    private List<VisitHibernate> visitHibernateList = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "DOCTOR_STATUS")

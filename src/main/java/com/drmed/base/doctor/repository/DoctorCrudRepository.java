@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface DoctorCrudRepository extends CrudRepository<DoctorHibernate, Long> {
 
     Optional<DoctorHibernate> findById(Long doctorId);
-    Iterable<DoctorHibernate> findByPrimaryIdContains(String primaryId);
+    Iterable<DoctorHibernate> findByCodeContains(String code);
     Iterable<DoctorHibernate> findByFirstNameContains(String firstName);
     Iterable<DoctorHibernate> findByLastNameContains(String lastName);
     Iterable<DoctorHibernate> findByFirstNameContainsAndLastNameContains(String firstName, String lastName);

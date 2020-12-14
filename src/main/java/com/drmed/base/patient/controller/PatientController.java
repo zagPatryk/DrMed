@@ -28,9 +28,9 @@ public class PatientController {
         return patientService.getAllPatients();
     }
 
-    @GetMapping(value = "getPatientsByMRNContains")
-    public List<PatientInfoDto> getPatientsByMRNContains(@RequestParam String MRN) {
-        return patientService.getPatientsByMRNContains(MRN);
+    @GetMapping(value = "getPatientsByCodeContains")
+    public List<PatientInfoDto> getPatientsByCodeContains(@RequestParam String code) {
+        return patientService.getPatientsByCodeContains(code);
     }
 
     @GetMapping(value = "getPatientsByFirstNameContains")

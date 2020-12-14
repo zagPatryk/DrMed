@@ -43,7 +43,7 @@ public class OrderedTestMapper {
     public OrderedTestHibernate mapToOrderedTestHibernate(OrderedTest orderedTest) {
         return new OrderedTestHibernate(
                 orderedTest.getId(),
-                orderMapper.mapToOrderHibernate(orderedTest.getOrder()),
+                orderMapper.mapToOrderHibernateList(orderedTest.getOrder()),
                 testMapper.mapToTestHibernate(orderedTest.getTest()),
                 orderedTest.getTestResultStatus(),
                 orderedTest.getResults()

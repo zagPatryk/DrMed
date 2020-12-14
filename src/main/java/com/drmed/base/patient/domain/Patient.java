@@ -1,10 +1,13 @@
 package com.drmed.base.patient.domain;
 
-import com.drmed.base.doctor.domain.Doctor;
-import com.drmed.base.order.domain.Order;
-import lombok.*;
+import com.drmed.base.visit.domain.Visit;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
@@ -13,32 +16,27 @@ import java.util.List;
 @Setter
 public class Patient {
     private Long id;
-    private String MRN;
+    private String code;
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
 
-    private Long doctorId;
-    private Doctor doctor;
+    private List<Long> visitIdList = new ArrayList<>();
+    private List<Visit> visitList = new ArrayList<>();
 
-    private List<Long> ordersIds;
-    private List<Order> orders;
-
-    public Patient(Long id, String MRN, String firstName, String lastName, LocalDate birthDate, Long doctorId, List<Long> ordersIds) {
+    public Patient(Long id, String code, String firstName, String lastName, LocalDate birthDate, List<Long> visitIdList) {
         this.id = id;
-        this.MRN = MRN;
+        this.code = code;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
-        this.doctorId = doctorId;
-        this.ordersIds = ordersIds;
+        this.visitIdList = visitIdList;
     }
 
-    public Patient(String MRN, String firstName, String lastName, LocalDate birthDate, Long doctorId) {
-        this.MRN = MRN;
+    public Patient(String code, String firstName, String lastName, LocalDate birthDate) {
+        this.code = code;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
-        this.doctorId = doctorId;
     }
 }

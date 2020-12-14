@@ -1,13 +1,12 @@
 package com.drmed.base.order.mapper;
 
-import com.drmed.base.additional.statuses.ResultStatus;
 import com.drmed.base.order.domain.Order;
 import com.drmed.base.order.dto.OrderDto;
 import com.drmed.base.order.dto.OrderInfoDto;
 import com.drmed.base.order.dto.OrderInfoTrelloDto;
 import com.drmed.base.order.repository.OrderHibernate;
 import com.drmed.base.orderedTest.mapper.OrderedTestMapper;
-import com.drmed.base.patient.mapper.PatientMapper;
+import com.drmed.base.visit.mapper.VisitMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -19,13 +18,13 @@ public class OrderMapper {
     @Autowired
     private OrderedTestMapper orderedTestMapper;
     @Autowired
-    private PatientMapper patientMapper;
+    private VisitMapper visitMapper;
 
-    public OrderHibernate mapToOrderHibernate(Order order) {
+    public OrderHibernate mapToOrderHibernateList(Order order) {
         return new OrderHibernate(
                 order.getId(),
                 order.getCode(),
-                patientMapper.mapToPatientHibernate(order.getPatient()),
+                visitMapper.mapToVisitHibernate(order.getVisit()),
                 orderedTestMapper.mapToOrderedTestHibernateList(order.getOrderedTests()),
                 order.getOrderResultStatus(),
                 ""
@@ -36,7 +35,7 @@ public class OrderMapper {
         return new Order(
                 orderHibernate.getId(),
                 orderHibernate.getCode(),
-                patientMapper.mapToPatient(orderHibernate.getPatient()),
+                visitMapper.mapToVisit(orderHibernate.getVisit()),
                 orderedTestMapper.mapToOrderedTestList(orderHibernate.getOrderedTests()),
                 orderHibernate.getOrderResultStatus(),
                 orderHibernate.getTrelloOrderCardId()
@@ -47,21 +46,19 @@ public class OrderMapper {
         return new OrderDto(
                 order.getId(),
                 order.getCode(),
-                patientMapper.mapToPatientDto(order.getPatient()),
+                visitMapper.mapToVisitInfoDto(order.getVisit()),
                 orderedTestMapper.mapToOrderedTestDtoList(order.getOrderedTests())
         );
     }
 
-    public Order mapToOrder(OrderDto orderDto) {
-        return new Order(
-                orderDto.getId(),
-                orderDto.getCode(),
-                patientMapper.mapToPatient(orderDto.getPatient()),
-                orderedTestMapper.mapToOrderedTestListFromDto(orderDto.getOrderedTests()),
-                ResultStatus.TEMPORARY,
-                ""
-        );
-    }
+//    public Order mapToOrder(OrderDto orderDto) {
+//        return new Order(
+//                orderDto.getId(),
+//                orderDto.getCode(),
+//                visitMapper.mapToVisit(orderDto.getVisit()),
+//                orderedTestMapper.mapToOrderedTestListFromDto(orderDto.getOrderedTests())
+//        );
+//    }
 
     public OrderInfoDto mapToOrderInfoDto(Order order) {
         return new OrderInfoDto(
@@ -87,45 +84,11 @@ public class OrderMapper {
         return orderList.stream().map(this::mapToOrderDto).collect(Collectors.toList());
     }
 
-    public List<OrderHibernate> mapToOrderHibernate(List<Order> orderList) {
-        return orderList.stream().map(this::mapToOrderHibernate).collect(Collectors.toList());
+    public List<OrderHibernate> mapToOrderHibernateList(List<Order> orderList) {
+        return orderList.stream().map(this::mapToOrderHibernateList).collect(Collectors.toList());
     }
 
     public List<OrderInfoDto> mapToOrderInfoDtoList(List<Order> orderList) {
         return orderList.stream().map(this::mapToOrderInfoDto).collect(Collectors.toList());
     }
-
-    //    public Order mapToOrder(OrderDto orderDto) throws TestNotFoundException {
-//        Order order = new Order();
-//        if (orderDto.getId() != null) {
-//            Optional<Order> orderFromDb = orderCrudRepository.findById(order.getId());
-//            if (orderFromDb.isPresent()) {
-//                order = orderFromDb.get();
-//            }
-//        }
-//        order.setCode(orderDto.getCode());
-//        patientMapper.mapToPatient(orderDto.getPatient());
-//        List<OrderedTest> orderedTestList = new ArrayList<>();
-//        for (OrderedTestDto orderedTestDto : orderDto.getOrderedTests()) {
-//            orderedTestList.add(orderedTestMapper.mapToOrderedTest(orderedTestDto));
-//        }
-//        order.setOrderedTests(orderedTestList);
-//        order.setOrderResultStatus(orderDto.getOrderResultStatus());
-//        return order;
-//    }
-//
-//    public OrderDto mapToOrderDto(Order order) {
-//        return new OrderDto(
-//                order.getId(),
-//                order.getCode(),
-//                patientMapper.mapToPatientDto(order.getPatient()),
-//                orderedTestMapper.mapToOrderedTestDtoList(order.getOrderedTests()),
-//                order.getOrderResultStatus()
-//        );
-//    }
-//
-//    public List<OrderDto> mapToOrderDtoList(List<Order> orderList) {
-//        return orderList.stream().map(this::mapToOrderDto).collect(Collectors.toList());
-//    }
-
 }

@@ -9,6 +9,7 @@ import com.drmed.api.trello.dto.TrelloCardDto;
 import com.drmed.api.trello.response.CreatedTrelloBoardDto;
 import com.drmed.api.trello.response.CreatedTrelloCardDto;
 import com.drmed.api.trello.service.TrelloService;
+import com.drmed.base.order.dto.OrderInfoTrelloDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +40,11 @@ public class TrelloController {
     @PutMapping(value = "changeStatusOfOrder")
     public TrelloCardDto changeStatusOfOrder(@RequestParam String trelloOrderCardId, @RequestParam ResultStatus resultStatus) throws TrelloException {
         return trelloService.changeStatusOfOrder(trelloOrderCardId, resultStatus);
+    }
+
+    @PutMapping(value = "updateCardDescription")
+    public TrelloCardDto changeStatusOfOrder(@RequestBody OrderInfoTrelloDto orderInfoTrelloDto) {
+        return trelloService.updateTrelloCardDescription(orderInfoTrelloDto);
     }
 
     @DeleteMapping(value = "deleteCardWithOrder")

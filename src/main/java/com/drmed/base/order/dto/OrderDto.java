@@ -1,7 +1,7 @@
 package com.drmed.base.order.dto;
 
 import com.drmed.base.orderedTest.dto.OrderedTestDto;
-import com.drmed.base.patient.dto.PatientDto;
+import com.drmed.base.visit.dto.VisitInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 public class OrderDto {
     private Long id;
-    private Integer code;
-    private PatientDto patient;
+    private String code;
+    private VisitInfoDto visit;
     private List<OrderedTestDto> orderedTests;
 }

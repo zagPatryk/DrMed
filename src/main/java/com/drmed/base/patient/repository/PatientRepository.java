@@ -20,9 +20,9 @@ public class PatientRepository {
         return patientMapper.mapToPatient(patientCrudRepository.findById(patientId).orElseThrow(PatientNotFoundException::new));
     }
 
-    public List<Patient> getPatientsByMRNContains(String MRN) {
+    public List<Patient> getPatientsByCodeContains(String code) {
         List<PatientHibernate> patientHibernateList = new ArrayList<>();
-        patientCrudRepository.findByMRNContains(MRN).forEach(patientHibernateList::add);
+        patientCrudRepository.findByCodeContains(code).forEach(patientHibernateList::add);
         return patientMapper.mapToPatientList(patientHibernateList);
     }
 

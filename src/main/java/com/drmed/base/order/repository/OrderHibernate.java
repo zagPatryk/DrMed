@@ -2,13 +2,12 @@ package com.drmed.base.order.repository;
 
 import com.drmed.base.additional.statuses.ResultStatus;
 import com.drmed.base.orderedTest.repository.OrderedTestHibernate;
-import com.drmed.base.patient.repository.PatientHibernate;
+import com.drmed.base.visit.repository.VisitHibernate;
 import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.List;
-
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,12 +24,12 @@ public class OrderHibernate {
     @Column(name = "ORDER_ID", unique = true)
     private Long id;
 
-    @Column(name = "ORDER_CODE")
-    private Integer code;
+    @Column(name = "CODE")
+    private String code;
 
     @ManyToOne
-    @JoinColumn(name = "PATIENT_ID", referencedColumnName = "PATIENT_ID")
-    private PatientHibernate patient;
+    @JoinColumn(name = "VISIT_ID", referencedColumnName = "VISIT_ID")
+    private VisitHibernate visit;
 
     @OneToMany(
             targetEntity = OrderedTestHibernate.class,

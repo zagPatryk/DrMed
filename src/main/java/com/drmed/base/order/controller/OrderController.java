@@ -22,13 +22,13 @@ public class OrderController {
     }
 
     @GetMapping(value = "getAllOrdersByCodeContains")
-    public List<OrderInfoDto> getAllOrdersByCodeContains(@RequestParam Integer code) {
+    public List<OrderInfoDto> getAllOrdersByCodeContains(@RequestParam String code) {
         return orderService.getAllOrdersByCodeContains(code);
     }
 
-    @GetMapping(value = "getAllOrdersFromPatient")
-    public List<OrderInfoDto> getAllOrdersFromPatient(@RequestParam Long patientId) {
-        return orderService.getAllOrdersFromPatient(patientId);
+    @GetMapping(value = "getAllOrdersFromVisit")
+    public List<OrderInfoDto> getAllOrdersFromVisit(@RequestParam Long visitId) {
+        return orderService.getAllOrdersFromVisit(visitId);
     }
 
     @PostMapping(value = "addOrderForPatient")

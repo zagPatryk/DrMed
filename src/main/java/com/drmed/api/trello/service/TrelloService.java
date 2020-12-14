@@ -30,7 +30,7 @@ public class TrelloService {
     }
 
     public CreatedTrelloBoardDto createBoardForDoctor(DoctorInfoDto doctorInfoDto) {
-        String name = doctorInfoDto.getPrimaryId() + " board with orders";
+        String name = doctorInfoDto.getCode() + " board with orders";
         String description = "Doctor name: " + doctorInfoDto.getFirstName() + " " + doctorInfoDto.getLastName();
         NewTrelloBoardDto newTrelloBoardDto = new NewTrelloBoardDto(name, description);
         return trelloClient.createNewBoard(newTrelloBoardDto);

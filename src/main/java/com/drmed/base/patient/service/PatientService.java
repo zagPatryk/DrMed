@@ -1,14 +1,14 @@
 package com.drmed.base.patient.service;
 
-import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.DoctorNotFoundException;
+import com.drmed.base.additional.exceptions.VisitNotFoundException;
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.PatientNotFoundException;
-import com.drmed.base.doctor.service.DoctorService;
 import com.drmed.base.patient.domain.Patient;
 import com.drmed.base.patient.dto.NewPatientDto;
 import com.drmed.base.patient.dto.PatientDto;
 import com.drmed.base.patient.dto.PatientInfoDto;
 import com.drmed.base.patient.mapper.PatientMapper;
 import com.drmed.base.patient.repository.PatientRepository;
+import com.drmed.base.visit.service.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ public class PatientService {
     @Autowired
     private PatientMapper patientMapper;
     @Autowired
-    private DoctorService doctorService;
+    private VisitService visitService;
 
     public PatientDto getPatientDtoById(Long id) throws PatientNotFoundException {
         return patientMapper.mapToPatientDto(patientRepository.getPatientById(id));
@@ -31,8 +31,8 @@ public class PatientService {
         return patientRepository.getPatientById(id);
     }
 
-    public List<PatientInfoDto> getPatientsByMRNContains(String MRN) {
-        return patientMapper.mapToPatientInfoDtoList(patientRepository.getPatientsByMRNContains(MRN));
+    public List<PatientInfoDto> getPatientsByCodeContains(String MRN) {
+        return patientMapper.mapToPatientInfoDtoList(patientRepository.getPatientsByCodeContains(MRN));
     }
 
     public List<PatientInfoDto> getPatientsByFirstNameContains(String firstName) {
@@ -51,29 +51,26 @@ public class PatientService {
         return patientMapper.mapToPatientInfoDtoList(patientRepository.getAllPatients());
     }
 
-    public PatientDto addNewPatient(NewPatientDto newPatientDto) throws DoctorNotFoundException {
+    public PatientDto addNewPatient(NewPatientDto newPatientDto) throws VisitNotFoundException {
         Patient patient = patientMapper.mapToPatient(newPatientDto);
-        mapDoctorIdToDoctor(patient);
+        mapVisitIdToVisit(patient);
         return patientMapper.mapToPatientDto(patientRepository.savePatient(patient));
     }
 
-    public PatientDto updatePatient(PatientDto patientDto) throws PatientNotFoundException, DoctorNotFoundException {
+    public PatientDto updatePatient(PatientDto patientDto) throws PatientNotFoundException, VisitNotFoundException {
         Patient patient = patientRepository.getPatientById(patientDto.getId());
-        patient.setMRN(patientDto.getMRN());
+        patient.setCode(patientDto.getCode());
         patient.setFirstName(patientDto.getFirstName());
         patient.setLastName(patientDto.getLastName());
         patient.setBirthDate(patientDto.getBirthDate());
-        if (!patientDto.getDoctor().getId().equals(patient.getDoctorId()) ||
-                !patientDto.getDoctor().getId().equals(patient.getDoctor().getId())) {
-            doctorService.removePatientFromDoctorList(patient.getDoctorId(), patient.getId());
-            patient.setDoctorId(patientDto.getDoctor().getId());
-        }
-        mapDoctorIdToDoctor(patient);
+        mapVisitIdToVisit(patient);
         return patientMapper.mapToPatientDto(patientRepository.savePatient(patient));
     }
 
-    public Patient mapDoctorIdToDoctor(Patient patient) throws DoctorNotFoundException {
-        patient.setDoctor(doctorService.getDoctorById(patient.getDoctorId()));
+    public Patient mapVisitIdToVisit(Patient patient) throws VisitNotFoundException {
+        for (Long visitId :  patient.getVisitIdList()) {
+            patient.getVisitList().add(visitService.getVisitById(visitId));
+        }
         return patient;
     }
 

@@ -21,10 +21,10 @@ public class WorkstationHibernate {
     @NotNull
     @EqualsAndHashCode.Include
     @GeneratedValue
-    @Column(name = "ID", unique = true)
+    @Column(name = "WORKSTATION_ID", unique = true)
     private Long id;
 
-    @Column(name = "WORKSTATION_CODE")
+    @Column(name = "CODE")
     private String code;
 
     @Column(name = "NAME")

@@ -1,7 +1,7 @@
 package com.drmed.base.doctor.domain;
 
 import com.drmed.base.additional.statuses.ActivityStatus;
-import com.drmed.base.patient.domain.Patient;
+import com.drmed.base.visit.domain.Visit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,34 +16,42 @@ import java.util.List;
 @Setter
 public class Doctor {
     private Long id;
-    private String primaryId;
+    private String code;
     private String firstName;
     private String lastName;
     private ActivityStatus doctorStatus;
     private String email;
-
-    private List<Long> patientsIds = new ArrayList<>();
-    private List<Patient> patientList = new ArrayList<>();
-
     private String trelloBoardId;
 
-    public Doctor(String primaryId, String firstName, String lastName, ActivityStatus doctorStatus, String email) {
-        this.primaryId = primaryId;
+    private List<Long> visitIdList = new ArrayList<>();
+    private List<Visit> visitList = new ArrayList<>();
+
+    public Doctor(String code, String firstName, String lastName, ActivityStatus doctorStatus, String email) {
+        this.code = code;
         this.firstName = firstName;
         this.lastName = lastName;
         this.doctorStatus = doctorStatus;
         this.email = email;
     }
 
-    public Doctor(Long id, String primaryId, String firstName, String lastName, ActivityStatus doctorStatus,
-                  String email, List<Long> patientsIds, String trelloBoardId) {
+    public Doctor(Long id, String code, String firstName, String lastName, ActivityStatus doctorStatus, String email) {
         this.id = id;
-        this.primaryId = primaryId;
+        this.code = code;
         this.firstName = firstName;
         this.lastName = lastName;
         this.doctorStatus = doctorStatus;
         this.email = email;
-        this.patientsIds = patientsIds;
+    }
+
+    public Doctor(Long id, String code, String firstName, String lastName, ActivityStatus doctorStatus,
+                  String email, List<Long> visitIdList, String trelloBoardId) {
+        this.id = id;
+        this.code = code;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.doctorStatus = doctorStatus;
+        this.email = email;
+        this.visitIdList = visitIdList;
         this.trelloBoardId = trelloBoardId;
     }
 }

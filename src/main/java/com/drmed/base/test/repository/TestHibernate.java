@@ -27,7 +27,7 @@ public class TestHibernate implements Serializable {
     @Column(name = "TEST_ID", unique = true)
     private Long id;
 
-    @Column(name = "TEST_CODE")
+    @Column(name = "CODE")
     private String code;
 
     @Column(name = "TEST_NAME")

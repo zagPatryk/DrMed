@@ -12,6 +12,6 @@ public interface OrderCrudRepository extends CrudRepository<OrderHibernate, Long
 
     <S extends OrderHibernate> S save(S orderHibernate);
     Optional<OrderHibernate> findById(Long aLong);
-    Iterable<OrderHibernate> findAllByPatient_Id(Long patientId);
-    Iterable<OrderHibernate> findAllByCodeContains(Integer code);
+    Iterable<OrderHibernate> findAllByVisit_Id(Long visitId);
+    Iterable<OrderHibernate> findAllByCodeContains(String code);
 }

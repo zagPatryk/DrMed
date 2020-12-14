@@ -1,55 +1,49 @@
 package com.drmed.base.patient.mapper;
 
-import com.drmed.base.doctor.mapper.DoctorMapper;
-import com.drmed.base.order.mapper.OrderMapper;
-import com.drmed.base.order.repository.OrderHibernate;
 import com.drmed.base.patient.domain.Patient;
 import com.drmed.base.patient.dto.NewPatientDto;
 import com.drmed.base.patient.dto.PatientDto;
 import com.drmed.base.patient.dto.PatientInfoDto;
 import com.drmed.base.patient.repository.PatientHibernate;
+import com.drmed.base.visit.mapper.VisitMapper;
+import com.drmed.base.visit.repository.VisitHibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 public class PatientMapper {
     @Autowired
-    private DoctorMapper doctorMapper;
-    @Autowired
-    private OrderMapper orderMapper;
+    private VisitMapper visitMapper;
 
     public Patient mapToPatient(PatientHibernate patientHibernate) {
         return new Patient(
                 patientHibernate.getId(),
-                patientHibernate.getMRN(),
+                patientHibernate.getCode(),
                 patientHibernate.getFirstName(),
                 patientHibernate.getLastName(),
                 patientHibernate.getBirthDate(),
-                patientHibernate.getDoctor().getId(),
-                patientHibernate.getOrders().stream().map(OrderHibernate::getId).collect(Collectors.toList())
+                patientHibernate.getVisits().stream().map(VisitHibernate::getId).collect(Collectors.toList())
         );
     }
 
     public PatientHibernate mapToPatientHibernate(Patient patient) {
         return new PatientHibernate(
                 patient.getId(),
-                patient.getMRN(),
+                patient.getCode(),
                 patient.getFirstName(),
                 patient.getLastName(),
                 patient.getBirthDate(),
-                doctorMapper.mapToDoctorHibernate(patient.getDoctor()),
-                orderMapper.mapToOrderHibernate(patient.getOrders())
+                visitMapper.mapToVisitHibernateList(patient.getVisitList())
         );
     }
 
     public PatientInfoDto mapToPatientInfoDto(Patient patient) {
         return new PatientInfoDto(
                 patient.getId(),
-                patient.getMRN(),
+                patient.getCode(),
                 patient.getFirstName(),
                 patient.getLastName()
         );
@@ -58,34 +52,20 @@ public class PatientMapper {
     public PatientDto mapToPatientDto(Patient patient) {
         return new PatientDto(
                 patient.getId(),
-                patient.getMRN(),
+                patient.getCode(),
                 patient.getFirstName(),
                 patient.getLastName(),
                 patient.getBirthDate(),
-                doctorMapper.mapToDoctorInfoDto(patient.getDoctor()),
-                orderMapper.mapToOrderInfoDtoList(patient.getOrders())
-        );
-    }
-
-    public Patient mapToPatient(PatientDto patientDto) {
-        return new Patient(
-                patientDto.getId(),
-                patientDto.getMRN(),
-                patientDto.getFirstName(),
-                patientDto.getLastName(),
-                patientDto.getBirthDate(),
-                patientDto.getDoctor().getId(),
-                new ArrayList<>()
+                visitMapper.mapToVisitInfoDtoList(patient.getVisitList())
         );
     }
 
     public Patient mapToPatient(NewPatientDto newPatientDto) {
         return new Patient(
-                newPatientDto.getMRN(),
+                newPatientDto.getCode(),
                 newPatientDto.getFirstName(),
                 newPatientDto.getLastName(),
-                newPatientDto.getBirthDate(),
-                newPatientDto.getDoctorId()
+                newPatientDto.getBirthDate()
         );
     }
 

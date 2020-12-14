@@ -1,7 +1,6 @@
 package com.drmed.base.patient.dto;
 
-import com.drmed.base.doctor.dto.DoctorInfoDto;
-import com.drmed.base.order.dto.OrderInfoDto;
+import com.drmed.base.visit.dto.VisitInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,10 +13,9 @@ import java.util.List;
 @AllArgsConstructor
 public class PatientDto {
     private Long id;
-    private String MRN;
+    private String code;
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
-    private DoctorInfoDto doctor;
-    private List<OrderInfoDto> ordersList;
+    private List<VisitInfoDto> visitInfoDtoList;
 }

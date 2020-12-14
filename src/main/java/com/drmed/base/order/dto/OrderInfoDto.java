@@ -14,6 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 public class OrderInfoDto {
     private Long id;
-    private Integer code;
+    private String code;
     private List<OrderedTestInfoDto> orderedTests;
 }

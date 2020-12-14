@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NewOrderDto {
-    private Integer code;
-    private Long patientId;
+    private String code;
+    private Long visitId;
     private List<Long> testsIds;
 }

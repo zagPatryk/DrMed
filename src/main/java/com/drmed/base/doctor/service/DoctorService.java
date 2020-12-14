@@ -1,7 +1,7 @@
 package com.drmed.base.doctor.service;
 
+import com.drmed.base.additional.exceptions.VisitNotFoundException;
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.DoctorNotFoundException;
-import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.PatientNotFoundException;
 import com.drmed.base.additional.statuses.ActivityStatus;
 import com.drmed.base.doctor.domain.Doctor;
 import com.drmed.base.doctor.dto.DoctorDto;
@@ -9,8 +9,8 @@ import com.drmed.base.doctor.dto.DoctorInfoDto;
 import com.drmed.base.doctor.dto.NewDoctorDto;
 import com.drmed.base.doctor.mapper.DoctorMapper;
 import com.drmed.base.doctor.repository.DoctorRepository;
-import com.drmed.base.patient.domain.Patient;
-import com.drmed.base.patient.service.PatientService;
+import com.drmed.base.visit.domain.Visit;
+import com.drmed.base.visit.service.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ public class DoctorService {
     @Autowired
     private DoctorMapper doctorMapper;
     @Autowired
-    private PatientService patientService;
+    private VisitService visitService;
 
     public DoctorDto getDoctorDtoById(Long doctorId) throws DoctorNotFoundException {
         return doctorMapper.mapToDoctorDto(doctorRepository.getDoctorById(doctorId));
@@ -34,8 +34,8 @@ public class DoctorService {
         return doctorRepository.getDoctorById(doctorId);
     }
 
-    public List<DoctorInfoDto> getDoctorByPrimaryIdContains(String primaryId) {
-        return doctorMapper.mapToDoctorInfoDtoList(doctorRepository.getDoctorByPrimaryIdContains(primaryId));
+    public List<DoctorInfoDto> getDoctorByPrimaryIdContains(String code) {
+        return doctorMapper.mapToDoctorInfoDtoList(doctorRepository.getDoctorByCodeContains(code));
     }
 
     public List<DoctorInfoDto> getDoctorByFirstNameContains(String firstName) {
@@ -56,7 +56,7 @@ public class DoctorService {
 
     public DoctorDto addNewDoctor(NewDoctorDto newDoctorDto) {
         Doctor doctor = new Doctor();
-        doctor.setPrimaryId(newDoctorDto.getPrimaryId());
+        doctor.setCode(newDoctorDto.getCode());
         doctor.setFirstName(newDoctorDto.getFirstName());
         doctor.setLastName(newDoctorDto.getLastName());
         doctor.setEmail(newDoctorDto.getEmail());
@@ -65,23 +65,23 @@ public class DoctorService {
         return doctorMapper.mapToDoctorDto(doctorRepository.saveDoctor(doctor));
     }
 
-    public DoctorDto updateDoctor(DoctorDto doctorDto) throws DoctorNotFoundException, PatientNotFoundException {
+    public DoctorDto updateDoctor(DoctorDto doctorDto) throws DoctorNotFoundException, VisitNotFoundException {
         Doctor doctor = doctorRepository.getDoctorById(doctorDto.getId());
-        doctor.setPrimaryId(doctorDto.getPrimaryId());
+        doctor.setCode(doctorDto.getCode());
         doctor.setFirstName(doctorDto.getFirstName());
         doctor.setLastName(doctorDto.getLastName());
         doctor.setEmail(doctorDto.getEmail());
         doctor.setDoctorStatus(doctorDto.getDoctorStatus());
-        doctor.setPatientsIds(doctorDto.getPatientsIds());
-        mapPatientsIdsToPatients(doctor);
+        mapVisitIdsToVisits(doctor);
         return doctorMapper.mapToDoctorDto(doctorRepository.saveDoctor(doctor));
     }
 
-    public Doctor removePatientFromDoctorList(Long doctorId, Long patientId)
-            throws DoctorNotFoundException, PatientNotFoundException {
+    public Doctor removeVisitFromDoctorList(Long doctorId, Long visitId)
+            throws DoctorNotFoundException, VisitNotFoundException {
         Doctor doctor = doctorRepository.getDoctorById(doctorId);
-        Patient patient = patientService.getPatientById(patientId);
-        doctor.getPatientList().remove(patient);
+        Visit visit = visitService.getVisitById(visitId);
+        mapVisitIdsToVisits(doctor);
+        doctor.getVisitList().remove(visit);
         return doctorRepository.saveDoctor(doctor);
     }
 
@@ -91,13 +91,13 @@ public class DoctorService {
         return doctorMapper.mapToDoctorDto(doctorRepository.saveDoctor(doctor));
     }
 
-    private Doctor mapPatientsIdsToPatients(Doctor doctor) throws PatientNotFoundException {
-        List<Patient> patientList = new ArrayList<>();
-        for (Long patientId : doctor.getPatientsIds()) {
-            Patient patient = patientService.getPatientById(patientId);
-            patientList.add(patient);
+    private Doctor mapVisitIdsToVisits(Doctor doctor) throws VisitNotFoundException {
+        List<Visit> visitList = new ArrayList<>();
+        for (Long visitId : doctor.getVisitIdList()) {
+            Visit visit = visitService.getVisitById(visitId);
+            visitList.add(visit);
         }
-        doctor.setPatientList(patientList);
+        doctor.setVisitList(visitList);
         return doctor;
     }
 }

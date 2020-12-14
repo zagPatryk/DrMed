@@ -20,20 +20,20 @@ public class OrderRepository {
         return orderMapper.mapToOrder(orderCrudRepository.findById(orderId).orElseThrow(OrderNotFoundException::new));
     }
 
-    public List<Order> getAllOrdersForPatient(Long patientId) {
+    public List<Order> getAllOrdersForVisit(Long visitId) {
         List<OrderHibernate> orderHibernateList = new ArrayList<>();
-        orderCrudRepository.findAllByPatient_Id(patientId).forEach(orderHibernateList::add);
+        orderCrudRepository.findAllByVisit_Id(visitId).forEach(orderHibernateList::add);
         return orderMapper.mapToOrderList(orderHibernateList);
     }
 
-    public List<Order> getAllByCodeContains(Integer code) {
+    public List<Order> getAllByCodeContains(String code) {
         List<OrderHibernate> orderHibernateList = new ArrayList<>();
         orderCrudRepository.findAllByCodeContains(code).forEach(orderHibernateList::add);
         return orderMapper.mapToOrderList(orderHibernateList);
     }
 
     public Order saveOrder(Order order) {
-        OrderHibernate orderHibernate = orderMapper.mapToOrderHibernate(order);
+        OrderHibernate orderHibernate = orderMapper.mapToOrderHibernateList(order);
         orderCrudRepository.save(orderHibernate);
         return orderMapper.mapToOrder(orderHibernate);
     }

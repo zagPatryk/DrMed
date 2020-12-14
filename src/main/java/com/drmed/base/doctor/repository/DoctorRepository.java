@@ -20,9 +20,9 @@ public class DoctorRepository {
         return doctorMapper.mapToDoctor(doctorCrudRepository.findById(doctorId).orElseThrow(DoctorNotFoundException::new));
     }
 
-    public List<Doctor> getDoctorByPrimaryIdContains(String primaryId) {
+    public List<Doctor> getDoctorByCodeContains(String code) {
         List<DoctorHibernate> doctorHibernateList = new ArrayList<>();
-        doctorCrudRepository.findByPrimaryIdContains(primaryId).forEach(doctorHibernateList::add);
+        doctorCrudRepository.findByCodeContains(code).forEach(doctorHibernateList::add);
         return doctorMapper.mapToDoctorList(doctorHibernateList);
     }
 

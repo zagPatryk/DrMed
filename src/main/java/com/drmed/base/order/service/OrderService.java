@@ -1,8 +1,8 @@
 package com.drmed.base.order.service;
 
+import com.drmed.base.additional.exceptions.VisitNotFoundException;
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.OrderNotFoundException;
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.OrderedTestNotFoundException;
-import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.PatientNotFoundException;
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.TestNotFoundException;
 import com.drmed.base.additional.statuses.ResultStatus;
 import com.drmed.base.order.domain.Order;
@@ -13,7 +13,7 @@ import com.drmed.base.order.mapper.OrderMapper;
 import com.drmed.base.order.repository.OrderRepository;
 import com.drmed.base.orderedTest.domain.OrderedTest;
 import com.drmed.base.orderedTest.service.OrderedTestService;
-import com.drmed.base.patient.service.PatientService;
+import com.drmed.base.visit.service.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +29,7 @@ public class OrderService {
     @Autowired
     private OrderedTestService orderedTestService;
     @Autowired
-    private PatientService patientService;
+    private VisitService visitService;
 
     public OrderDto getOrderDtoById(Long orderId) throws OrderNotFoundException {
         return orderMapper.mapToOrderDto(orderRepository.getOrderById(orderId));
@@ -39,11 +39,11 @@ public class OrderService {
         return orderRepository.getOrderById(orderId);
     }
 
-    public List<OrderInfoDto> getAllOrdersFromPatient(Long patientId) {
-        return orderMapper.mapToOrderInfoDtoList(orderRepository.getAllOrdersForPatient(patientId));
+    public List<OrderInfoDto> getAllOrdersFromVisit(Long visitId) {
+        return orderMapper.mapToOrderInfoDtoList(orderRepository.getAllOrdersForVisit(visitId));
     }
 
-    public List<OrderInfoDto> getAllOrdersByCodeContains(Integer code) {
+    public List<OrderInfoDto> getAllOrdersByCodeContains(String code) {
         return orderMapper.mapToOrderInfoDtoList(orderRepository.getAllByCodeContains(code));
     }
 
@@ -55,7 +55,7 @@ public class OrderService {
             temporaryOrder = new Order();
         }
         temporaryOrder.setCode(order.getCode());
-        temporaryOrder.setPatient(order.getPatient());
+        temporaryOrder.setVisit(order.getVisit());
         for (OrderedTest orderedTest : order.getOrderedTests()) {
             if(!temporaryOrder.getOrderedTests().contains(orderedTest)) {
                 temporaryOrder.getOrderedTests().add(orderedTest);
@@ -73,10 +73,10 @@ public class OrderService {
     }
 
     public OrderDto addOrderForPatient(NewOrderDto newOrderDto)
-            throws OrderNotFoundException, OrderedTestNotFoundException, TestNotFoundException, PatientNotFoundException {
+            throws OrderNotFoundException, OrderedTestNotFoundException, TestNotFoundException, VisitNotFoundException {
         Order order = new Order();
         order.setCode(newOrderDto.getCode());
-        order.setPatient(patientService.getPatientById(newOrderDto.getPatientId()));
+        order.setVisit(visitService.getVisitById(newOrderDto.getVisitId()));
         createOrderedTestsForOrder(order, newOrderDto.getTestsIds());
         order.setOrderResultStatus(ResultStatus.PENDING);
         return orderMapper.mapToOrderDto(saveOrder(order));

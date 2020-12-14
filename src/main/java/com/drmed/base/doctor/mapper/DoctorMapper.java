@@ -4,8 +4,8 @@ import com.drmed.base.doctor.domain.Doctor;
 import com.drmed.base.doctor.dto.DoctorDto;
 import com.drmed.base.doctor.dto.DoctorInfoDto;
 import com.drmed.base.doctor.repository.DoctorHibernate;
-import com.drmed.base.patient.mapper.PatientMapper;
-import com.drmed.base.patient.repository.PatientHibernate;
+import com.drmed.base.visit.mapper.VisitMapper;
+import com.drmed.base.visit.repository.VisitHibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -15,15 +15,15 @@ import java.util.stream.Collectors;
 @Component
 public class DoctorMapper {
     @Autowired
-    private PatientMapper patientMapper;
+    private VisitMapper visitMapper;
 
     public DoctorHibernate mapToDoctorHibernate(Doctor doctor) {
         return new DoctorHibernate(
                 doctor.getId(),
-                doctor.getPrimaryId(),
+                doctor.getCode(),
                 doctor.getFirstName(),
                 doctor.getLastName(),
-                patientMapper.mapToPatientHibernateList(doctor.getPatientList()),
+                visitMapper.mapToVisitHibernateList(doctor.getVisitList()),
                 doctor.getDoctorStatus(),
                 doctor.getEmail(),
                 doctor.getTrelloBoardId()
@@ -33,25 +33,23 @@ public class DoctorMapper {
     public Doctor mapToDoctor(DoctorDto doctorDto) {
         return new Doctor(
                 doctorDto.getId(),
-                doctorDto.getPrimaryId(),
+                doctorDto.getCode(),
                 doctorDto.getFirstName(),
                 doctorDto.getLastName(),
                 doctorDto.getDoctorStatus(),
-                doctorDto.getEmail(),
-                doctorDto.getPatientsIds(),
-                ""
+                doctorDto.getEmail()
         );
     }
 
     public Doctor mapToDoctor(DoctorHibernate doctorHibernate) {
         return new Doctor(
                 doctorHibernate.getId(),
-                doctorHibernate.getPrimaryId(),
+                doctorHibernate.getCode(),
                 doctorHibernate.getFirstName(),
                 doctorHibernate.getLastName(),
                 doctorHibernate.getDoctorStatus(),
                 doctorHibernate.getEmail(),
-                doctorHibernate.getPatients().stream().map(PatientHibernate::getId).collect(Collectors.toList()),
+                doctorHibernate.getVisitHibernateList().stream().map(VisitHibernate::getId).collect(Collectors.toList()),
                 doctorHibernate.getTrelloBoardId()
         );
     }
@@ -59,22 +57,20 @@ public class DoctorMapper {
     public DoctorDto mapToDoctorDto(Doctor doctor) {
         return new DoctorDto(
                 doctor.getId(),
-                doctor.getPrimaryId(),
+                doctor.getCode(),
                 doctor.getFirstName(),
                 doctor.getLastName(),
                 doctor.getDoctorStatus(),
-                doctor.getEmail(),
-                doctor.getPatientsIds()
+                doctor.getEmail()
         );
     }
 
     public DoctorInfoDto mapToDoctorInfoDto(Doctor doctor) {
         return new DoctorInfoDto(
                 doctor.getId(),
-                doctor.getPrimaryId(),
+                doctor.getCode(),
                 doctor.getFirstName(),
-                doctor.getLastName(),
-                doctor.getDoctorStatus()
+                doctor.getLastName()
         );
     }
 

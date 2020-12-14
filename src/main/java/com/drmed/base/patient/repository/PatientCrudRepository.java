@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface PatientCrudRepository extends CrudRepository<PatientHibernate, Long> {
     Optional<PatientHibernate> findById(Long PatientId);
-    Iterable<PatientHibernate> findByMRNContains(String MRN);
+    Iterable<PatientHibernate> findByCodeContains(String code);
     Iterable<PatientHibernate> findByFirstNameContains(String firstname);
     Iterable<PatientHibernate> findByLastNameContains(String lastName);
     Iterable<PatientHibernate> findByFirstNameContainsAndLastNameContains(String firstName, String lastName);

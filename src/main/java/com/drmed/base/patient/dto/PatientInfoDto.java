@@ -9,7 +9,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PatientInfoDto {
     private Long id;
-    private String MRN;
+    private String code;
     private String firstName;
     private String lastName;
 }

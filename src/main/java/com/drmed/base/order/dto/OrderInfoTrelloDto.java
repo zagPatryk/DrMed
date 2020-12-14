@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderInfoTrelloDto extends OrderInfoDto {
-    private Integer code;
+    private String code;
     private List<OrderedTestInfoDto> orderedTests;
     private String trelloCardId;
 }

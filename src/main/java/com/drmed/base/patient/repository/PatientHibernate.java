@@ -1,7 +1,6 @@
 package com.drmed.base.patient.repository;
 
-import com.drmed.base.doctor.repository.DoctorHibernate;
-import com.drmed.base.order.repository.OrderHibernate;
+import com.drmed.base.visit.repository.VisitHibernate;
 import com.sun.istack.NotNull;
 import lombok.*;
 
@@ -25,8 +24,8 @@ public class PatientHibernate {
     @NotNull
     private Long id;
 
-    @Column(name = "MRN")
-    private String MRN;
+    @Column(name = "CODE")
+    private String code;
 
     @Column(name = "FIRST_NAME")
     private String firstName;
@@ -37,13 +36,9 @@ public class PatientHibernate {
     @Column(name = "BIRTHDAY")
     private LocalDate birthDate;
 
-    @ManyToOne
-    @JoinColumn(name = "DOCTOR_ID", referencedColumnName = "DOCTOR_ID")
-    private DoctorHibernate doctor;
-
     @OneToMany(
-            targetEntity = OrderHibernate.class,
+            targetEntity = VisitHibernate.class,
             mappedBy = "patient"
     )
-    private List<OrderHibernate> orders;
+    private List<VisitHibernate> visits;
 }

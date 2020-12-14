@@ -10,9 +10,8 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 public class NewPatientDto {
-    private String MRN;
+    private String code;
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
-    private Long doctorId;
 }
