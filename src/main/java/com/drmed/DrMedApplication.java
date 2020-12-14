@@ -11,6 +11,19 @@ public class DrMedApplication {
 }
 
 /*
+automatycznu kod wizyty jeżeli nie jest podany
+
+;-; wywalić doktora z pacjenta i dodać do orderu i wizyty
+na orderze orderingProvider jako interfejs może i tak można doktorka, albo pacjenta np
+
+zamienić MRN, code doktora na identyfikator i wprowadzić interfejs person
+
+dodać wizyte lekarską i połączyć z orderami
+order może być połączony i z pacjentem i z wizytą ale nei koniecznie
+https://rapidapi.com/priaid/api/symptom-checker?endpoint=58cfd524e4b0b3d27af3e1c9
+na pewno:
+pokarz wszystkie symptomy i wybierz z listy które występują i system pokazuje proponowane diagnozy
+
 dodać przenoszenie karty przy zmianie doktora
 
 mapper hibernaqte
@@ -30,5 +43,20 @@ web security które zabroni wejście np pielęgniarce do dodawania rezultatów
 jedno ma się mapować na 400 a drugie nas 500
 
 dodać logi do bazy danych i stworzyć 'MOMa' do sprawdzania ich z poziomu aplikacji
-    CQRS pattern - zapisujemy wszystkie komendy - przez to
+ CQRS pattern - zapisujemy wszystkie komendy - przez to
+
+
+
+
+
+
+Linkedin
+zdj w tle coszwiązanego z pracą, firmą, coś neutralnego, coś z programowaniem
+zdj bardziej luźne
+ew nagłówek teste/java developer
+ew usunać medical physicist
+ew usunąć certyfikaty - zostawić tylko labview
+dodać certryfikat z bootcamu
+przystąp do quizu
+przegląd zainteresowań
  */
