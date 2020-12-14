@@ -1,6 +1,6 @@
 package com.drmed.base.patient.service;
 
-import com.drmed.base.additional.exceptions.VisitNotFoundException;
+import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.VisitNotFoundException;
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.PatientNotFoundException;
 import com.drmed.base.patient.domain.Patient;
 import com.drmed.base.patient.dto.NewPatientDto;

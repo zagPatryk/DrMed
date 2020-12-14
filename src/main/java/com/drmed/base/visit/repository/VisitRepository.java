@@ -1,6 +1,6 @@
 package com.drmed.base.visit.repository;
 
-import com.drmed.base.additional.exceptions.VisitNotFoundException;
+import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.VisitNotFoundException;
 import com.drmed.base.visit.domain.Visit;
 import com.drmed.base.visit.mapper.VisitMapper;
 import org.springframework.beans.factory.annotation.Autowired;

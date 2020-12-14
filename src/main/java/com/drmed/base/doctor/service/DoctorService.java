@@ -1,6 +1,6 @@
 package com.drmed.base.doctor.service;
 
-import com.drmed.base.additional.exceptions.VisitNotFoundException;
+import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.VisitNotFoundException;
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.DoctorNotFoundException;
 import com.drmed.base.additional.statuses.ActivityStatus;
 import com.drmed.base.doctor.domain.Doctor;
