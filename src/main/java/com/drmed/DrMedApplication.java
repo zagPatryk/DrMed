@@ -10,29 +10,29 @@ public class DrMedApplication {
     }
 }
 
+// czy w serwisach odnosić się do innych serwisów czy reposytoriów?
+// czy rozdzielić mapper ogólny od hibernatowego żeby zablokować klase do pakietu
+// co robić z excepttionami
+
 /*
+poprawić relacje miedzy encjami żeby się wszystko updejtowało
+
+gogać płeć i wiek
+
 automatycznu kod wizyty jeżeli nie jest podany
 
-;-; wywalić doktora z pacjenta i dodać do orderu i wizyty
 na orderze orderingProvider jako interfejs może i tak można doktorka, albo pacjenta np
 
-zamienić MRN, code doktora na identyfikator i wprowadzić interfejs person
+wprowadzić interfejs person
 
-dodać wizyte lekarską i połączyć z orderami
-order może być połączony i z pacjentem i z wizytą ale nei koniecznie
 https://rapidapi.com/priaid/api/symptom-checker?endpoint=58cfd524e4b0b3d27af3e1c9
-na pewno:
 pokarz wszystkie symptomy i wybierz z listy które występują i system pokazuje proponowane diagnozy
 
 dodać przenoszenie karty przy zmianie doktora
 
-mapper hibernaqte
-
 ogarnąć metody które są 'wewnętrzne' czy potrzeba zwracać coś i czy muszą mieć dosep do innych klas
 ogarnać poprawne exceptiony żeby dopisywały się dane do logów
 
-dodać maila dla doktorów żeby można było wysyłać maile do osób testujacych aplikacje i jakiś sposób który usunie tego maila
-gdy doktor dostanie nowe zamówienie to na tablicy w trello pojawia mu się order i jego status
 
 wykorzystując factory zrobić testy singlowe/grupowe/różne technologie
 obliczanie kosztów pacjenta dekoratorem
@@ -46,9 +46,7 @@ dodać logi do bazy danych i stworzyć 'MOMa' do sprawdzania ich z poziomu aplik
  CQRS pattern - zapisujemy wszystkie komendy - przez to
 
 
-
-
-
+*-*-*-*-*-*-*-*
 
 Linkedin
 zdj w tle coszwiązanego z pracą, firmą, coś neutralnego, coś z programowaniem
