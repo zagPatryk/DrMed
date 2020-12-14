@@ -57,7 +57,4 @@ public class PatientController {
     public PatientDto updatePatient(@RequestBody PatientDto patientDto) throws DataNotFoundInDatabase {
         return patientService.updatePatient(patientDto);
     }
-
-
-
 }

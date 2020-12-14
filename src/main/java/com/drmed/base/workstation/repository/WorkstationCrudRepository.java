@@ -9,6 +9,7 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface WorkstationCrudRepository extends CrudRepository<WorkstationHibernate, Long> {
+
     Iterable<WorkstationHibernate> findByNameContaining(String name);
     Iterable<WorkstationHibernate> findByCodeContaining(String code);
     Optional<WorkstationHibernate> findById(Long id);

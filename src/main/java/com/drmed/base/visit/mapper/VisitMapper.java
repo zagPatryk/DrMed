@@ -34,10 +34,6 @@ public class VisitMapper {
         );
     }
 
-    public List<VisitHibernate> mapToVisitHibernateList(List<Visit> visitList) {
-        return visitList.stream().map(this::mapToVisitHibernate).collect(Collectors.toList());
-    }
-
     public Visit mapToVisit(VisitHibernate visitHibernate) {
         return new Visit(
                 visitHibernate.getId(),
@@ -49,20 +45,12 @@ public class VisitMapper {
         );
     }
 
-    public List<Visit> mapToVisitList(List<VisitHibernate> visitHibernateList) {
-        return visitHibernateList.stream().map(this::mapToVisit).collect(Collectors.toList());
-    }
-
     public VisitInfoDto mapToVisitInfoDto(Visit visit) {
         return new VisitInfoDto(
                 visit.getId(),
                 visit.getCode(),
                 visit.getDateOfVisit()
         );
-    }
-
-    public List<VisitInfoDto> mapToVisitInfoDtoList(List<Visit> visitList) {
-        return visitList.stream().map(this::mapToVisitInfoDto).collect(Collectors.toList());
     }
 
     public VisitDto mapToVisitDto(Visit visit) {
@@ -74,5 +62,17 @@ public class VisitMapper {
                 doctorMapper.mapToDoctorInfoDto(visit.getDoctor()),
                 orderMapper.mapToOrderInfoDtoList(visit.getOrderList())
         );
+    }
+
+    public List<VisitHibernate> mapToVisitHibernateList(List<Visit> visitList) {
+        return visitList.stream().map(this::mapToVisitHibernate).collect(Collectors.toList());
+    }
+
+    public List<Visit> mapToVisitList(List<VisitHibernate> visitHibernateList) {
+        return visitHibernateList.stream().map(this::mapToVisit).collect(Collectors.toList());
+    }
+
+    public List<VisitInfoDto> mapToVisitInfoDtoList(List<Visit> visitList) {
+        return visitList.stream().map(this::mapToVisitInfoDto).collect(Collectors.toList());
     }
 }

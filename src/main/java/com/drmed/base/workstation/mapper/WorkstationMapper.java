@@ -15,7 +15,6 @@ import java.util.stream.Collectors;
 
 @Component
 public class WorkstationMapper {
-
     @Autowired
     private TestMapper testMapper;
 

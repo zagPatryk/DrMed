@@ -51,15 +51,6 @@ public class OrderMapper {
         );
     }
 
-//    public Order mapToOrder(OrderDto orderDto) {
-//        return new Order(
-//                orderDto.getId(),
-//                orderDto.getCode(),
-//                visitMapper.mapToVisit(orderDto.getVisit()),
-//                orderedTestMapper.mapToOrderedTestListFromDto(orderDto.getOrderedTests())
-//        );
-//    }
-
     public OrderInfoDto mapToOrderInfoDto(Order order) {
         return new OrderInfoDto(
                 order.getId(),
@@ -78,10 +69,6 @@ public class OrderMapper {
 
     public List<Order> mapToOrderList(List<OrderHibernate> orderHibernateList) {
         return orderHibernateList.stream().map(this::mapToOrder).collect(Collectors.toList());
-    }
-
-    public List<OrderDto> mapToOrderDtoList(List<Order> orderList) {
-        return orderList.stream().map(this::mapToOrderDto).collect(Collectors.toList());
     }
 
     public List<OrderHibernate> mapToOrderHibernateList(List<Order> orderList) {

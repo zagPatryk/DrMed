@@ -46,5 +46,4 @@ public class TestController {
     public TestDto updateTest(@RequestBody TestDto testDto) throws DataNotFoundInDatabase {
         return testService.updateTest(testDto);
     }
-
 }

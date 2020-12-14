@@ -30,17 +30,6 @@ public class DoctorMapper {
         );
     }
 
-    public Doctor mapToDoctor(DoctorDto doctorDto) {
-        return new Doctor(
-                doctorDto.getId(),
-                doctorDto.getCode(),
-                doctorDto.getFirstName(),
-                doctorDto.getLastName(),
-                doctorDto.getDoctorStatus(),
-                doctorDto.getEmail()
-        );
-    }
-
     public Doctor mapToDoctor(DoctorHibernate doctorHibernate) {
         return new Doctor(
                 doctorHibernate.getId(),

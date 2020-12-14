@@ -31,6 +31,4 @@ public class OrderedTest {
         this.testResultStatus = testResultStatus;
         this.results = results;
     }
-
-
 }
