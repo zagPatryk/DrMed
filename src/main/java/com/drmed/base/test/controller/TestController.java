@@ -1,6 +1,7 @@
 package com.drmed.base.test.controller;
 
 import com.drmed.base.additional.exceptions.DataNotFoundInDatabase;
+import com.drmed.base.test.dto.NewTestDto;
 import com.drmed.base.test.dto.TestDto;
 import com.drmed.base.test.dto.TestInfoDto;
 import com.drmed.base.test.service.TestService;
@@ -38,8 +39,8 @@ public class TestController {
     }
 
     @PostMapping(value = "addTest", consumes = APPLICATION_JSON_VALUE)
-    public TestDto addTest(@RequestBody TestDto testDto) {
-        return testService.addTest(testDto);
+    public TestDto addTest(@RequestBody NewTestDto newTestDto) throws DataNotFoundInDatabase {
+        return testService.addTest(newTestDto);
     }
 
     @PutMapping(value = "updateTest", consumes = APPLICATION_JSON_VALUE)

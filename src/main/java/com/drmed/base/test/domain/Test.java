@@ -35,6 +35,13 @@ public class Test implements Serializable {
         this.testActivityStatus = testActivityStatus;
         this.performingWorkstationsIds = performingWorkstationsIds;
     }
+
+    public Test(String code, String name, ActivityStatus testActivityStatus, List<Long> performingWorkstationsIds) {
+        this.code = code;
+        this.name = name;
+        this.testActivityStatus = testActivityStatus;
+        this.performingWorkstationsIds = performingWorkstationsIds;
+    }
 }
 
 

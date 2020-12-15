@@ -2,11 +2,12 @@ package com.drmed.base.test.mapper;
 
 import com.drmed.base.orderedTest.mapper.OrderedTestMapper;
 import com.drmed.base.test.domain.Test;
+import com.drmed.base.test.dto.NewTestDto;
 import com.drmed.base.test.dto.TestDto;
 import com.drmed.base.test.dto.TestInfoDto;
 import com.drmed.base.test.repository.TestHibernate;
-import com.drmed.base.workstation.mapper.WorkstationMapper;
 import com.drmed.base.workstation.dto.WorkstationInfoDto;
+import com.drmed.base.workstation.mapper.WorkstationMapper;
 import com.drmed.base.workstation.repository.WorkstationHibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -31,13 +32,12 @@ public class TestMapper {
         );
     }
 
-    public Test mapToTest(TestDto testDto) {
+    public Test mapToTest(NewTestDto newTestDto) {
         return new Test(
-                testDto.getId(),
-                testDto.getCode(),
-                testDto.getName(),
-                testDto.getActivityStatus(),
-                testDto.getPerformingWorkstations().stream().map(WorkstationInfoDto::getId).collect(Collectors.toList())
+                newTestDto.getCode(),
+                newTestDto.getName(),
+                newTestDto.getActivityStatus(),
+                newTestDto.getPerformingWorkstationsIds()
         );
     }
 
