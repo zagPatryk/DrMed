@@ -79,6 +79,7 @@ public class VisitService {
         for (Long orderId : visit.getOrderIdsList()) {
             orderList.add(orderService.getOrderById(orderId));
         }
+        visit.setOrderList(orderList);
         return orderList;
     }
 }
