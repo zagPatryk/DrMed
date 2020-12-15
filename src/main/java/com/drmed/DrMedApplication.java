@@ -13,6 +13,8 @@ public class DrMedApplication {
 // czy w serwisach odnosić się do innych serwisów czy reposytoriów?
 // czy rozdzielić mapper ogólny od hibernatowego żeby zablokować klase do pakietu
 // co robić z excepttionami
+// czy vaadin w tym samym czy w osobnym
+// podpowiedź do tego https://sandbox-authservice.priaid.ch/docs.html
 
 /*
 poprawić relacje miedzy encjami żeby się wszystko updejtowało
