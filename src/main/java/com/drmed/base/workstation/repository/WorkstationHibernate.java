@@ -33,8 +33,8 @@ public class WorkstationHibernate {
     @ManyToMany
     @JoinTable(
             name = "JOIN_WORKSTATION_TEST",
-            joinColumns = {@JoinColumn(name = "WORKSTATION_CODE", referencedColumnName = "WORKSTATION_CODE")},
-            inverseJoinColumns = {@JoinColumn(name = "TEST_CODE", referencedColumnName = "TEST_CODE")}
+            joinColumns = {@JoinColumn(name = "WORKSTATION_ID", referencedColumnName = "WORKSTATION_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "TEST_ID", referencedColumnName = "TEST_ID")}
     )
     private List<TestHibernate> availableTests = new ArrayList<>();
 
