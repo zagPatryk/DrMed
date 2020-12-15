@@ -1,6 +1,6 @@
 package com.drmed.api.trello.service;
 
-import com.drmed.base.additional.exceptions.trelloException.TrelloListNotFoundException;
+import com.drmed.api.trello.exception.trelloException.TrelloListNotFoundException;
 import com.drmed.base.additional.statuses.ResultStatus;
 import com.drmed.base.doctor.dto.DoctorInfoDto;
 import com.drmed.base.order.dto.OrderInfoDto;

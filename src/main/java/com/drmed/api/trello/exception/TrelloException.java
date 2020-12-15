@@ -1,4 +1,4 @@
-package com.drmed.base.additional.exceptions;
+package com.drmed.api.trello.exception;
 
 public class TrelloException extends Exception {
 }

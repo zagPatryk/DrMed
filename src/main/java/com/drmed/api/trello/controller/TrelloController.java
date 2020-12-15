@@ -1,7 +1,7 @@
 package com.drmed.api.trello.controller;
 
 
-import com.drmed.base.additional.exceptions.TrelloException;
+import com.drmed.api.trello.exception.TrelloException;
 import com.drmed.base.additional.statuses.ResultStatus;
 import com.drmed.base.doctor.dto.DoctorInfoDto;
 import com.drmed.base.order.dto.OrderInfoDto;
