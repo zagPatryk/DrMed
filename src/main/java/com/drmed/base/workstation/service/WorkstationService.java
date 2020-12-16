@@ -2,10 +2,11 @@ package com.drmed.base.workstation.service;
 
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.TestNotFoundException;
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.WorkstationNotFoundException;
+import com.drmed.base.additional.statuses.ActivityStatus;
 import com.drmed.base.test.domain.Test;
-import com.drmed.base.test.dto.TestInfoDto;
 import com.drmed.base.test.service.TestService;
 import com.drmed.base.workstation.domain.Workstation;
+import com.drmed.base.workstation.dto.NewWorkstationDto;
 import com.drmed.base.workstation.mapper.WorkstationMapper;
 import com.drmed.base.workstation.dto.WorkstationDto;
 import com.drmed.base.workstation.dto.WorkstationInfoDto;
@@ -13,8 +14,8 @@ import com.drmed.base.workstation.repository.WorkstationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class WorkstationService {
@@ -45,35 +46,28 @@ public class WorkstationService {
         return workstationMapper.mapToWorkstationInfoDtoList(workstationRepository.getAllWorkstations());
     }
 
-    public WorkstationDto addWorkstation(WorkstationDto workstationDto) {
-        Workstation workstation = workstationMapper.mapToWorkstation(workstationDto);
-        mapTestIdsToTestList(workstationDto, workstation);
+    public WorkstationDto addWorkstation(NewWorkstationDto newWorkstationDto) {
+        Workstation workstation = new Workstation();
+        workstation.setCode(newWorkstationDto.getCode());
+        workstation.setName(newWorkstationDto.getName());
+        workstation.setWorkstationStatus(ActivityStatus.ACTIVE);
         return workstationMapper.mapToWorkstationDto(workstationRepository.saveWorkstation(workstation));
     }
 
-    public WorkstationDto updateWorkstation(WorkstationDto workstationDto) throws WorkstationNotFoundException {
+    public WorkstationDto updateWorkstation(WorkstationDto workstationDto) throws WorkstationNotFoundException, TestNotFoundException {
         Workstation workstation = workstationRepository.getWorkstationById(workstationDto.getId());
         workstation.setCode(workstationDto.getCode());
         workstation.setName(workstationDto.getName());
-        mapTestIdsToTestList(workstationDto, workstation);
+        mapTestIdsToTestList(workstation);
         return workstationMapper.mapToWorkstationDto(workstationRepository.saveWorkstation(workstation));
     }
 
-    private void mapTestIdsToTestList(WorkstationDto workstationDto, Workstation workstation) {
-        List<Long> testIdsList = workstationDto.getAvailableTests().stream()
-                .map(TestInfoDto::getId).collect(Collectors.toList());
-        workstation.setAvailableTestsIds(testIdsList);
-        workstation.setAvailableTests(testIdsList.stream()
-                .map(testId -> {
-                    try {
-                        return testService.getTestById(testId);
-
-                    } catch (TestNotFoundException e) {
-                        e.printStackTrace();
-                        return new Test();
-                    }
-                }).collect(Collectors.toList()));
+    private void mapTestIdsToTestList(Workstation workstation) throws TestNotFoundException {
+        List<Test> testList = new ArrayList<>();
+        for (Long testId : workstation.getAvailableTestsIds()) {
+            Test test = testService.getTestById(testId);
+            testList.add(test);
+        }
+        workstation.setAvailableTests(testList);
     }
-
-
 }

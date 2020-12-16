@@ -10,6 +10,7 @@ import com.drmed.base.test.mapper.TestMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -67,22 +68,27 @@ public class OrderedTestMapper {
     }
 
     public List<OrderedTest> mapToOrderedTestList(List<OrderedTestHibernate> orderedTestHibernateList) {
-        return orderedTestHibernateList.stream().map(this::mapToOrderedTest).collect(Collectors.toList());
+        return orderedTestHibernateList == null ? new ArrayList<>()
+                : orderedTestHibernateList.stream().map(this::mapToOrderedTest).collect(Collectors.toList());
     }
 
     public List<OrderedTest> mapToOrderedTestListFromDto(List<OrderedTestDto> orderedTestDtoList) {
-        return orderedTestDtoList.stream().map(this::mapToOrderedTest).collect(Collectors.toList());
+        return orderedTestDtoList == null ? new ArrayList<>()
+                : orderedTestDtoList.stream().map(this::mapToOrderedTest).collect(Collectors.toList());
     }
 
     public List<OrderedTestHibernate> mapToOrderedTestHibernateList(List<OrderedTest> orderedTestList) {
-        return orderedTestList.stream().map(this::mapToOrderedTestHibernate).collect(Collectors.toList());
+        return orderedTestList == null ? new ArrayList<>()
+                : orderedTestList.stream().map(this::mapToOrderedTestHibernate).collect(Collectors.toList());
     }
 
     public List<OrderedTestDto> mapToOrderedTestDtoList(List<OrderedTest> orderedTestList) {
-        return orderedTestList.stream().map(this::mapToOrderedTestDto).collect(Collectors.toList());
+        return orderedTestList == null ? new ArrayList<>()
+                : orderedTestList.stream().map(this::mapToOrderedTestDto).collect(Collectors.toList());
     }
 
     public List<OrderedTestInfoDto> mapToOrderedTestInfoDtoList(List<OrderedTest> orderedTestList) {
-        return orderedTestList.stream().map(this::mapToOrderedTestInfoDto).collect(Collectors.toList());
+        return orderedTestList == null ? new ArrayList<>()
+                : orderedTestList.stream().map(this::mapToOrderedTestInfoDto).collect(Collectors.toList());
     }
 }

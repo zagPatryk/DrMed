@@ -7,12 +7,14 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Entity
+@Transactional
 @Table(name = "ORDERED_TEST")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class OrderedTestHibernate {

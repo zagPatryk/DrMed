@@ -2,16 +2,15 @@ package com.drmed.base.test.mapper;
 
 import com.drmed.base.orderedTest.mapper.OrderedTestMapper;
 import com.drmed.base.test.domain.Test;
-import com.drmed.base.test.dto.NewTestDto;
 import com.drmed.base.test.dto.TestDto;
 import com.drmed.base.test.dto.TestInfoDto;
 import com.drmed.base.test.repository.TestHibernate;
-import com.drmed.base.workstation.dto.WorkstationInfoDto;
 import com.drmed.base.workstation.mapper.WorkstationMapper;
 import com.drmed.base.workstation.repository.WorkstationHibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,15 +28,6 @@ public class TestMapper {
                 test.getName(),
                 test.getTestActivityStatus(),
                 workstationMapper.mapToWorkstationInfoDtoList(test.getPerformingWorkstationList())
-        );
-    }
-
-    public Test mapToTest(NewTestDto newTestDto) {
-        return new Test(
-                newTestDto.getCode(),
-                newTestDto.getName(),
-                newTestDto.getActivityStatus(),
-                newTestDto.getPerformingWorkstationsIds()
         );
     }
 
@@ -71,15 +61,18 @@ public class TestMapper {
     }
 
     public List<TestInfoDto> mapToTestInfoDtoList(List<Test> testList) {
-        return testList.stream().map(this::mapToTestInfoDto).collect(Collectors.toList());
+        return testList == null ? new ArrayList<>()
+                : testList.stream().map(this::mapToTestInfoDto).collect(Collectors.toList());
     }
 
     public List<Test> mapToTestList(List<TestHibernate> testList) {
-        return testList.stream().map(this::mapToTest).collect(Collectors.toList());
+        return testList == null ? new ArrayList<>()
+                : testList.stream().map(this::mapToTest).collect(Collectors.toList());
     }
 
     public List<TestHibernate> mapToTestHibernateList(List<Test> testHibernateList) {
-        return testHibernateList.stream().map(this::mapToTestHibernate).collect(Collectors.toList());
+        return testHibernateList == null ? new ArrayList<>()
+                : testHibernateList.stream().map(this::mapToTestHibernate).collect(Collectors.toList());
     }
 }
 

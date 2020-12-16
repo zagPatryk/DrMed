@@ -2,6 +2,7 @@ package com.drmed.base.test.service;
 
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.TestNotFoundException;
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.WorkstationNotFoundException;
+import com.drmed.base.additional.statuses.ActivityStatus;
 import com.drmed.base.test.domain.Test;
 import com.drmed.base.test.dto.NewTestDto;
 import com.drmed.base.test.dto.TestDto;
@@ -46,7 +47,11 @@ public class TestService {
     }
 
     public TestDto addTest(NewTestDto newTestDto) throws WorkstationNotFoundException {
-        Test test = testMapper.mapToTest(newTestDto);
+        Test test = new Test();
+        test.setCode(newTestDto.getCode());
+        test.setName(newTestDto.getName());
+        test.setPerformingWorkstationsIds(newTestDto.getPerformingWorkstationsIds());
+        test.setTestActivityStatus(ActivityStatus.ACTIVE);
         mapWorkstationIdsToWorkstationList(test);
         return testMapper.mapToTestDto(testRepository.saveTest(test));
     }
@@ -60,12 +65,11 @@ public class TestService {
         return testMapper.mapToTestDto(testRepository.saveTest(test));
     }
 
-    private List<Workstation> mapWorkstationIdsToWorkstationList(Test test) throws WorkstationNotFoundException {
+    private void mapWorkstationIdsToWorkstationList(Test test) throws WorkstationNotFoundException {
         List<Workstation> workstationList = new ArrayList<>();
         for (Long workstationId : test.getPerformingWorkstationsIds()) {
             workstationList.add(workstationService.getWorkstationById(workstationId));
         }
         test.setPerformingWorkstationList(workstationList);
-        return workstationList;
     }
 }

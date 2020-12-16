@@ -30,12 +30,7 @@ public class WorkstationHibernate {
     @Column(name = "NAME")
     private String name;
 
-    @ManyToMany
-    @JoinTable(
-            name = "JOIN_WORKSTATION_TEST",
-            joinColumns = {@JoinColumn(name = "WORKSTATION_ID", referencedColumnName = "WORKSTATION_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "TEST_ID", referencedColumnName = "TEST_ID")}
-    )
+    @ManyToMany(mappedBy = "performingWorkstationList", fetch = FetchType.EAGER)
     private List<TestHibernate> availableTests = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)

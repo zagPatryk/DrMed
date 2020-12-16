@@ -7,6 +7,7 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Transactional
 @Table(name = "SINGLE_TEST")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class TestHibernate implements Serializable {
@@ -33,13 +35,17 @@ public class TestHibernate implements Serializable {
     @Column(name = "TEST_NAME")
     private String name;
 
-    @ManyToMany(mappedBy = "availableTests")
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "JOIN_WORKSTATION_TEST",
+            joinColumns = {@JoinColumn(name = "TEST_ID", referencedColumnName = "TEST_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "WORKSTATION_ID", referencedColumnName = "WORKSTATION_ID")}
+    )
     private List<WorkstationHibernate> performingWorkstationList = new ArrayList<>();
 
     @OneToMany(
             targetEntity = OrderedTestHibernate.class,
-            mappedBy = "test",
-            fetch = FetchType.EAGER
+            mappedBy = "test"
     )
     private List<OrderedTestHibernate> orderedTestList;
 

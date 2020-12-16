@@ -1,6 +1,7 @@
 package com.drmed.base.workstation.controller;
 
 import com.drmed.base.additional.exceptions.DataNotFoundInDatabase;
+import com.drmed.base.workstation.dto.NewWorkstationDto;
 import com.drmed.base.workstation.dto.WorkstationDto;
 import com.drmed.base.workstation.dto.WorkstationInfoDto;
 import com.drmed.base.workstation.service.WorkstationService;
@@ -36,8 +37,8 @@ public class WorkstationController {
     }
 
     @PostMapping(value = "addWorkstation")
-    public WorkstationDto addWorkstation(@RequestBody WorkstationDto workstationDto) {
-        return workstationService.addWorkstation(workstationDto);
+    public WorkstationDto addWorkstation(@RequestBody NewWorkstationDto newWorkstationDto) throws DataNotFoundInDatabase {
+        return workstationService.addWorkstation(newWorkstationDto);
     }
 
     @PutMapping(value = "updateWorkstation")
