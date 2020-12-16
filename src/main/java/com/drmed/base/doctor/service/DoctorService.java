@@ -91,14 +91,13 @@ public class DoctorService {
         return doctorMapper.mapToDoctorDto(doctorRepository.saveDoctor(doctor));
     }
 
-    private Doctor mapVisitIdsToVisits(Doctor doctor) throws VisitNotFoundException {
+    private void mapVisitIdsToVisits(Doctor doctor) throws VisitNotFoundException {
         List<Visit> visitList = new ArrayList<>();
         for (Long visitId : doctor.getVisitIdList()) {
             Visit visit = visitService.getVisitById(visitId);
             visitList.add(visit);
         }
         doctor.setVisitList(visitList);
-        return doctor;
     }
 }
 
