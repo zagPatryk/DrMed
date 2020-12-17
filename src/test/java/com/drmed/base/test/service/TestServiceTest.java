@@ -5,8 +5,10 @@ import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.WorkstationNo
 import com.drmed.base.additional.statuses.ActivityStatus;
 import com.drmed.base.test.dto.NewTestDto;
 import com.drmed.base.test.dto.TestDto;
+import com.drmed.base.test.repository.TestCrudRepository;
 import com.drmed.base.workstation.dto.NewWorkstationDto;
 import com.drmed.base.workstation.dto.WorkstationDto;
+import com.drmed.base.workstation.repository.WorkstationCrudRepository;
 import com.drmed.base.workstation.service.WorkstationService;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -26,6 +28,10 @@ public class TestServiceTest {
     private TestService testService;
     @Autowired
     private WorkstationService workstationService;
+    @Autowired
+    private TestCrudRepository testCrudRepository;
+    @Autowired
+    private WorkstationCrudRepository workstationCrudRepository;
 
     @Test
     public void addTest() throws WorkstationNotFoundException, TestNotFoundException {
@@ -57,7 +63,10 @@ public class TestServiceTest {
         assertEquals(workstationIdsList, newTestDto.getPerformingWorkstationsIds());
 
         // Clean
-
+        testCrudRepository.deleteById(testDto.getId());
+        workstationCrudRepository.deleteById(w1dto.getId());
+        workstationCrudRepository.deleteById(w2dto.getId());
+        workstationCrudRepository.deleteById(w3dto.getId());
     }
 
     @Test
