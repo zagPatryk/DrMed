@@ -51,9 +51,8 @@ public class PatientService {
         return patientMapper.mapToPatientInfoDtoList(patientRepository.getAllPatients());
     }
 
-    public PatientDto addNewPatient(NewPatientDto newPatientDto) throws VisitNotFoundException {
+    public PatientDto addNewPatient(NewPatientDto newPatientDto) {
         Patient patient = patientMapper.mapToPatient(newPatientDto);
-        mapVisitIdToVisit(patient);
         return patientMapper.mapToPatientDto(patientRepository.savePatient(patient));
     }
 
@@ -67,11 +66,10 @@ public class PatientService {
         return patientMapper.mapToPatientDto(patientRepository.savePatient(patient));
     }
 
-    public Patient mapVisitIdToVisit(Patient patient) throws VisitNotFoundException {
+    public void mapVisitIdToVisit(Patient patient) throws VisitNotFoundException {
         for (Long visitId :  patient.getVisitIdList()) {
             patient.getVisitList().add(visitService.getVisitById(visitId));
         }
-        return patient;
     }
 
 }

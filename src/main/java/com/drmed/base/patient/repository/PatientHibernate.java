@@ -38,7 +38,8 @@ public class PatientHibernate {
 
     @OneToMany(
             targetEntity = VisitHibernate.class,
-            mappedBy = "patient"
+            mappedBy = "patient",
+            fetch = FetchType.EAGER
     )
     private List<VisitHibernate> visits;
 }
