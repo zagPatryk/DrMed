@@ -10,6 +10,7 @@ import com.drmed.base.visit.mapper.VisitMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,14 +69,17 @@ public class OrderMapper {
     }
 
     public List<Order> mapToOrderList(List<OrderHibernate> orderHibernateList) {
-        return orderHibernateList.stream().map(this::mapToOrder).collect(Collectors.toList());
+        return orderHibernateList == null ? new ArrayList<>()
+                : orderHibernateList.stream().map(this::mapToOrder).collect(Collectors.toList());
     }
 
     public List<OrderHibernate> mapToOrderHibernateList(List<Order> orderList) {
-        return orderList.stream().map(this::mapToOrderHibernateList).collect(Collectors.toList());
+        return orderList == null ? new ArrayList<>()
+                : orderList.stream().map(this::mapToOrderHibernateList).collect(Collectors.toList());
     }
 
     public List<OrderInfoDto> mapToOrderInfoDtoList(List<Order> orderList) {
-        return orderList.stream().map(this::mapToOrderInfoDto).collect(Collectors.toList());
+        return orderList == null ? new ArrayList<>()
+                : orderList.stream().map(this::mapToOrderInfoDto).collect(Collectors.toList());
     }
 }
