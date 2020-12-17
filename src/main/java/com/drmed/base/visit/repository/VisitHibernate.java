@@ -40,7 +40,8 @@ public class VisitHibernate {
 
     @OneToMany(
             targetEntity = OrderHibernate.class,
-            mappedBy = "visit"
+            mappedBy = "visit",
+            fetch = FetchType.EAGER
     )
     private List<OrderHibernate> orders;
 }

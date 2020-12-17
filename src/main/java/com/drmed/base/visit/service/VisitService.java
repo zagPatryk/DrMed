@@ -54,6 +54,7 @@ public class VisitService {
     public VisitDto addNewVisit(NewVisitDto newVisitDto) throws DoctorNotFoundException, PatientNotFoundException {
         Visit visit = new Visit();
         visit.setCode(newVisitDto.getCode());
+        visit.setDateOfVisit(newVisitDto.getDateOfVisit());
         visit.setDoctor(doctorService.getDoctorById(newVisitDto.getDoctorId()));
         visit.setPatient(patientService.getPatientById(newVisitDto.getPatientId()));
         return visitMapper.mapToVisitDto(visitRepository.saveVisit(visit));
