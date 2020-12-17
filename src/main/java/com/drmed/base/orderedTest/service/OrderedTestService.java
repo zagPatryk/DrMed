@@ -62,7 +62,7 @@ public class OrderedTestService {
 
     public OrderedTestDto resultOrderedTest(Long orderedTestId, String results) throws OrderedTestNotFoundException, TestNotFoundException, OrderNotFoundException {
         OrderedTest orderedTest = orderedTestRepository.getOrderedTestById(orderedTestId);
-        checkOrderedTestStatus(results, orderedTest);
+        setResultsAndStatus(results, orderedTest);
         mapOrderIdToOrder(orderedTest);
         mapTestIdToTest(orderedTest);
         orderedTestRepository.saveOrderedTest(orderedTest);
@@ -81,27 +81,24 @@ public class OrderedTestService {
         return orderedTestMapper.mapToOrderedTestDto(orderedTestRepository.saveOrderedTest(orderedTest));
     }
 
-    public OrderedTest checkOrderedTestStatus(String results, OrderedTest orderedTest) {
-        if (orderedTest.getResults().equals("") && ! results.equals("")) {
+    public void setResultsAndStatus(String results, OrderedTest orderedTest) {
+        if (orderedTest.getResults().equals("") && !results.equals("")) {
             orderedTest.setResults(results);
             orderedTest.setTestResultStatus(ResultStatus.FINISHED);
-        } else if(! orderedTest.getResults().equals("") && ! results.equals("")) {
-            orderedTest.setResults(results);
+        } else if(!orderedTest.getResults().equals("") && !results.equals("")) {
+            orderedTest.setResults(results + ". Previously reported as: " + orderedTest.getResults());
             orderedTest.setTestResultStatus(ResultStatus.CORRECTED);
         } else {
             orderedTest.setTestResultStatus(ResultStatus.PENDING);
         }
-        return orderedTest;
     }
 
-    private OrderedTest mapTestIdToTest(OrderedTest orderedTest) throws TestNotFoundException {
+    private void mapTestIdToTest(OrderedTest orderedTest) throws TestNotFoundException {
         orderedTest.setTest(testService.getTestById(orderedTest.getTestId()));
-        return orderedTest;
     }
 
-    private OrderedTest mapOrderIdToOrder(OrderedTest orderedTest) throws OrderNotFoundException {
+    private void mapOrderIdToOrder(OrderedTest orderedTest) throws OrderNotFoundException {
         orderedTest.setOrder(orderService.getOrderById(orderedTest.getTestId()));
-        return orderedTest;
     }
 }
 
