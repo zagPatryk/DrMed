@@ -22,7 +22,7 @@ public class TestMapper {
     private OrderedTestMapper orderedTestMapper;
 
     public TestDto mapToTestDto(Test test) {
-        return new TestDto(
+        return test == null ? null : new TestDto(
                 test.getId(),
                 test.getCode(),
                 test.getName(),
@@ -32,7 +32,7 @@ public class TestMapper {
     }
 
     public TestHibernate mapToTestHibernate(Test test) {
-        return new TestHibernate(
+        return test == null ? null : new TestHibernate(
                 test.getId(),
                 test.getCode(),
                 test.getName(),

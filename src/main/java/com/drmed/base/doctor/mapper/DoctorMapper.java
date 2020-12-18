@@ -9,6 +9,7 @@ import com.drmed.base.visit.repository.VisitHibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,10 +65,12 @@ public class DoctorMapper {
     }
 
     public List<DoctorInfoDto> mapToDoctorInfoDtoList(List<Doctor> doctorList) {
-        return doctorList.stream().map(this::mapToDoctorInfoDto).collect(Collectors.toList());
+        return doctorList == null ? new ArrayList<>()
+                : doctorList.stream().map(this::mapToDoctorInfoDto).collect(Collectors.toList());
     }
 
     public List<Doctor> mapToDoctorList(List<DoctorHibernate> doctorHibernateList) {
-        return doctorHibernateList.stream().map(this::mapToDoctor).collect(Collectors.toList());
+        return doctorHibernateList == null ? new ArrayList<>()
+                : doctorHibernateList.stream().map(this::mapToDoctor).collect(Collectors.toList());
     }
 }

@@ -7,14 +7,12 @@ import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.transaction.Transactional;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @Entity
-@Transactional
 @Table(name = "ORDERED_TEST")
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class OrderedTestHibernate {
@@ -25,12 +23,12 @@ public class OrderedTestHibernate {
     @NotNull
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")
     private OrderHibernate order;
 
-    @ManyToOne
-    @JoinColumn(name = "ORDERED_TEST_ID")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "TEST_ID")
     private TestHibernate test;
 
     @Column(name = "TEST_STATUS")

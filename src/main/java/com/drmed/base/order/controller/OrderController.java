@@ -36,10 +36,10 @@ public class OrderController {
         return orderService.addOrderForPatient(newOrderDto);
     }
 
-    @PutMapping(value = "addTestToOrder")
-    public OrderDto addTestToOrder(@RequestParam Long orderId, @RequestParam List<Long> testIdList) throws DataNotFoundInDatabase {
-        return orderService.addTestToOrder(orderId, testIdList);
-    }
+//    @PutMapping(value = "addTestToOrder")
+//    public OrderDto addTestToOrder(@RequestParam Long orderId, @RequestParam List<Long> testIdList) throws DataNotFoundInDatabase {
+//        return orderService.addTestToOrder(orderId, testIdList);
+//    }
 
     @PutMapping(value = "cancelOrder")
     public OrderDto cancelOrder(@RequestParam Long orderId) throws DataNotFoundInDatabase {

@@ -1,9 +1,9 @@
 package com.drmed.base.order.service;
 
-import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.VisitNotFoundException;
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.OrderNotFoundException;
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.OrderedTestNotFoundException;
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.TestNotFoundException;
+import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.VisitNotFoundException;
 import com.drmed.base.additional.statuses.ResultStatus;
 import com.drmed.base.order.domain.Order;
 import com.drmed.base.order.dto.NewOrderDto;
@@ -47,50 +47,57 @@ public class OrderService {
         return orderMapper.mapToOrderInfoDtoList(orderRepository.getAllByCodeContains(code));
     }
 
-    public Order saveOrder(Order order) throws OrderNotFoundException, OrderedTestNotFoundException, TestNotFoundException {
-        Order temporaryOrder;
-        if(order.getId() != null) {
-            temporaryOrder = orderRepository.getOrderById(order.getId());
-        } else {
-            temporaryOrder = new Order();
-        }
-        temporaryOrder.setCode(order.getCode());
-        temporaryOrder.setVisit(order.getVisit());
-        for (OrderedTest orderedTest : order.getOrderedTests()) {
-            if(!temporaryOrder.getOrderedTests().contains(orderedTest)) {
-                temporaryOrder.getOrderedTests().add(orderedTest);
-            }
-            orderedTestService.saveOrderedTest(orderedTest);
-        }
-        temporaryOrder.setOrderResultStatus(order.getOrderResultStatus());
-        return orderRepository.saveOrder(temporaryOrder);
-    }
-
-    public OrderDto addTestToOrder(Long orderId, List<Long> testIdList) throws OrderNotFoundException, OrderedTestNotFoundException, TestNotFoundException {
-        Order order = orderRepository.getOrderById(orderId);
-        createOrderedTestsForOrder(order, testIdList);
-        return orderMapper.mapToOrderDto(saveOrder(order));
-    }
-
-    public OrderDto addOrderForPatient(NewOrderDto newOrderDto)
-            throws OrderNotFoundException, OrderedTestNotFoundException, TestNotFoundException, VisitNotFoundException {
+    public OrderDto addOrderForPatient(NewOrderDto newOrderDto) throws VisitNotFoundException {
         Order order = new Order();
         order.setCode(newOrderDto.getCode());
         order.setVisit(visitService.getVisitById(newOrderDto.getVisitId()));
-        createOrderedTestsForOrder(order, newOrderDto.getTestsIds());
         order.setOrderResultStatus(ResultStatus.PENDING);
-        return orderMapper.mapToOrderDto(saveOrder(order));
+        return orderMapper.mapToOrderDto(orderRepository.saveOrder(order));
     }
 
-    private void createOrderedTestsForOrder(Order order, List<Long> testIdList) {
-        for (Long testId : testIdList) {
-            OrderedTest orderedTest = new OrderedTest();
-            orderedTest.setOrderId(order.getId());
-            orderedTest.setTestId(testId);
-            orderedTest.setTestResultStatus(ResultStatus.PENDING);
-            order.getOrderedTests().add(orderedTest);
-        }
-    }
+//    public OrderDto addTestToOrder(Long orderId, List<Long> testIdList) throws OrderNotFoundException {
+//        Order order = orderRepository.getOrderById(orderId);
+//        System.out.println(testIdList.get(0));
+//        System.out.println(testIdList.get(1));
+//        createOrderedTestsForOrder(order, testIdList);
+//        System.out.println(order.getOrderedTests());
+//        return orderMapper.mapToOrderDto(orderRepository.saveOrder(order));
+//    }
+
+    // zmienic
+//    public Order saveOrder(Order order) throws OrderNotFoundException, OrderedTestNotFoundException, TestNotFoundException {
+//        Order temporaryOrder;
+//        temporaryOrder = order.getId() != null
+//                ? orderRepository.getOrderById(order.getId())
+//                : new Order();
+//        temporaryOrder.setCode(order.getCode());
+//        temporaryOrder.setVisit(order.getVisit());
+//        for (OrderedTest orderedTest : order.getOrderedTests()) {
+//            if(!temporaryOrder.getOrderedTests().contains(orderedTest)) {
+//                temporaryOrder.getOrderedTests().add(orderedTest);
+//            }
+//            orderedTestService.saveOrderedTest(orderedTest);
+//        }
+//        temporaryOrder.setOrderResultStatus(order.getOrderResultStatus());
+//        return orderRepository.saveOrder(temporaryOrder);
+//    }
+
+//    private void createOrderedTestsForOrder(Order order, List<Long> testIdList) {
+//        System.out.println(111111);
+//        for (Long testId : testIdList) {
+//            OrderedTest orderedTest = new OrderedTest();
+//            System.out.println(orderedTest);
+//            orderedTest.setOrderId(order.getId());
+//            System.out.println(orderedTest);
+//            orderedTest.setTestId(testId);
+//            System.out.println(orderedTest);
+//            orderedTest.setTestResultStatus(ResultStatus.PENDING);
+//            System.out.println(orderedTest);
+//            System.out.println(order.getOrderedTests());
+//            order.getOrderedTests().add(orderedTest);
+//            System.out.println(order.getOrderedTests());
+//        }
+//    }
 
     public OrderDto cancelOrder(Long orderId) throws OrderNotFoundException, OrderedTestNotFoundException, TestNotFoundException {
         Order order = orderRepository.getOrderById(orderId);
@@ -98,7 +105,7 @@ public class OrderService {
         for (OrderedTest orderedTest : order.getOrderedTests()) {
             orderedTestService.cancelOrderedTest(orderedTest.getId());
         }
-        return orderMapper.mapToOrderDto(saveOrder(order));
+        return orderMapper.mapToOrderDto(orderRepository.saveOrder(order));
     }
 
     public void checkOrderStatus(Long orderId) throws OrderNotFoundException {

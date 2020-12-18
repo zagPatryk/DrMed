@@ -5,8 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -14,5 +12,4 @@ import java.util.List;
 public class NewOrderDto {
     private String code;
     private Long visitId;
-    private List<Long> testsIds;
 }

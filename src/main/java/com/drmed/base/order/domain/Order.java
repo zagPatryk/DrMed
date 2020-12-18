@@ -30,11 +30,4 @@ public class Order {
         this.orderResultStatus = orderResultStatus;
         this.trelloOrderCardId = trelloOrderCardId;
     }
-
-    public Order(Long id, String code, Visit visit, List<OrderedTest> orderedTests) {
-        this.id = id;
-        this.code = code;
-        this.visit = visit;
-        this.orderedTests = orderedTests;
-    }
 }

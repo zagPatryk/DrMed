@@ -21,8 +21,8 @@ public class OrderMapper {
     @Autowired
     private VisitMapper visitMapper;
 
-    public OrderHibernate mapToOrderHibernateList(Order order) {
-        return new OrderHibernate(
+    public OrderHibernate mapToOrderHibernate(Order order) {
+        return order == null ? null : new OrderHibernate(
                 order.getId(),
                 order.getCode(),
                 visitMapper.mapToVisitHibernate(order.getVisit()),
@@ -73,9 +73,9 @@ public class OrderMapper {
                 : orderHibernateList.stream().map(this::mapToOrder).collect(Collectors.toList());
     }
 
-    public List<OrderHibernate> mapToOrderHibernateList(List<Order> orderList) {
+    public List<OrderHibernate> mapToOrderHibernate(List<Order> orderList) {
         return orderList == null ? new ArrayList<>()
-                : orderList.stream().map(this::mapToOrderHibernateList).collect(Collectors.toList());
+                : orderList.stream().map(this::mapToOrderHibernate).collect(Collectors.toList());
     }
 
     public List<OrderInfoDto> mapToOrderInfoDtoList(List<Order> orderList) {

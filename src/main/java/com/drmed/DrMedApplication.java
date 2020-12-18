@@ -17,6 +17,10 @@ public class DrMedApplication {
 // podpowiedź do tego https://sandbox-authservice.priaid.ch/docs.html
 
 /*
+przerobić pod ten pattern któy pozwala zachować poprzednie wyniki order albo ordered test
+
+ogarnać elvisa w mapperach
+
 poprawić relacje miedzy encjami żeby się wszystko updejtowało
 
 gogać płeć i wiek

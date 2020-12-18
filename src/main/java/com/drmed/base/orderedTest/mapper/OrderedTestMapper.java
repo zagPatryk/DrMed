@@ -1,6 +1,5 @@
 package com.drmed.base.orderedTest.mapper;
 
-import com.drmed.base.additional.statuses.ResultStatus;
 import com.drmed.base.order.mapper.OrderMapper;
 import com.drmed.base.orderedTest.domain.OrderedTest;
 import com.drmed.base.orderedTest.dto.OrderedTestDto;
@@ -22,29 +21,29 @@ public class OrderedTestMapper {
     private OrderMapper orderMapper;
 
     public OrderedTest mapToOrderedTest(OrderedTestHibernate orderedTestHibernate) {
-        return new OrderedTest(
+        return orderedTestHibernate == null ? null : new OrderedTest(
                 orderedTestHibernate.getId(),
-                orderedTestHibernate.getOrder().getId(),
-                orderedTestHibernate.getTest().getId(),
+                orderedTestHibernate.getOrder() == null ? null : orderedTestHibernate.getOrder().getId(),
+                testMapper.mapToTest(orderedTestHibernate.getTest()),
                 orderedTestHibernate.getTestResultStatus(),
                 orderedTestHibernate.getResults()
         );
     }
 
-    public OrderedTest mapToOrderedTest(OrderedTestDto orderedTestDto) {
-        return new OrderedTest(
-                orderedTestDto.getId(),
-                orderedTestDto.getOrderId(),
-                orderedTestDto.getTest().getId(),
-                ResultStatus.TEMPORARY,
-                orderedTestDto.getResults()
-        );
-    }
+//    public OrderedTest mapToOrderedTest(OrderedTestDto orderedTestDto) {
+//        return new OrderedTest(
+//                orderedTestDto.getId(),
+//                orderedTestDto.getOrderId(),
+//                orderedTestDto.getTest().getId(),
+//                ResultStatus.TEMPORARY,
+//                orderedTestDto.getResults()
+//        );
+//    }
 
     public OrderedTestHibernate mapToOrderedTestHibernate(OrderedTest orderedTest) {
         return new OrderedTestHibernate(
                 orderedTest.getId(),
-                orderMapper.mapToOrderHibernateList(orderedTest.getOrder()),
+                orderMapper.mapToOrderHibernate(orderedTest.getOrder()),
                 testMapper.mapToTestHibernate(orderedTest.getTest()),
                 orderedTest.getTestResultStatus(),
                 orderedTest.getResults()
@@ -72,10 +71,10 @@ public class OrderedTestMapper {
                 : orderedTestHibernateList.stream().map(this::mapToOrderedTest).collect(Collectors.toList());
     }
 
-    public List<OrderedTest> mapToOrderedTestListFromDto(List<OrderedTestDto> orderedTestDtoList) {
-        return orderedTestDtoList == null ? new ArrayList<>()
-                : orderedTestDtoList.stream().map(this::mapToOrderedTest).collect(Collectors.toList());
-    }
+//    public List<OrderedTest> mapToOrderedTestListFromDto(List<OrderedTestDto> orderedTestDtoList) {
+//        return orderedTestDtoList == null ? new ArrayList<>()
+//                : orderedTestDtoList.stream().map(this::mapToOrderedTest).collect(Collectors.toList());
+//    }
 
     public List<OrderedTestHibernate> mapToOrderedTestHibernateList(List<OrderedTest> orderedTestList) {
         return orderedTestList == null ? new ArrayList<>()

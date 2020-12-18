@@ -11,6 +11,7 @@ import com.drmed.base.visit.repository.VisitHibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,7 +31,7 @@ public class VisitMapper {
                 visit.getDateOfVisit(),
                 patientMapper.mapToPatientHibernate(visit.getPatient()),
                 doctorMapper.mapToDoctorHibernate(visit.getDoctor()),
-                orderMapper.mapToOrderHibernateList(visit.getOrderList())
+                orderMapper.mapToOrderHibernate(visit.getOrderList())
         );
     }
 
@@ -65,14 +66,17 @@ public class VisitMapper {
     }
 
     public List<VisitHibernate> mapToVisitHibernateList(List<Visit> visitList) {
-        return visitList.stream().map(this::mapToVisitHibernate).collect(Collectors.toList());
+        return visitList == null ? new ArrayList<>()
+                : visitList.stream().map(this::mapToVisitHibernate).collect(Collectors.toList());
     }
 
     public List<Visit> mapToVisitList(List<VisitHibernate> visitHibernateList) {
-        return visitHibernateList.stream().map(this::mapToVisit).collect(Collectors.toList());
+        return visitHibernateList == null ? new ArrayList<>()
+                : visitHibernateList.stream().map(this::mapToVisit).collect(Collectors.toList());
     }
 
     public List<VisitInfoDto> mapToVisitInfoDtoList(List<Visit> visitList) {
-        return visitList.stream().map(this::mapToVisitInfoDto).collect(Collectors.toList());
+        return visitList == null ? new ArrayList<>()
+                : visitList.stream().map(this::mapToVisitInfoDto).collect(Collectors.toList());
     }
 }

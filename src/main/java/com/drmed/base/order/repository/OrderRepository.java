@@ -33,7 +33,7 @@ public class OrderRepository {
     }
 
     public Order saveOrder(Order order) {
-        OrderHibernate orderHibernate = orderMapper.mapToOrderHibernateList(order);
+        OrderHibernate orderHibernate = orderMapper.mapToOrderHibernate(order);
         orderCrudRepository.save(orderHibernate);
         return orderMapper.mapToOrder(orderHibernate);
     }

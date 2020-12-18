@@ -3,10 +3,7 @@ package com.drmed.base.orderedTest.domain;
 import com.drmed.base.additional.statuses.ResultStatus;
 import com.drmed.base.order.domain.Order;
 import com.drmed.base.test.domain.Test;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,6 +25,14 @@ public class OrderedTest {
         this.id = id;
         this.orderId = orderId;
         this.testId = testId;
+        this.testResultStatus = testResultStatus;
+        this.results = results;
+    }
+
+    public OrderedTest(Long id, Long orderId, Test test, ResultStatus testResultStatus, String results) {
+        this.id = id;
+        this.orderId = orderId;
+        this.test = test;
         this.testResultStatus = testResultStatus;
         this.results = results;
     }

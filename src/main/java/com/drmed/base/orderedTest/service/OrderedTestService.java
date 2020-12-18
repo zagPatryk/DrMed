@@ -13,6 +13,7 @@ import com.drmed.base.test.service.TestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,30 +35,23 @@ public class OrderedTestService {
         return orderedTestMapper.mapToOrderedTestDto(orderedTestRepository.getOrderedTestById(orderedTestId));
     }
 
-    public OrderedTest saveOrderedTest(OrderedTest orderedTest)
-            throws OrderedTestNotFoundException, TestNotFoundException, OrderNotFoundException {
-        OrderedTest orderedTestTemporary;
-        if(orderedTest.getId() != null) {
-            orderedTestTemporary = orderedTestRepository.getOrderedTestById(orderedTest.getId());
-        } else {
-            orderedTestTemporary = new OrderedTest();
-        }
-        orderedTestTemporary.setOrderId(orderedTest.getOrderId());
+    public OrderedTestDto addOrderedTestToOrder(Long orderId, Long testId) throws TestNotFoundException, OrderNotFoundException {
+        OrderedTest orderedTest = new OrderedTest();
+        orderedTest.setOrderId(orderId);
+        orderedTest.setTestId(testId);
+        mapTestIdToTest(orderedTest);
+        mapOrderIdToOrder(orderedTest);
+        orderedTest = orderedTestRepository.saveOrderedTest(orderedTest);
+        orderService.checkOrderStatus(orderId);
+        return orderedTestMapper.mapToOrderedTestDto(orderedTest);
+    }
 
-        if(orderedTest.getOrder() != null) {
-            orderedTestTemporary.setOrder(orderedTest.getOrder());
-        } else {
-            mapOrderIdToOrder(orderedTestTemporary);
+    public List<OrderedTestDto> addManyOrderedTestsToOrder(Long orderId, List<Long> testIdsList) throws TestNotFoundException, OrderNotFoundException {
+        List<OrderedTestDto> orderedTestDtoList = new ArrayList<>();
+        for (Long testId : testIdsList) {
+            orderedTestDtoList.add(addOrderedTestToOrder(orderId, testId));
         }
-
-        if(orderedTest.getTest() != null) {
-            orderedTestTemporary.setTest(orderedTest.getTest());
-        } else {
-            mapTestIdToTest(orderedTestTemporary);
-        }
-        orderedTestTemporary.setResults(orderedTest.getResults());
-        orderedTestTemporary.setTestResultStatus(orderedTest.getTestResultStatus());
-        return orderedTestRepository.saveOrderedTest(orderedTestTemporary);
+        return orderedTestDtoList;
     }
 
     public OrderedTestDto resultOrderedTest(Long orderedTestId, String results) throws OrderedTestNotFoundException, TestNotFoundException, OrderNotFoundException {
@@ -98,7 +92,33 @@ public class OrderedTestService {
     }
 
     private void mapOrderIdToOrder(OrderedTest orderedTest) throws OrderNotFoundException {
-        orderedTest.setOrder(orderService.getOrderById(orderedTest.getTestId()));
+        orderedTest.setOrder(orderService.getOrderById(orderedTest.getOrderId()));
     }
+
+    //    public OrderedTest saveOrderedTest(OrderedTest orderedTest)
+//            throws OrderedTestNotFoundException, TestNotFoundException, OrderNotFoundException {
+//        OrderedTest orderedTestTemporary;
+//        if(orderedTest.getId() != null) {
+//            orderedTestTemporary = orderedTestRepository.getOrderedTestById(orderedTest.getId());
+//        } else {
+//            orderedTestTemporary = new OrderedTest();
+//        }
+//        orderedTestTemporary.setOrderId(orderedTest.getOrderId());
+//
+//        if(orderedTest.getOrder() != null) {
+//            orderedTestTemporary.setOrder(orderedTest.getOrder());
+//        } else {
+//            mapOrderIdToOrder(orderedTestTemporary);
+//        }
+//
+//        if(orderedTest.getTest() != null) {
+//            orderedTestTemporary.setTest(orderedTest.getTest());
+//        } else {
+//            mapTestIdToTest(orderedTestTemporary);
+//        }
+//        orderedTestTemporary.setResults(orderedTest.getResults());
+//        orderedTestTemporary.setTestResultStatus(orderedTest.getTestResultStatus());
+//        return orderedTestRepository.saveOrderedTest(orderedTestTemporary);
+//    }
 }
 

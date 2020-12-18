@@ -3,7 +3,6 @@ package com.drmed.base.order.repository;
 import com.drmed.base.additional.statuses.ResultStatus;
 import com.drmed.base.orderedTest.repository.OrderedTestHibernate;
 import com.drmed.base.visit.repository.VisitHibernate;
-import com.sun.istack.NotNull;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,7 +19,6 @@ public class OrderHibernate {
     @Id
     @EqualsAndHashCode.Include
     @GeneratedValue
-    @NotNull
     @Column(name = "ORDER_ID", unique = true)
     private Long id;
 
@@ -33,7 +31,8 @@ public class OrderHibernate {
 
     @OneToMany(
             targetEntity = OrderedTestHibernate.class,
-            mappedBy = "order"
+            mappedBy = "order",
+            fetch = FetchType.EAGER
     )
     private List<OrderedTestHibernate> orderedTests;
 
