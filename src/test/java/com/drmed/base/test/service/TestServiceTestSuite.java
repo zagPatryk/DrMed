@@ -23,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
-public class TestServiceTest {
+public class TestServiceTestSuite {
     @Autowired
     private TestService testService;
     @Autowired
