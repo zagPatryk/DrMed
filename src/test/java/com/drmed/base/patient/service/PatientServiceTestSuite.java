@@ -47,6 +47,10 @@ public class PatientServiceTestSuite {
     }
 
     @Test
+    public void updatePatient() {
+    }
+
+    @Test
     public void getPatientById() {
     }
 
@@ -68,10 +72,6 @@ public class PatientServiceTestSuite {
 
     @Test
     public void getAllPatients() {
-    }
-
-    @Test
-    public void updatePatient() {
     }
 
     @Test

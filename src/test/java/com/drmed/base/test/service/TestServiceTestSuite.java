@@ -70,6 +70,10 @@ public class TestServiceTestSuite {
     }
 
     @Test
+    public void updateTest() {
+    }
+
+    @Test
     public void getTestById() {
         // Given
 
@@ -91,9 +95,5 @@ public class TestServiceTestSuite {
 
     @Test
     public void getAllTests() {
-    }
-
-    @Test
-    public void updateTest() {
     }
 }
