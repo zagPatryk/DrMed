@@ -26,7 +26,8 @@ public class OrderMapper {
                 order.getCode(),
                 visitMapper.mapToVisitHibernate(order.getVisit()),
                 orderedTestMapper.mapToOrderedTestHibernateList(order.getOrderedTests()),
-                order.getOrderResultStatus()
+                order.getOrderResultStatus(),
+                null
         );
     }
 

@@ -26,7 +26,8 @@ public class DoctorMapper {
                 doctor.getLastName(),
                 visitMapper.mapToVisitHibernateList(doctor.getVisitList()),
                 doctor.getDoctorStatus(),
-                doctor.getEmail()
+                doctor.getEmail(),
+                null
         );
     }
 

@@ -1,5 +1,6 @@
 package com.drmed.base.doctor.repository;
 
+import com.drmed.api.trello.repository.board.TrelloBoardIdHibernate;
 import com.drmed.base.additional.statuses.ActivityStatus;
 import com.drmed.base.visit.repository.VisitHibernate;
 import com.sun.istack.NotNull;
@@ -46,4 +47,8 @@ public class DoctorHibernate {
 
     @Column(name = "EMAIL")
     private String email;
+
+    @OneToOne(mappedBy = "doctor", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private TrelloBoardIdHibernate trelloBoard;
 }

@@ -67,6 +67,14 @@ public class TrelloClient {
         restTemplate.delete(url);
     }
 
+    public void deleteBoard(String boardId) {
+        URI url = UriComponentsBuilder.fromHttpUrl(trelloConfig.getTrelloApiEndpoint() + "/boards/" + boardId)
+                .queryParam("key", trelloConfig.getTrelloAppKey())
+                .queryParam("token", trelloConfig.getTrelloToken())
+                .build().encode().toUri();
+        restTemplate.delete(url);
+    }
+
     public TrelloListDto[] getAllListsOnBoard(String boardId) {
         URI url = UriComponentsBuilder.fromHttpUrl(trelloConfig.getTrelloApiEndpoint() + "/boards/" + boardId + "/lists/")
                 .queryParam("key", trelloConfig.getTrelloAppKey())

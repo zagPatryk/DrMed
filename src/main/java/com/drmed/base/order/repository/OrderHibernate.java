@@ -1,5 +1,6 @@
 package com.drmed.base.order.repository;
 
+import com.drmed.api.trello.repository.card.TrelloCardIdHibernate;
 import com.drmed.base.additional.statuses.ResultStatus;
 import com.drmed.base.orderedTest.repository.OrderedTestHibernate;
 import com.drmed.base.visit.repository.VisitHibernate;
@@ -39,4 +40,8 @@ public class OrderHibernate {
     @Enumerated(EnumType.STRING)
     @Column(name = "ORDER_STATUS")
     private ResultStatus orderResultStatus;
+
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private TrelloCardIdHibernate trelloCard;
 }
