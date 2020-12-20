@@ -27,23 +27,27 @@ public class DoctorService {
     private VisitService visitService;
 
     public DoctorDto addNewDoctor(NewDoctorDto newDoctorDto) {
-        Doctor doctor = new Doctor();
-        doctor.setCode(newDoctorDto.getCode());
-        doctor.setFirstName(newDoctorDto.getFirstName());
-        doctor.setLastName(newDoctorDto.getLastName());
-        doctor.setEmail(newDoctorDto.getEmail());
-        doctor.setDoctorStatus(ActivityStatus.ACTIVE);
-//        createTrelloBoardForDoctor();
+        Doctor doctor = new Doctor.DoctorBuilder()
+                .setCode(newDoctorDto.getCode())
+                .setFirstName(newDoctorDto.getFirstName())
+                .setLastName(newDoctorDto.getLastName())
+                .setEmail(newDoctorDto.getEmail())
+                .setDoctorStatus(ActivityStatus.ACTIVE)
+                .build();
         return doctorMapper.mapToDoctorDto(doctorRepository.saveDoctor(doctor));
     }
 
     public DoctorDto updateDoctor(DoctorDto doctorDto) throws DoctorNotFoundException, VisitNotFoundException {
-        Doctor doctor = doctorRepository.getDoctorById(doctorDto.getId());
-        doctor.setCode(doctorDto.getCode());
-        doctor.setFirstName(doctorDto.getFirstName());
-        doctor.setLastName(doctorDto.getLastName());
-        doctor.setEmail(doctorDto.getEmail());
-        doctor.setDoctorStatus(doctorDto.getDoctorStatus());
+        Doctor doctorFromBase = doctorRepository.getDoctorById(doctorDto.getId());
+        Doctor doctor = new Doctor.DoctorBuilder()
+                .setId(doctorDto.getId())
+                .setCode(doctorDto.getCode())
+                .setFirstName(doctorDto.getFirstName())
+                .setLastName(doctorDto.getLastName())
+                .setEmail(doctorDto.getEmail())
+                .setDoctorStatus(doctorDto.getDoctorStatus())
+                .setVisitIdList(doctorFromBase.getVisitIdList())
+                .build();
         mapVisitIdsToVisits(doctor);
         return doctorMapper.mapToDoctorDto(doctorRepository.saveDoctor(doctor));
     }

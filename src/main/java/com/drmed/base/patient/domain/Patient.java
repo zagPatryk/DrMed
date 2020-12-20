@@ -39,4 +39,54 @@ public class Patient {
         this.lastName = lastName;
         this.birthDate = birthDate;
     }
+
+    public static class PatientBuilder {
+        private Long id;
+        private String code;
+        private String firstName;
+        private String lastName;
+        private LocalDate birthDate;
+
+        private List<Long> visitIdList = new ArrayList<>();
+        private List<Visit> visitList = new ArrayList<>();
+
+        public PatientBuilder setId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public PatientBuilder setCode(String code) {
+            this.code = code;
+            return this;
+        }
+
+        public PatientBuilder setFirstName(String firstName) {
+            this.firstName = firstName;
+            return this;
+        }
+
+        public PatientBuilder setLastName(String lastName) {
+            this.lastName = lastName;
+            return this;
+        }
+
+        public PatientBuilder setBirthDate(LocalDate birthDate) {
+            this.birthDate = birthDate;
+            return this;
+        }
+
+        public PatientBuilder setVisitIdList(List<Long> visitIdList) {
+            this.visitIdList = visitIdList;
+            return this;
+        }
+
+        public PatientBuilder setVisitList(List<Visit> visitList) {
+            this.visitList = visitList;
+            return this;
+        }
+
+        public Patient build() {
+            return new Patient(id, code, firstName, lastName, birthDate, visitIdList, visitList);
+        }
+    }
 }

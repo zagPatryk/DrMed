@@ -1,7 +1,6 @@
 package com.drmed.base.patient.mapper;
 
 import com.drmed.base.patient.domain.Patient;
-import com.drmed.base.patient.dto.NewPatientDto;
 import com.drmed.base.patient.dto.PatientDto;
 import com.drmed.base.patient.dto.PatientInfoDto;
 import com.drmed.base.patient.repository.PatientHibernate;
@@ -57,15 +56,6 @@ public class PatientMapper {
                 patient.getLastName(),
                 patient.getBirthDate(),
                 visitMapper.mapToVisitInfoDtoList(patient.getVisitList())
-        );
-    }
-
-    public Patient mapToPatient(NewPatientDto newPatientDto) {
-        return new Patient(
-                newPatientDto.getCode(),
-                newPatientDto.getFirstName(),
-                newPatientDto.getLastName(),
-                newPatientDto.getBirthDate()
         );
     }
 

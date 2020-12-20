@@ -32,10 +32,11 @@ public class OrderService {
     private VisitService visitService;
 
     public OrderDto addOrderForPatient(NewOrderDto newOrderDto) throws VisitNotFoundException {
-        Order order = new Order();
-        order.setCode(newOrderDto.getCode());
-        order.setVisit(visitService.getVisitById(newOrderDto.getVisitId()));
-        order.setOrderResultStatus(ResultStatus.PENDING);
+        Order order = new Order.OrderBuilder()
+                .setCode(newOrderDto.getCode())
+                .setVisit(visitService.getVisitById(newOrderDto.getVisitId()))
+                .setOrderResultStatus(ResultStatus.PENDING)
+                .build();
         return orderMapper.mapToOrderDto(orderRepository.saveOrder(order));
     }
 

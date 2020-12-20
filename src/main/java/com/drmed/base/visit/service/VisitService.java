@@ -35,6 +35,50 @@ public class VisitService {
     @Autowired
     private OrderService orderService;
 
+    public VisitDto addNewVisit(NewVisitDto newVisitDto) throws DoctorNotFoundException, PatientNotFoundException {
+        Visit visit = new Visit.VisitBuilder()
+                .setCode(newVisitDto.getCode())
+                .setDateOfVisit(newVisitDto.getDateOfVisit())
+                .setPatient(patientService.getPatientById(newVisitDto.getPatientId()))
+                .setDoctor(doctorService.getDoctorById(newVisitDto.getDoctorId()))
+                .build();
+        return visitMapper.mapToVisitDto(visitRepository.saveVisit(visit));
+    }
+
+    //    private Long id;
+    //    private String code;
+    //    private LocalDate dateOfVisit;
+    //    private Patient patient;
+    //    private Doctor doctor;
+    //
+    //    private List<Long> orderIdsList;
+    //    private List<Order> orderList;
+
+    public VisitDto updateVisit(VisitDto visitDto) throws DoctorNotFoundException, PatientNotFoundException, OrderNotFoundException {
+        Visit visit = new Visit.VisitBuilder()
+                .setCode(visitDto.getCode())
+                .setDateOfVisit(visitDto.getDateOfVisit())
+                .setPatient(patientService.getPatientById(visitDto.getPatient().getId()))
+                .setDoctor(doctorService.getDoctorById(visitDto.getDoctor().getId()))
+                .setOrderIdsList(visitDto.getOrderList().stream().map(OrderInfoDto::getId).collect(Collectors.toList()))
+                .build();
+        mapVisitIdsToVisit(visit);
+
+        // update doctor list...
+        // update patient list....
+        // update order list.....
+
+        return visitMapper.mapToVisitDto(visitRepository.saveVisit(visit));
+    }
+
+    private void mapVisitIdsToVisit(Visit visit) throws OrderNotFoundException {
+        List<Order> orderList = new ArrayList<>();
+        for (Long orderId : visit.getOrderIdsList()) {
+            orderList.add(orderService.getOrderById(orderId));
+        }
+        visit.setOrderList(orderList);
+    }
+
     public Visit getVisitById(Long visitId) throws VisitNotFoundException {
         return visitRepository.getVisitById(visitId);
     }
@@ -49,38 +93,5 @@ public class VisitService {
 
     public List<VisitInfoDto> getVisitsByCodeContains(String code) {
         return visitMapper.mapToVisitInfoDtoList(visitRepository.getAllByCodeContains(code));
-    }
-
-    public VisitDto addNewVisit(NewVisitDto newVisitDto) throws DoctorNotFoundException, PatientNotFoundException {
-        Visit visit = new Visit();
-        visit.setCode(newVisitDto.getCode());
-        visit.setDateOfVisit(newVisitDto.getDateOfVisit());
-        visit.setDoctor(doctorService.getDoctorById(newVisitDto.getDoctorId()));
-        visit.setPatient(patientService.getPatientById(newVisitDto.getPatientId()));
-        return visitMapper.mapToVisitDto(visitRepository.saveVisit(visit));
-    }
-
-    public VisitDto updateVisit(VisitDto visitDto) throws DoctorNotFoundException, PatientNotFoundException, OrderNotFoundException {
-        Visit visit = new Visit();
-        visit.setId(visit.getId());
-        visit.setCode(visit.getCode());
-        visit.setDateOfVisit(visit.getDateOfVisit());
-        visit.setDoctor(doctorService.getDoctorById(visitDto.getDoctor().getId()));
-        // update doctor list...
-        visit.setPatient(patientService.getPatientById(visitDto.getPatient().getId()));
-        // update patient list....
-        visit.setOrderIdsList(visitDto.getOrderList().stream().map(OrderInfoDto::getId).collect(Collectors.toList()));
-        mapVisitIdsToVisit(visit);
-        // update order list.....
-        return visitMapper.mapToVisitDto(visitRepository.saveVisit(visit));
-    }
-
-    private List<Order> mapVisitIdsToVisit(Visit visit) throws OrderNotFoundException {
-        List<Order> orderList = new ArrayList<>();
-        for (Long orderId : visit.getOrderIdsList()) {
-            orderList.add(orderService.getOrderById(orderId));
-        }
-        visit.setOrderList(orderList);
-        return orderList;
     }
 }

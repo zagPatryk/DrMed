@@ -27,18 +27,6 @@ public class OrderedTestService {
     @Autowired
     private TestService testService;
 
-    public List<OrderedTestDto> getAllOrderedTestsFromOrder(Long orderId) {
-        return orderedTestMapper.mapToOrderedTestDtoList(orderedTestRepository.getAllOrderedTestFromOrder(orderId));
-    }
-
-    public OrderedTestDto getOrderedTestDtoById(Long orderedTestId) throws OrderedTestNotFoundException {
-        return orderedTestMapper.mapToOrderedTestDto(orderedTestRepository.getOrderedTestById(orderedTestId));
-    }
-
-    public OrderedTest getOrderedTestById(Long orderedTestId) throws OrderedTestNotFoundException {
-        return orderedTestRepository.getOrderedTestById(orderedTestId);
-    }
-
     public OrderedTestDto addOrderedTestToOrder(Long orderId, Long testId) throws TestNotFoundException, OrderNotFoundException, OrderedTestNotFoundException {
         OrderedTest orderedTest = new OrderedTest();
         orderedTest.setOrderId(orderId);
@@ -106,30 +94,16 @@ public class OrderedTestService {
         return orderedTest;
     }
 
-    //    public OrderedTest saveOrderedTest(OrderedTest orderedTest)
-//            throws OrderedTestNotFoundException, TestNotFoundException, OrderNotFoundException {
-//        OrderedTest orderedTestTemporary;
-//        if(orderedTest.getId() != null) {
-//            orderedTestTemporary = orderedTestRepository.getOrderedTestDtoById(orderedTest.getId());
-//        } else {
-//            orderedTestTemporary = new OrderedTest();
-//        }
-//        orderedTestTemporary.setOrderId(orderedTest.getOrderId());
-//
-//        if(orderedTest.getOrder() != null) {
-//            orderedTestTemporary.setOrder(orderedTest.getOrder());
-//        } else {
-//            mapOrderIdToOrder(orderedTestTemporary);
-//        }
-//
-//        if(orderedTest.getTest() != null) {
-//            orderedTestTemporary.setTest(orderedTest.getTest());
-//        } else {
-//            mapTestIdToTest(orderedTestTemporary);
-//        }
-//        orderedTestTemporary.setResults(orderedTest.getResults());
-//        orderedTestTemporary.setTestResultStatus(orderedTest.getTestResultStatus());
-//        return orderedTestRepository.saveOrderedTest(orderedTestTemporary);
-//    }
+    public List<OrderedTestDto> getAllOrderedTestsFromOrder(Long orderId) {
+        return orderedTestMapper.mapToOrderedTestDtoList(orderedTestRepository.getAllOrderedTestFromOrder(orderId));
+    }
+
+    public OrderedTestDto getOrderedTestDtoById(Long orderedTestId) throws OrderedTestNotFoundException {
+        return orderedTestMapper.mapToOrderedTestDto(orderedTestRepository.getOrderedTestById(orderedTestId));
+    }
+
+    public OrderedTest getOrderedTestById(Long orderedTestId) throws OrderedTestNotFoundException {
+        return orderedTestRepository.getOrderedTestById(orderedTestId);
+    }
 }
 

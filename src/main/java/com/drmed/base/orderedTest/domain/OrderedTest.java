@@ -21,14 +21,6 @@ public class OrderedTest {
     private ResultStatus testResultStatus = ResultStatus.PENDING;
     private String results;
 
-    public OrderedTest(Long id, Long orderId, Long testId, ResultStatus testResultStatus, String results) {
-        this.id = id;
-        this.orderId = orderId;
-        this.testId = testId;
-        this.testResultStatus = testResultStatus;
-        this.results = results;
-    }
-
     public OrderedTest(Long id, Long orderId, Test test, ResultStatus testResultStatus, String results) {
         this.id = id;
         this.orderId = orderId;

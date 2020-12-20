@@ -26,6 +26,36 @@ public class WorkstationService {
     @Autowired
     private TestService testService;
 
+    public WorkstationDto addWorkstation(NewWorkstationDto newWorkstationDto) {
+        Workstation workstation = new Workstation.WorkstationBuilder()
+                .setCode(newWorkstationDto.getCode())
+                .setName(newWorkstationDto.getName())
+                .setWorkstationStatus(ActivityStatus.ACTIVE).build();
+        return workstationMapper.mapToWorkstationDto(workstationRepository.saveWorkstation(workstation));
+    }
+
+    public WorkstationDto updateWorkstation(WorkstationDto workstationDto) throws WorkstationNotFoundException, TestNotFoundException {
+        Workstation workstationFromBase = workstationRepository.getWorkstationById(workstationDto.getId());
+        Workstation workstation = new Workstation.WorkstationBuilder()
+                .setId(workstationDto.getId())
+                .setCode(workstationDto.getCode())
+                .setName(workstationDto.getName())
+                .setAvailableTestsIds(workstationFromBase.getAvailableTestsIds())
+                .setWorkstationStatus(workstationDto.getActivityStatus())
+                .build();
+        mapTestIdsToTestList(workstation);
+        return workstationMapper.mapToWorkstationDto(workstationRepository.saveWorkstation(workstation));
+    }
+
+    private void mapTestIdsToTestList(Workstation workstation) throws TestNotFoundException {
+        List<Test> testList = new ArrayList<>();
+        for (Long testId : workstation.getAvailableTestsIds()) {
+            Test test = testService.getTestById(testId);
+            testList.add(test);
+        }
+        workstation.setAvailableTests(testList);
+    }
+
     public Workstation getWorkstationById(Long workstationId) throws WorkstationNotFoundException {
         return workstationRepository.getWorkstationById(workstationId);
     }
@@ -44,30 +74,5 @@ public class WorkstationService {
 
     public List<WorkstationInfoDto> getAllWorkstation() {
         return workstationMapper.mapToWorkstationInfoDtoList(workstationRepository.getAllWorkstations());
-    }
-
-    public WorkstationDto addWorkstation(NewWorkstationDto newWorkstationDto) {
-        Workstation workstation = new Workstation();
-        workstation.setCode(newWorkstationDto.getCode());
-        workstation.setName(newWorkstationDto.getName());
-        workstation.setWorkstationStatus(ActivityStatus.ACTIVE);
-        return workstationMapper.mapToWorkstationDto(workstationRepository.saveWorkstation(workstation));
-    }
-
-    public WorkstationDto updateWorkstation(WorkstationDto workstationDto) throws WorkstationNotFoundException, TestNotFoundException {
-        Workstation workstation = workstationRepository.getWorkstationById(workstationDto.getId());
-        workstation.setCode(workstationDto.getCode());
-        workstation.setName(workstationDto.getName());
-        mapTestIdsToTestList(workstation);
-        return workstationMapper.mapToWorkstationDto(workstationRepository.saveWorkstation(workstation));
-    }
-
-    private void mapTestIdsToTestList(Workstation workstation) throws TestNotFoundException {
-        List<Test> testList = new ArrayList<>();
-        for (Long testId : workstation.getAvailableTestsIds()) {
-            Test test = testService.getTestById(testId);
-            testList.add(test);
-        }
-        workstation.setAvailableTests(testList);
     }
 }

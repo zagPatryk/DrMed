@@ -27,4 +27,41 @@ public class Order {
         this.orderedTests = orderedTests;
         this.orderResultStatus = orderResultStatus;
     }
+
+    public static class OrderBuilder {
+        private Long id;
+        private String code;
+        private Visit visit;
+        private List<OrderedTest> orderedTests = new ArrayList<>();
+        private ResultStatus orderResultStatus;
+
+        public OrderBuilder setId(Long id) {
+            this.id = id;
+            return this;
+        }
+
+        public OrderBuilder setCode(String code) {
+            this.code = code;
+            return this;
+        }
+
+        public OrderBuilder setVisit(Visit visit) {
+            this.visit = visit;
+            return this;
+        }
+
+        public OrderBuilder setOrderedTests(List<OrderedTest> orderedTests) {
+            this.orderedTests = orderedTests;
+            return this;
+        }
+
+        public OrderBuilder setOrderResultStatus(ResultStatus orderResultStatus) {
+            this.orderResultStatus = orderResultStatus;
+            return this;
+        }
+
+        public Order build() {
+            return new Order(id, code, visit, orderedTests, orderResultStatus);
+        }
+    }
 }
