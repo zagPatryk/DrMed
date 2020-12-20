@@ -1,5 +1,6 @@
-package com.drmed.base.order.dto;
+package com.drmed.api.trello.dto;
 
+import com.drmed.base.order.dto.OrderInfoDto;
 import com.drmed.base.orderedTest.dto.OrderedTestInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

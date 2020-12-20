@@ -4,10 +4,7 @@ import com.drmed.base.additional.exceptions.DataNotFoundInDatabase;
 import com.drmed.base.orderedTest.dto.OrderedTestDto;
 import com.drmed.base.orderedTest.service.OrderedTestService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,22 +14,32 @@ public class OrderedTestController {
     @Autowired
     private OrderedTestService orderedTestService;
 
-    @RequestMapping(method = RequestMethod.GET, value = "getAllOrderedTestFromOrder")
+    @GetMapping(value = "getAllOrderedTestFromOrder")
     public List<OrderedTestDto> getAllOrderedTestFromOrder(@RequestParam Long orderId) {
         return orderedTestService.getAllOrderedTestsFromOrder(orderId);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "getOrderedTestById")
+    @GetMapping(value = "getOrderedTestById")
     public OrderedTestDto getOrderedTestById(@RequestParam Long orderedTestId)  throws DataNotFoundInDatabase {
-        return orderedTestService.getOrderedTestById(orderedTestId);
+        return orderedTestService.getOrderedTestDtoById(orderedTestId);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "resultOrderedTest")
+    @PostMapping(value = "addOrderedTestToOrder")
+    public OrderedTestDto addOrderedTestToOrder(@RequestParam Long orderId, @RequestParam Long testId) throws DataNotFoundInDatabase {
+        return orderedTestService.addOrderedTestToOrder(orderId, testId);
+    }
+
+    @PostMapping(value = "addManyOrderedTestsToOrder")
+    public List<OrderedTestDto> addManyOrderedTestsToOrder(@RequestParam Long orderId, @RequestBody List<Long> testIdsList) throws DataNotFoundInDatabase {
+        return orderedTestService.addManyOrderedTestsToOrder(orderId, testIdsList);
+    }
+
+    @PutMapping(value = "resultOrderedTest")
     public OrderedTestDto resultOrderedTest(@RequestParam Long orderedTestId, @RequestParam String results) throws DataNotFoundInDatabase {
         return orderedTestService.resultOrderedTest(orderedTestId, results);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "cancelOrderedTest")
+    @PutMapping(value = "cancelOrderedTest")
     public OrderedTestDto cancelOrderedTest(@RequestParam Long orderedTestId) throws DataNotFoundInDatabase {
         return orderedTestService.cancelOrderedTest(orderedTestId);
     }

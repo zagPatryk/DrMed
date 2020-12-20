@@ -21,7 +21,6 @@ public class Doctor {
     private String lastName;
     private ActivityStatus doctorStatus;
     private String email;
-    private String trelloBoardId;
 
     private List<Long> visitIdList = new ArrayList<>();
     private List<Visit> visitList = new ArrayList<>();
@@ -44,7 +43,7 @@ public class Doctor {
     }
 
     public Doctor(Long id, String code, String firstName, String lastName, ActivityStatus doctorStatus,
-                  String email, List<Long> visitIdList, String trelloBoardId) {
+                  String email, List<Long> visitIdList) {
         this.id = id;
         this.code = code;
         this.firstName = firstName;
@@ -52,6 +51,5 @@ public class Doctor {
         this.doctorStatus = doctorStatus;
         this.email = email;
         this.visitIdList = visitIdList;
-        this.trelloBoardId = trelloBoardId;
     }
 }

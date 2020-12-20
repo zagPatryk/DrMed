@@ -17,9 +17,8 @@ public class OrderedTestRepository {
     private OrderedTestMapper orderedTestMapper;
 
     public OrderedTest getOrderedTestById(Long id) throws OrderedTestNotFoundException {
-        return orderedTestMapper.mapToOrderedTest(
-                orderedTestCrudRepository.findById(id).orElseThrow(OrderedTestNotFoundException::new)
-        );
+        OrderedTestHibernate orderHibernate = orderedTestCrudRepository.findById(id).orElseThrow(OrderedTestNotFoundException::new);
+        return orderedTestMapper.mapToOrderedTest(orderHibernate);
     }
 
     public List<OrderedTest> getAllOrderedTestFromOrder(Long orderId) {
@@ -30,7 +29,7 @@ public class OrderedTestRepository {
 
     public OrderedTest saveOrderedTest(OrderedTest orderedTest) {
         OrderedTestHibernate orderedTestHibernate = orderedTestMapper.mapToOrderedTestHibernate(orderedTest);
-        orderedTestCrudRepository.save(orderedTestHibernate);
+        orderedTestHibernate = orderedTestCrudRepository.save(orderedTestHibernate);
         return orderedTestMapper.mapToOrderedTest(orderedTestHibernate);
     }
 }

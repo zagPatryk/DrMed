@@ -9,7 +9,7 @@ import com.drmed.api.trello.dto.TrelloCardDto;
 import com.drmed.api.trello.response.CreatedTrelloBoardDto;
 import com.drmed.api.trello.response.CreatedTrelloCardDto;
 import com.drmed.api.trello.service.TrelloService;
-import com.drmed.base.order.dto.OrderInfoTrelloDto;
+import com.drmed.api.trello.dto.OrderInfoTrelloDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

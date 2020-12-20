@@ -46,7 +46,4 @@ public class DoctorHibernate {
 
     @Column(name = "EMAIL")
     private String email;
-
-    @Column(name = "TRELLO_BOARD_ID")
-    private String trelloBoardId;
 }

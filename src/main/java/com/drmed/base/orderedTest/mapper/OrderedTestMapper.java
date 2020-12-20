@@ -53,7 +53,11 @@ public class OrderedTestMapper {
     public OrderedTestDto mapToOrderedTestDto(OrderedTest orderedTest) {
         return new OrderedTestDto(
                 orderedTest.getId(),
-                orderedTest.getOrderId(),
+                orderedTest.getOrderId() != null
+                        ? orderedTest.getOrderId()
+                        : orderedTest.getOrder() != null
+                            ? orderedTest.getOrder().getId()
+                            : null,
                 testMapper.mapToTestDto(orderedTest.getTest()),
                 orderedTest.getResults()
         );

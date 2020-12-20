@@ -26,34 +26,6 @@ public class DoctorService {
     @Autowired
     private VisitService visitService;
 
-    public DoctorDto getDoctorDtoById(Long doctorId) throws DoctorNotFoundException {
-        return doctorMapper.mapToDoctorDto(doctorRepository.getDoctorById(doctorId));
-    }
-
-    public Doctor getDoctorById(Long doctorId) throws DoctorNotFoundException {
-        return doctorRepository.getDoctorById(doctorId);
-    }
-
-    public List<DoctorInfoDto> getDoctorByPrimaryIdContains(String code) {
-        return doctorMapper.mapToDoctorInfoDtoList(doctorRepository.getDoctorByCodeContains(code));
-    }
-
-    public List<DoctorInfoDto> getDoctorByFirstNameContains(String firstName) {
-        return doctorMapper.mapToDoctorInfoDtoList(doctorRepository.getDoctorByFirstNameContains(firstName));
-    }
-
-    public List<DoctorInfoDto> getDoctorByLastNameContains(String lastName) {
-        return doctorMapper.mapToDoctorInfoDtoList(doctorRepository.getDoctorByLastNameContains(lastName));
-    }
-
-    public List<DoctorInfoDto> getDoctorByFirstNameContainsAndLastNameContaining(String firstName, String lastName) {
-        return doctorMapper.mapToDoctorInfoDtoList(doctorRepository.getDoctorByFirstNameContainsAndLastNameContaining(firstName, lastName));
-    }
-
-    public List<DoctorInfoDto> getAllDoctors() {
-        return doctorMapper.mapToDoctorInfoDtoList(doctorRepository.getAllDoctors());
-    }
-
     public DoctorDto addNewDoctor(NewDoctorDto newDoctorDto) {
         Doctor doctor = new Doctor();
         doctor.setCode(newDoctorDto.getCode());
@@ -98,6 +70,34 @@ public class DoctorService {
             visitList.add(visit);
         }
         doctor.setVisitList(visitList);
+    }
+
+    public DoctorDto getDoctorDtoById(Long doctorId) throws DoctorNotFoundException {
+        return doctorMapper.mapToDoctorDto(doctorRepository.getDoctorById(doctorId));
+    }
+
+    public Doctor getDoctorById(Long doctorId) throws DoctorNotFoundException {
+        return doctorRepository.getDoctorById(doctorId);
+    }
+
+    public List<DoctorInfoDto> getDoctorByPrimaryIdContains(String code) {
+        return doctorMapper.mapToDoctorInfoDtoList(doctorRepository.getDoctorByCodeContains(code));
+    }
+
+    public List<DoctorInfoDto> getDoctorByFirstNameContains(String firstName) {
+        return doctorMapper.mapToDoctorInfoDtoList(doctorRepository.getDoctorByFirstNameContains(firstName));
+    }
+
+    public List<DoctorInfoDto> getDoctorByLastNameContains(String lastName) {
+        return doctorMapper.mapToDoctorInfoDtoList(doctorRepository.getDoctorByLastNameContains(lastName));
+    }
+
+    public List<DoctorInfoDto> getDoctorByFirstNameContainsAndLastNameContaining(String firstName, String lastName) {
+        return doctorMapper.mapToDoctorInfoDtoList(doctorRepository.getDoctorByFirstNameContainsAndLastNameContaining(firstName, lastName));
+    }
+
+    public List<DoctorInfoDto> getAllDoctors() {
+        return doctorMapper.mapToDoctorInfoDtoList(doctorRepository.getAllDoctors());
     }
 }
 

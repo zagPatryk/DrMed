@@ -4,7 +4,7 @@ import com.drmed.api.trello.exception.trelloException.TrelloListNotFoundExceptio
 import com.drmed.base.additional.statuses.ResultStatus;
 import com.drmed.base.doctor.dto.DoctorInfoDto;
 import com.drmed.base.order.dto.OrderInfoDto;
-import com.drmed.base.order.dto.OrderInfoTrelloDto;
+import com.drmed.api.trello.dto.OrderInfoTrelloDto;
 import com.drmed.base.orderedTest.dto.OrderedTestInfoDto;
 import com.drmed.api.trello.client.TrelloClient;
 import com.drmed.api.trello.dto.TrelloCardDto;

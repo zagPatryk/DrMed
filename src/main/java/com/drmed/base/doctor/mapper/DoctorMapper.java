@@ -26,8 +26,7 @@ public class DoctorMapper {
                 doctor.getLastName(),
                 visitMapper.mapToVisitHibernateList(doctor.getVisitList()),
                 doctor.getDoctorStatus(),
-                doctor.getEmail(),
-                doctor.getTrelloBoardId()
+                doctor.getEmail()
         );
     }
 
@@ -39,8 +38,7 @@ public class DoctorMapper {
                 doctorHibernate.getLastName(),
                 doctorHibernate.getDoctorStatus(),
                 doctorHibernate.getEmail(),
-                doctorHibernate.getVisitHibernateList().stream().map(VisitHibernate::getId).collect(Collectors.toList()),
-                doctorHibernate.getTrelloBoardId()
+                doctorHibernate.getVisitHibernateList().stream().map(VisitHibernate::getId).collect(Collectors.toList())
         );
     }
 

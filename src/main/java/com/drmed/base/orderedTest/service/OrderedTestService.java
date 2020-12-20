@@ -31,22 +31,27 @@ public class OrderedTestService {
         return orderedTestMapper.mapToOrderedTestDtoList(orderedTestRepository.getAllOrderedTestFromOrder(orderId));
     }
 
-    public OrderedTestDto getOrderedTestById(Long orderedTestId) throws OrderedTestNotFoundException {
+    public OrderedTestDto getOrderedTestDtoById(Long orderedTestId) throws OrderedTestNotFoundException {
         return orderedTestMapper.mapToOrderedTestDto(orderedTestRepository.getOrderedTestById(orderedTestId));
     }
 
-    public OrderedTestDto addOrderedTestToOrder(Long orderId, Long testId) throws TestNotFoundException, OrderNotFoundException {
+    public OrderedTest getOrderedTestById(Long orderedTestId) throws OrderedTestNotFoundException {
+        return orderedTestRepository.getOrderedTestById(orderedTestId);
+    }
+
+    public OrderedTestDto addOrderedTestToOrder(Long orderId, Long testId) throws TestNotFoundException, OrderNotFoundException, OrderedTestNotFoundException {
         OrderedTest orderedTest = new OrderedTest();
         orderedTest.setOrderId(orderId);
         orderedTest.setTestId(testId);
-        mapTestIdToTest(orderedTest);
-        mapOrderIdToOrder(orderedTest);
+        orderedTest = mapTestIdToTest(orderedTest);
+        orderedTest = mapOrderIdToOrder(orderedTest);
         orderedTest = orderedTestRepository.saveOrderedTest(orderedTest);
+        orderedTest = mapOrderIdToOrder(orderedTest);
         orderService.checkOrderStatus(orderId);
         return orderedTestMapper.mapToOrderedTestDto(orderedTest);
     }
 
-    public List<OrderedTestDto> addManyOrderedTestsToOrder(Long orderId, List<Long> testIdsList) throws TestNotFoundException, OrderNotFoundException {
+    public List<OrderedTestDto> addManyOrderedTestsToOrder(Long orderId, List<Long> testIdsList) throws TestNotFoundException, OrderNotFoundException, OrderedTestNotFoundException {
         List<OrderedTestDto> orderedTestDtoList = new ArrayList<>();
         for (Long testId : testIdsList) {
             orderedTestDtoList.add(addOrderedTestToOrder(orderId, testId));
@@ -58,28 +63,32 @@ public class OrderedTestService {
         OrderedTest orderedTest = orderedTestRepository.getOrderedTestById(orderedTestId);
         setResultsAndStatus(results, orderedTest);
         mapOrderIdToOrder(orderedTest);
-        mapTestIdToTest(orderedTest);
         orderedTestRepository.saveOrderedTest(orderedTest);
         orderService.checkOrderStatus(orderedTest.getOrderId());
         return orderedTestMapper.mapToOrderedTestDto(orderedTest);
     }
 
-    public OrderedTestDto cancelOrderedTest(Long orderedTestId) throws OrderedTestNotFoundException {
+    public OrderedTestDto cancelOrderedTest(Long orderedTestId) throws OrderedTestNotFoundException, OrderNotFoundException, TestNotFoundException {
         OrderedTest orderedTest = orderedTestRepository.getOrderedTestById(orderedTestId);
+        mapOrderIdToOrder(orderedTest);
         if (orderedTest.getTestResultStatus() == ResultStatus.FINISHED ||
                 orderedTest.getTestResultStatus() == ResultStatus.CORRECTED) {
             orderedTest.setResults("Test cancelled. Previously reported as: " + orderedTest.getResults());
-        } else {
+            orderedTest.setTestResultStatus(ResultStatus.CANCELLED);
+        } else if (orderedTest.getTestResultStatus() != ResultStatus.CANCELLED) {
             orderedTest.setResults("Test cancelled.");
+            orderedTest.setTestResultStatus(ResultStatus.CANCELLED);
         }
-        return orderedTestMapper.mapToOrderedTestDto(orderedTestRepository.saveOrderedTest(orderedTest));
+        orderedTestRepository.saveOrderedTest(orderedTest);
+        orderService.checkOrderStatus(orderedTest.getOrder() != null ? orderedTest.getOrder().getId() : orderedTestId);
+        return orderedTestMapper.mapToOrderedTestDto(orderedTest);
     }
 
     public void setResultsAndStatus(String results, OrderedTest orderedTest) {
-        if (orderedTest.getResults().equals("") && !results.equals("")) {
+        if (orderedTest.getResults() == null && !results.equals("")) {
             orderedTest.setResults(results);
             orderedTest.setTestResultStatus(ResultStatus.FINISHED);
-        } else if(!orderedTest.getResults().equals("") && !results.equals("")) {
+        } else if(orderedTest.getResults() != null && !results.equals("")) {
             orderedTest.setResults(results + ". Previously reported as: " + orderedTest.getResults());
             orderedTest.setTestResultStatus(ResultStatus.CORRECTED);
         } else {
@@ -87,19 +96,21 @@ public class OrderedTestService {
         }
     }
 
-    private void mapTestIdToTest(OrderedTest orderedTest) throws TestNotFoundException {
+    private OrderedTest mapTestIdToTest(OrderedTest orderedTest) throws TestNotFoundException {
         orderedTest.setTest(testService.getTestById(orderedTest.getTestId()));
+        return orderedTest;
     }
 
-    private void mapOrderIdToOrder(OrderedTest orderedTest) throws OrderNotFoundException {
+    private OrderedTest mapOrderIdToOrder(OrderedTest orderedTest) throws OrderNotFoundException {
         orderedTest.setOrder(orderService.getOrderById(orderedTest.getOrderId()));
+        return orderedTest;
     }
 
     //    public OrderedTest saveOrderedTest(OrderedTest orderedTest)
 //            throws OrderedTestNotFoundException, TestNotFoundException, OrderNotFoundException {
 //        OrderedTest orderedTestTemporary;
 //        if(orderedTest.getId() != null) {
-//            orderedTestTemporary = orderedTestRepository.getOrderedTestById(orderedTest.getId());
+//            orderedTestTemporary = orderedTestRepository.getOrderedTestDtoById(orderedTest.getId());
 //        } else {
 //            orderedTestTemporary = new OrderedTest();
 //        }

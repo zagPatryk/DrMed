@@ -3,7 +3,6 @@ package com.drmed.base.order.mapper;
 import com.drmed.base.order.domain.Order;
 import com.drmed.base.order.dto.OrderDto;
 import com.drmed.base.order.dto.OrderInfoDto;
-import com.drmed.base.order.dto.OrderInfoTrelloDto;
 import com.drmed.base.order.repository.OrderHibernate;
 import com.drmed.base.orderedTest.mapper.OrderedTestMapper;
 import com.drmed.base.visit.mapper.VisitMapper;
@@ -27,8 +26,7 @@ public class OrderMapper {
                 order.getCode(),
                 visitMapper.mapToVisitHibernate(order.getVisit()),
                 orderedTestMapper.mapToOrderedTestHibernateList(order.getOrderedTests()),
-                order.getOrderResultStatus(),
-                ""
+                order.getOrderResultStatus()
         );
     }
 
@@ -38,8 +36,7 @@ public class OrderMapper {
                 orderHibernate.getCode(),
                 visitMapper.mapToVisit(orderHibernate.getVisit()),
                 orderedTestMapper.mapToOrderedTestList(orderHibernate.getOrderedTests()),
-                orderHibernate.getOrderResultStatus(),
-                orderHibernate.getTrelloOrderCardId()
+                orderHibernate.getOrderResultStatus()
         );
     }
 
@@ -48,7 +45,8 @@ public class OrderMapper {
                 order.getId(),
                 order.getCode(),
                 visitMapper.mapToVisitInfoDto(order.getVisit()),
-                orderedTestMapper.mapToOrderedTestDtoList(order.getOrderedTests())
+                order.getOrderedTests().isEmpty() ? new ArrayList<>()
+                        : orderedTestMapper.mapToOrderedTestDtoList(order.getOrderedTests())
         );
     }
 
@@ -57,14 +55,6 @@ public class OrderMapper {
                 order.getId(),
                 order.getCode(),
                 orderedTestMapper.mapToOrderedTestInfoDtoList(order.getOrderedTests())
-        );
-    }
-
-    public OrderInfoTrelloDto mapToOrderInfoTrelloDto(Order order) {
-        return new OrderInfoTrelloDto(
-                order.getCode(),
-                orderedTestMapper.mapToOrderedTestInfoDtoList(order.getOrderedTests()),
-                order.getTrelloOrderCardId()
         );
     }
 

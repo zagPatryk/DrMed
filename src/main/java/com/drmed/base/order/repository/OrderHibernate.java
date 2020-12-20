@@ -39,7 +39,4 @@ public class OrderHibernate {
     @Enumerated(EnumType.STRING)
     @Column(name = "ORDER_STATUS")
     private ResultStatus orderResultStatus;
-
-    @Column(name = "TRELLO_ORDER_CARD_ID")
-    private String trelloOrderCardId;
 }

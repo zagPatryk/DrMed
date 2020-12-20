@@ -19,15 +19,12 @@ public class Order {
     private Visit visit;
     private List<OrderedTest> orderedTests = new ArrayList<>();
     private ResultStatus orderResultStatus;
-    private String trelloOrderCardId;
 
-    public Order(Long id, String code, Visit visit, List<OrderedTest> orderedTests, ResultStatus orderResultStatus,
-                 String trelloOrderCardId) {
+    public Order(Long id, String code, Visit visit, List<OrderedTest> orderedTests, ResultStatus orderResultStatus) {
         this.id = id;
         this.code = code;
         this.visit = visit;
         this.orderedTests = orderedTests;
         this.orderResultStatus = orderResultStatus;
-        this.trelloOrderCardId = trelloOrderCardId;
     }
 }
