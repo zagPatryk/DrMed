@@ -71,6 +71,10 @@ class VisitServiceTestSuite {
     }
 
     @Test
+    void updateVisit() {
+    }
+
+    @Test
     void getVisitById() {
     }
 
@@ -80,9 +84,5 @@ class VisitServiceTestSuite {
 
     @Test
     void getVisitsByCodeContains() {
-    }
-
-    @Test
-    void updateVisit() {
     }
 }

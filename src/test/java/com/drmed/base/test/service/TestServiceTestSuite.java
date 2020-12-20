@@ -70,15 +70,11 @@ public class TestServiceTestSuite {
     }
 
     @Test
+    public void updateTest() {
+    }
+
+    @Test
     public void getTestById() {
-        // Given
-
-        // When
-
-        // Then
-
-        // Clean
-
     }
 
     @Test
@@ -91,9 +87,5 @@ public class TestServiceTestSuite {
 
     @Test
     public void getAllTests() {
-    }
-
-    @Test
-    public void updateTest() {
     }
 }

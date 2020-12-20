@@ -44,18 +44,15 @@ public class WorkstationServiceTest {
     }
 
     @Test
+    public void updateWorkstation() {
+    }
+
+    @Test
     public void getWorkstationById() {
     }
 
     @Test
     public void getWorkstationsByCode() {
-        // Given
-
-        // When
-
-        // Then
-
-        // Clean
     }
 
     @Test
@@ -64,9 +61,5 @@ public class WorkstationServiceTest {
 
     @Test
     public void getAllWorkstation() {
-    }
-
-    @Test
-    public void updateWorkstation() {
     }
 }
