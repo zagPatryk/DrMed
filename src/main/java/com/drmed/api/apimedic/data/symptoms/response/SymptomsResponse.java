@@ -1,4 +1,4 @@
-package com.drmed.api.apimedic.symptoms.response;
+package com.drmed.api.apimedic.data.symptoms.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

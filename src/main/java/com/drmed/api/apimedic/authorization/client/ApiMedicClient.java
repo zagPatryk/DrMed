@@ -1,5 +1,6 @@
-package com.drmed.api.apimedic.authorization;
+package com.drmed.api.apimedic.authorization.client;
 
+import com.drmed.api.apimedic.authorization.response.TokenResponse;
 import com.drmed.api.apimedic.config.ApiMedicConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -19,13 +20,13 @@ import java.util.Base64;
 import java.util.Collections;
 
 @Component
-public class ApiMedicAuthorization {
+public class ApiMedicClient {
     @Autowired
     private ApiMedicConfig apiMedicConfig;
     @Autowired
     private RestTemplate restTemplate;
 
-    public TokenDto getToken() throws InvalidKeyException, NoSuchAlgorithmException {
+    public TokenResponse getToken() throws InvalidKeyException, NoSuchAlgorithmException {
         String loginUrl = apiMedicConfig.getApimedicApiEndpoint() + "/login";
         String authToken = apiMedicConfig.getApimedicAppKey() + ":" + createHashedCredentials(loginUrl);
 
@@ -38,7 +39,7 @@ public class ApiMedicAuthorization {
         URI url = UriComponentsBuilder.fromHttpUrl(loginUrl)
                 .build().encode().toUri();
 
-        return restTemplate.exchange(url, HttpMethod.POST, entity, TokenDto.class).getBody();
+        return restTemplate.exchange(url, HttpMethod.POST, entity, TokenResponse.class).getBody();
     }
 
     private String createHashedCredentials(String uri) throws NoSuchAlgorithmException, InvalidKeyException {

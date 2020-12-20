@@ -1,15 +1,13 @@
-package com.drmed.api.apimedic.symptoms.domain;
+package com.drmed.api.apimedic.data.symptoms.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Symptoms {
+public class SymptomsDto {
     private Long id;
     private String name;
 }

@@ -1,4 +1,4 @@
-package com.drmed.api.apimedic.authorization;
+package com.drmed.api.apimedic.authorization.response;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-class TokenDto {
+public class TokenResponse {
     @JsonProperty("Token")
     private String token;
     @JsonProperty("ValidThrough")

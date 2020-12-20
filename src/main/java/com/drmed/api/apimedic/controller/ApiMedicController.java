@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApiMedicController {
 
 //    @GetMapping(value = "getToken")
-//    public TokenDto getToken() throws Exception {
+//    public TokenResponse getToken() throws Exception {
 //        return apiMedicAuthorization.getToken();
 //    }
 }
