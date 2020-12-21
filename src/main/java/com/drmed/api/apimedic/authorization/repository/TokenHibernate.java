@@ -19,7 +19,7 @@ public class TokenHibernate {
     @EqualsAndHashCode.Include
     private Long id;
 
-    @Column(name = "API_MEDIC_TOKEN")
+    @Column(name = "API_MEDIC_TOKEN", length = 860)
     private String apiMedicToken;
 
     @Column(name = "VALID_UNTIL")

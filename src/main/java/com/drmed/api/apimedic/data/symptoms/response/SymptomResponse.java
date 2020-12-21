@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class SymptomsResponse {
+public class SymptomResponse {
     @JsonProperty("id")
     private Long id;
     @JsonProperty("name")

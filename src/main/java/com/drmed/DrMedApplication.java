@@ -10,37 +10,20 @@ public class DrMedApplication {
     }
 }
 
-// czy w serwisach odnosić się do innych serwisów czy reposytoriów?
-// czy rozdzielić mapper ogólny od hibernatowego żeby zablokować klase do pakietu
-// co robić z excepttionami
-// czy vaadin w tym samym czy w osobnym
-// podpowiedź do tego https://sandbox-authservice.priaid.ch/docs.html
 
 /*
 report to obserwerem
 
 przerobić pod ten pattern któy pozwala zachować poprzednie wyniki order albo ordered test
 
-ogarnać elvisa w mapperach
-
-poprawić relacje miedzy encjami żeby się wszystko updejtowało
+ogarnąć exceptiony
 
 gogać płeć i wiek
-
-automatycznu kod wizyty jeżeli nie jest podany
-
-na orderze orderingProvider jako interfejs może i tak można doktorka, albo pacjenta np
-
-wprowadzić interfejs person
-
-https://rapidapi.com/priaid/api/symptom-checker?endpoint=58cfd524e4b0b3d27af3e1c9
-pokarz wszystkie symptomy i wybierz z listy które występują i system pokazuje proponowane diagnozy
 
 dodać przenoszenie karty przy zmianie doktora
 
 ogarnąć metody które są 'wewnętrzne' czy potrzeba zwracać coś i czy muszą mieć dosep do innych klas
 ogarnać poprawne exceptiony żeby dopisywały się dane do logów
-
 
 wykorzystując factory zrobić testy singlowe/grupowe/różne technologie
 obliczanie kosztów pacjenta dekoratorem
@@ -52,8 +35,6 @@ jedno ma się mapować na 400 a drugie nas 500
 
 dodać logi do bazy danych i stworzyć 'MOMa' do sprawdzania ich z poziomu aplikacji
  CQRS pattern - zapisujemy wszystkie komendy - przez to
-
-
 *-*-*-*-*-*-*-*
 
 Linkedin

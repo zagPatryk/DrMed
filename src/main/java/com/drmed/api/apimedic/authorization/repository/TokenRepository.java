@@ -16,10 +16,10 @@ public class TokenRepository {
     @Autowired
     private TokenMapper tokenMapper;
 
-    public Token getTokenFromBase() {
+    public List<Token> getTokenFromBase() {
         List<TokenHibernate> tokenList = new ArrayList<>();
         tokenCrudRepository.findAll().forEach(tokenList::add);
-        return tokenMapper.mapToToken(tokenList.get(0));
+        return tokenMapper.mapToTokenList(tokenList);
     }
 
     public Token saveToken(TokenResponse tokenResponse) {

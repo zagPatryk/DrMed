@@ -155,40 +155,6 @@ class OrderServiceTestSuite {
 
     }
 
-//    @Test
-//    void addTestToOrder() throws WorkstationNotFoundException, DoctorNotFoundException, PatientNotFoundException, VisitNotFoundException, OrderNotFoundException, OrderedTestNotFoundException, TestNotFoundException {
-//        // Given
-//        NewPatientDto newPatientDto = new NewPatientDto();
-//        PatientDto patientDto = patientService.addNewPatient(newPatientDto);
-//
-//        NewDoctorDto newDoctorDto = new NewDoctorDto();
-//        DoctorDto doctorDto = doctorService.addNewDoctor(newDoctorDto);
-//
-//        NewVisitDto newVisitDto = new NewVisitDto("visitCode", LocalDate.of(1999,1,1),
-//                patientDto.getId(), doctorDto.getId());
-//        VisitDto visitDto = visitService.addNewVisit(newVisitDto);
-//
-//        NewWorkstationDto w1 = new NewWorkstationDto();
-//        WorkstationDto w1dto = workstationService.addWorkstation(w1);
-//        List<Long> workstationIdsList = new ArrayList<>();
-//        workstationIdsList.add(w1dto.getId());
-//
-//        NewTestDto t1 = new NewTestDto("testCode1", "testName1", workstationIdsList);
-//        NewTestDto t2 = new NewTestDto("testCode2", "testName2", workstationIdsList);
-//        TestDto t1Dto = testService.addTest(t1);
-//        TestDto t2Dto = testService.addTest(t2);
-//        List<Long> testIdsList = new ArrayList<>();
-//        testIdsList.add(t1Dto.getId());
-//        testIdsList.add(t2Dto.getId());
-//
-//        NewOrderDto newOrderDto = new NewOrderDto("orderCode", visitDto.getId());
-//
-//        OrderDto orderDto = orderService.addOrderForPatient(newOrderDto);
-//        orderService.addTestToOrder(orderDto.getId(), testIdsList);
-//        Order orderFromBase = orderService.getOrderById(orderDto.getId());
-
-//    }
-
     @Test
     void getOrderById() {
     }

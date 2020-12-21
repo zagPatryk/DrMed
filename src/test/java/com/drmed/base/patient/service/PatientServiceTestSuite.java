@@ -73,8 +73,4 @@ public class PatientServiceTestSuite {
     @Test
     public void getAllPatients() {
     }
-
-    @Test
-    public void mapVisitIdToVisit() {
-    }
 }

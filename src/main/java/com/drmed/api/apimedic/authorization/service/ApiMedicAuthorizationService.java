@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalTime;
+import java.util.List;
 
 @Service
 public class ApiMedicAuthorizationService {
@@ -18,13 +19,14 @@ public class ApiMedicAuthorizationService {
     private TokenRepository tokenRepository;
 
     public Token getTokenForApiMedic() throws InvalidKeyException, NoSuchAlgorithmException {
-        if (tokenRepository.getTokenFromBase() == null) {
+        List<Token> tokenList = tokenRepository.getTokenFromBase();
+        if (tokenList.size() == 0) {
             return getAndSaveTokenFromServer();
-        } else if (tokenRepository.getTokenFromBase().getValidUntil().plusMinutes(1).isBefore(LocalTime.now())) {
+        } else if (tokenList.get(0).getValidUntil().minusMinutes(1).isBefore(LocalTime.now())) {
             tokenRepository.deleteTokenFromBase();
             return getAndSaveTokenFromServer();
         } else {
-            return tokenRepository.getTokenFromBase();
+            return tokenList.get(0);
         }
     }
 

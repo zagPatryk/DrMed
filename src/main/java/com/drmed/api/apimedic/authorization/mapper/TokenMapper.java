@@ -6,6 +6,8 @@ import com.drmed.api.apimedic.authorization.response.TokenResponse;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class TokenMapper {
@@ -14,6 +16,11 @@ public class TokenMapper {
         return tokenHibernate == null ? null : new Token(
                 tokenHibernate.getApiMedicToken(),
                 tokenHibernate.getValidUntil());
+    }
+
+    public List<Token> mapToTokenList(List<TokenHibernate> tokenHibernateList) {
+        return tokenHibernateList == null ? null
+                : tokenHibernateList.stream().map(this::mapToToken).collect(Collectors.toList());
     }
 
     public TokenHibernate mapToTokenHibernate(TokenResponse tokenResponse) {
