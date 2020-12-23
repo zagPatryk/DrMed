@@ -1,15 +1,14 @@
 package com.drmed.base.patient.service;
 
+import com.drmed.base.additional.Gender;
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.PatientNotFoundException;
 import com.drmed.base.patient.domain.Patient;
 import com.drmed.base.patient.dto.NewPatientDto;
 import com.drmed.base.patient.dto.PatientDto;
 import com.drmed.base.patient.repository.PatientCrudRepository;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 
@@ -17,7 +16,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
 public class PatientServiceTestSuite {
     @Autowired
     private PatientService patientService;
@@ -28,7 +26,7 @@ public class PatientServiceTestSuite {
     public void addNewPatient() throws PatientNotFoundException {
         // Given
         NewPatientDto newPatientDto = new NewPatientDto("patientCode", "firstName",
-                "lastName", LocalDate.of(1999,12,1));
+                "lastName", LocalDate.of(1999,12,1), Gender.FEMALE);
         // When
         PatientDto patientDto = patientService.addNewPatient(newPatientDto);
         Patient patientFromDatabase = patientService.getPatientById(patientDto.getId());
@@ -39,6 +37,7 @@ public class PatientServiceTestSuite {
         assertEquals(newPatientDto.getFirstName(), patientFromDatabase.getFirstName());
         assertEquals(newPatientDto.getLastName(), patientFromDatabase.getLastName());
         assertEquals(newPatientDto.getBirthDate(), patientFromDatabase.getBirthDate());
+        assertEquals(newPatientDto.getGender(), patientFromDatabase.getGender());
         assertTrue(patientFromDatabase.getVisitIdList().isEmpty());
         assertTrue(patientFromDatabase.getVisitList().isEmpty());
 

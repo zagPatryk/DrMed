@@ -24,6 +24,7 @@ public class PatientMapper {
                 patientHibernate.getFirstName(),
                 patientHibernate.getLastName(),
                 patientHibernate.getBirthDate(),
+                patientHibernate.getGender(),
                 patientHibernate.getVisits().stream().map(VisitHibernate::getId).collect(Collectors.toList())
         );
     }
@@ -35,6 +36,7 @@ public class PatientMapper {
                 patient.getFirstName(),
                 patient.getLastName(),
                 patient.getBirthDate(),
+                patient.getGender(),
                 visitMapper.mapToVisitHibernateList(patient.getVisitList())
         );
     }
@@ -55,6 +57,7 @@ public class PatientMapper {
                 patient.getFirstName(),
                 patient.getLastName(),
                 patient.getBirthDate(),
+                patient.getGender(),
                 visitMapper.mapToVisitInfoDtoList(patient.getVisitList())
         );
     }

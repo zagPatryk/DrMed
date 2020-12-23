@@ -11,10 +11,8 @@ import com.drmed.base.workstation.dto.WorkstationDto;
 import com.drmed.base.workstation.repository.WorkstationCrudRepository;
 import com.drmed.base.workstation.service.WorkstationService;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +20,6 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
 public class TestServiceTestSuite {
     @Autowired
     private TestService testService;

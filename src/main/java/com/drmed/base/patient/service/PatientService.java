@@ -31,17 +31,19 @@ public class PatientService {
                 .setFirstName(newPatientDto.getFirstName())
                 .setLastName(newPatientDto.getLastName())
                 .setBirthDate(newPatientDto.getBirthDate())
+                .setGender(newPatientDto.getGender())
                 .build();
         return patientMapper.mapToPatientDto(patientRepository.savePatient(patient));
     }
 
-    public PatientDto updatePatient(PatientDto patientDto) throws PatientNotFoundException, VisitNotFoundException {
+    public PatientDto updatePatient(PatientDto patientDto) throws VisitNotFoundException {
         Patient patient = new Patient.PatientBuilder()
                 .setId(patientDto.getId())
                 .setCode(patientDto.getCode())
                 .setFirstName(patientDto.getFirstName())
                 .setLastName(patientDto.getLastName())
                 .setBirthDate(patientDto.getBirthDate())
+                .setGender(patientDto.getGender())
                 .setVisitIdList(patientDto.getVisitInfoDtoList().stream().map(VisitInfoDto::getId).collect(Collectors.toList()))
                 .build();
         mapVisitIdToVisit(patient);

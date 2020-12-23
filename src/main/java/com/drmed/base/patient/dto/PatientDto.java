@@ -1,5 +1,6 @@
 package com.drmed.base.patient.dto;
 
+import com.drmed.base.additional.Gender;
 import com.drmed.base.visit.dto.VisitInfoDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,5 +18,6 @@ public class PatientDto {
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
+    private Gender gender;
     private List<VisitInfoDto> visitInfoDtoList;
 }

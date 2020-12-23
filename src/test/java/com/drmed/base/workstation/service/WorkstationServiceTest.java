@@ -7,16 +7,13 @@ import com.drmed.base.workstation.dto.NewWorkstationDto;
 import com.drmed.base.workstation.dto.WorkstationDto;
 import com.drmed.base.workstation.repository.WorkstationCrudRepository;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
 public class WorkstationServiceTest {
     @Autowired
     private WorkstationService workstationService;

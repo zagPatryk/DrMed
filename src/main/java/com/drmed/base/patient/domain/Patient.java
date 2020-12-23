@@ -1,5 +1,6 @@
 package com.drmed.base.patient.domain;
 
+import com.drmed.base.additional.Gender;
 import com.drmed.base.visit.domain.Visit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,24 +21,26 @@ public class Patient {
     private String firstName;
     private String lastName;
     private LocalDate birthDate;
-
+    private Gender gender;
     private List<Long> visitIdList = new ArrayList<>();
     private List<Visit> visitList = new ArrayList<>();
 
-    public Patient(Long id, String code, String firstName, String lastName, LocalDate birthDate, List<Long> visitIdList) {
+    public Patient(Long id, String code, String firstName, String lastName, LocalDate birthDate, Gender gender, List<Long> visitIdList) {
         this.id = id;
         this.code = code;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
+        this.gender = gender;
         this.visitIdList = visitIdList;
     }
 
-    public Patient(String code, String firstName, String lastName, LocalDate birthDate) {
+    public Patient(String code, String firstName, String lastName, LocalDate birthDate, Gender gender) {
         this.code = code;
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
+        this.gender = gender;
     }
 
     public static class PatientBuilder {
@@ -46,7 +49,7 @@ public class Patient {
         private String firstName;
         private String lastName;
         private LocalDate birthDate;
-
+        private Gender gender;
         private List<Long> visitIdList = new ArrayList<>();
         private List<Visit> visitList = new ArrayList<>();
 
@@ -85,8 +88,13 @@ public class Patient {
             return this;
         }
 
+        public PatientBuilder setGender(Gender gender) {
+            this.gender = gender;
+            return this;
+        }
+
         public Patient build() {
-            return new Patient(id, code, firstName, lastName, birthDate, visitIdList, visitList);
+            return new Patient(id, code, firstName, lastName, birthDate, gender, visitIdList, visitList);
         }
     }
 }

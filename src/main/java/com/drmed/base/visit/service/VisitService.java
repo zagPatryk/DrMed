@@ -45,15 +45,6 @@ public class VisitService {
         return visitMapper.mapToVisitDto(visitRepository.saveVisit(visit));
     }
 
-    //    private Long id;
-    //    private String code;
-    //    private LocalDate dateOfVisit;
-    //    private Patient patient;
-    //    private Doctor doctor;
-    //
-    //    private List<Long> orderIdsList;
-    //    private List<Order> orderList;
-
     public VisitDto updateVisit(VisitDto visitDto) throws DoctorNotFoundException, PatientNotFoundException, OrderNotFoundException {
         Visit visit = new Visit.VisitBuilder()
                 .setCode(visitDto.getCode())

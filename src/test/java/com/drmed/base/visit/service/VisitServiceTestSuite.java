@@ -16,17 +16,14 @@ import com.drmed.base.visit.dto.NewVisitDto;
 import com.drmed.base.visit.dto.VisitDto;
 import com.drmed.base.visit.repository.VisitCrudRepository;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
 
 @SpringBootTest
-@RunWith(SpringRunner.class)
 class VisitServiceTestSuite {
     @Autowired
     private DoctorService doctorService;

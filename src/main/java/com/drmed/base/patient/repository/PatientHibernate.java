@@ -1,5 +1,6 @@
 package com.drmed.base.patient.repository;
 
+import com.drmed.base.additional.Gender;
 import com.drmed.base.visit.repository.VisitHibernate;
 import com.sun.istack.NotNull;
 import lombok.*;
@@ -35,6 +36,10 @@ public class PatientHibernate {
 
     @Column(name = "BIRTHDAY")
     private LocalDate birthDate;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "GENDER")
+    private Gender gender;
 
     @OneToMany(
             targetEntity = VisitHibernate.class,
