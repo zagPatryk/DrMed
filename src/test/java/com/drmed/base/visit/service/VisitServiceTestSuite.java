@@ -49,6 +49,7 @@ class VisitServiceTestSuite {
 
         NewVisitDto newVisitDto = new NewVisitDto("visitCode", LocalDate.of(1999,1,1),
                 patientDto.getId(), doctorDto.getId());
+        // dodać symptomy
 
         // When
         VisitDto visitDto = visitService.addNewVisit(newVisitDto);

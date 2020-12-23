@@ -6,6 +6,7 @@ import com.drmed.base.visit.mapper.VisitMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class VisitRepository {
     @Autowired
     private VisitMapper visitMapper;
 
+    @Transactional
     public Visit getVisitById(Long visitId) throws VisitNotFoundException {
         return visitMapper.mapToVisit(visitCrudRepository.findById(visitId).orElseThrow(VisitNotFoundException::new));
     }

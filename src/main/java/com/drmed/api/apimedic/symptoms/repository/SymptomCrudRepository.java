@@ -1,11 +1,13 @@
-package com.drmed.api.apimedic.data.symptoms.repository;
+package com.drmed.api.apimedic.symptoms.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Repository
+@Transactional
 public interface SymptomCrudRepository extends CrudRepository<SymptomHibernate, Long> {
 
     Optional<SymptomHibernate> findById(Long symptomInternalId);

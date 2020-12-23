@@ -1,5 +1,6 @@
 package com.drmed.base.visit.repository;
 
+import com.drmed.api.apimedic.symptoms.repository.SymptomHibernate;
 import com.drmed.base.doctor.repository.DoctorHibernate;
 import com.drmed.base.order.repository.OrderHibernate;
 import com.drmed.base.patient.repository.PatientHibernate;
@@ -8,6 +9,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -44,4 +46,12 @@ public class VisitHibernate {
             fetch = FetchType.EAGER
     )
     private List<OrderHibernate> orders;
+
+    @ManyToMany
+    @JoinTable(
+            name = "JOIN_SYMPTOM_VISIT",
+            joinColumns = {@JoinColumn(name = "VISIT_ID", referencedColumnName = "VISIT_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "SYMPTOM_INTERNAL_ID", referencedColumnName = "SYMPTOM_INTERNAL_ID")}
+    )
+    private List<SymptomHibernate> symptomsList = new ArrayList<>();
 }

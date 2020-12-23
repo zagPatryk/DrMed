@@ -1,5 +1,7 @@
 package com.drmed.base.visit.service;
 
+import com.drmed.api.apimedic.symptoms.mapper.SymptomMapper;
+import com.drmed.api.apimedic.symptoms.service.SymptomService;
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.VisitNotFoundException;
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.DoctorNotFoundException;
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.OrderNotFoundException;
@@ -34,6 +36,10 @@ public class VisitService {
     private PatientService patientService;
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private SymptomService symptomService;
+    @Autowired
+    private SymptomMapper symptomMapper;
 
     public VisitDto addNewVisit(NewVisitDto newVisitDto) throws DoctorNotFoundException, PatientNotFoundException {
         Visit visit = new Visit.VisitBuilder()
@@ -41,6 +47,7 @@ public class VisitService {
                 .setDateOfVisit(newVisitDto.getDateOfVisit())
                 .setPatient(patientService.getPatientById(newVisitDto.getPatientId()))
                 .setDoctor(doctorService.getDoctorById(newVisitDto.getDoctorId()))
+                .setSymptomList(symptomMapper.mapToSymptomListFromDto(newVisitDto.getSymptomList()))
                 .build();
         return visitMapper.mapToVisitDto(visitRepository.saveVisit(visit));
     }
@@ -51,6 +58,7 @@ public class VisitService {
                 .setDateOfVisit(visitDto.getDateOfVisit())
                 .setPatient(patientService.getPatientById(visitDto.getPatient().getId()))
                 .setDoctor(doctorService.getDoctorById(visitDto.getDoctor().getId()))
+                .setSymptomList(symptomMapper.mapToSymptomListFromDto(visitDto.getSymptomList()))
                 .setOrderIdsList(visitDto.getOrderList().stream().map(OrderInfoDto::getId).collect(Collectors.toList()))
                 .build();
         mapVisitIdsToVisit(visit);

@@ -1,9 +1,8 @@
-package com.drmed.api.apimedic.data.symptoms.repository;
+package com.drmed.api.apimedic.symptoms.repository;
 
-import com.drmed.api.apimedic.data.symptoms.domain.Symptom;
-import com.drmed.api.apimedic.data.symptoms.mapper.SymptomMapper;
-import com.drmed.api.apimedic.data.symptoms.response.SymptomResponse;
 import com.drmed.api.apimedic.exception.dataNotFoundInDatabase.SymptomNotFoundException;
+import com.drmed.api.apimedic.symptoms.domain.Symptom;
+import com.drmed.api.apimedic.symptoms.mapper.SymptomMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,27 +16,27 @@ public class SymptomRepository {
     @Autowired
     private SymptomMapper symptomMapper;
 
-    public Symptom findSymptomByInternalId(Long internalId) throws SymptomNotFoundException {
+    public Symptom getSymptomByInternalId(Long internalId) throws SymptomNotFoundException {
         SymptomHibernate symptomHibernate = symptomCrudRepository.findById(internalId)
                 .orElseThrow(SymptomNotFoundException::new);
         return symptomMapper.mapToSymptom(symptomHibernate);
     }
 
-    public Symptom findSymptomByExternalId(Long externalIdd) throws SymptomNotFoundException {
+    public Symptom getSymptomByExternalId(Long externalIdd) throws SymptomNotFoundException {
         SymptomHibernate symptomHibernate = symptomCrudRepository.findBySymptomId(externalIdd)
                 .orElseThrow(SymptomNotFoundException::new);
         return symptomMapper.mapToSymptom(symptomHibernate);
     }
 
-    public List<Symptom> findAllSymptoms() {
+    public List<Symptom> getAllSymptoms() {
         List<SymptomHibernate> symptomHibernateList = new ArrayList<>();
         symptomCrudRepository.findAll().forEach(symptomHibernateList::add);
         return symptomMapper.mapToSymptomList(symptomHibernateList);
     }
 
-    public List<Symptom> saveSymptomList(List<SymptomResponse> symptomResponseList) {
-        List<SymptomHibernate> symptomHibernateList = symptomMapper.mapToSymptomHibernateList(symptomResponseList);
-        symptomHibernateList.forEach(symptomHibernate -> symptomCrudRepository.save(symptomHibernate));
-        return symptomMapper.mapToSymptomList(symptomHibernateList);
+    public Symptom saveSymptom(Symptom symptom) {
+        SymptomHibernate symptomHibernate = symptomMapper.mapToSymptomHibernate(symptom);
+        symptomCrudRepository.save(symptomHibernate);
+        return symptomMapper.mapToSymptom(symptomHibernate);
     }
 }

@@ -6,6 +6,7 @@ import com.drmed.base.order.mapper.OrderMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class OrderRepository {
     @Autowired
     private OrderMapper orderMapper;
 
+    @Transactional
     public Order getOrderById(Long orderId) throws OrderNotFoundException {
         return orderMapper.mapToOrder(orderCrudRepository.findById(orderId).orElseThrow(OrderNotFoundException::new));
     }

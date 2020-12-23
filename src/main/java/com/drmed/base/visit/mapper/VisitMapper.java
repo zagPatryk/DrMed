@@ -1,5 +1,6 @@
 package com.drmed.base.visit.mapper;
 
+import com.drmed.api.apimedic.symptoms.mapper.SymptomMapper;
 import com.drmed.base.doctor.mapper.DoctorMapper;
 import com.drmed.base.order.mapper.OrderMapper;
 import com.drmed.base.order.repository.OrderHibernate;
@@ -23,6 +24,8 @@ public class VisitMapper {
     private DoctorMapper doctorMapper;
     @Autowired
     private OrderMapper orderMapper;
+    @Autowired
+    private SymptomMapper symptomMapper;
 
     public VisitHibernate mapToVisitHibernate(Visit visit) {
         return new VisitHibernate(
@@ -31,7 +34,9 @@ public class VisitMapper {
                 visit.getDateOfVisit(),
                 patientMapper.mapToPatientHibernate(visit.getPatient()),
                 doctorMapper.mapToDoctorHibernate(visit.getDoctor()),
-                orderMapper.mapToOrderHibernate(visit.getOrderList())
+                orderMapper.mapToOrderHibernate(visit.getOrderList()),
+                symptomMapper.mapToSymptomHibernateList(visit.getSymptomList())
+
         );
     }
 
@@ -42,6 +47,7 @@ public class VisitMapper {
                 visitHibernate.getDateOfVisit(),
                 patientMapper.mapToPatient(visitHibernate.getPatient()),
                 doctorMapper.mapToDoctor(visitHibernate.getDoctor()),
+                symptomMapper.mapToSymptomList(visitHibernate.getSymptomsList()),
                 visitHibernate.getOrders().stream().map(OrderHibernate::getId).collect(Collectors.toList())
         );
     }
@@ -61,6 +67,7 @@ public class VisitMapper {
                 visit.getDateOfVisit(),
                 patientMapper.mapToPatientInfoDto(visit.getPatient()),
                 doctorMapper.mapToDoctorInfoDto(visit.getDoctor()),
+                symptomMapper.mapToSymptomDtoList(visit.getSymptomList()),
                 orderMapper.mapToOrderInfoDtoList(visit.getOrderList())
         );
     }

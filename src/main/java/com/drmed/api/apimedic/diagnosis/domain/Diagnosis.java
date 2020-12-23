@@ -1,4 +1,4 @@
-package com.drmed.api.apimedic.data.diagnosis.domain;
+package com.drmed.api.apimedic.diagnosis.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

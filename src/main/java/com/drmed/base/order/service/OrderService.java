@@ -17,6 +17,7 @@ import com.drmed.base.visit.service.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 
@@ -68,6 +69,7 @@ public class OrderService {
         return orderMapper.mapToOrderDto(orderRepository.getOrderById(orderId));
     }
 
+    @Transactional
     public Order getOrderById(Long orderId) throws OrderNotFoundException {
         return orderRepository.getOrderById(orderId);
     }

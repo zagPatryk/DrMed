@@ -23,7 +23,7 @@ public class OrderedTestHibernate {
     @NotNull
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "ORDER_ID", referencedColumnName = "ORDER_ID")
     private OrderHibernate order;
 
