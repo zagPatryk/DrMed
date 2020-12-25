@@ -37,8 +37,16 @@ public class DiagnosisHibernate {
     @Column(name = "SPECIALIST_NAME_LIST")
     private List<String> specialistNameList;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @MapsId
-    @JoinColumn(name = "VISIT_ID")
     private VisitHibernate visit;
+
+    public DiagnosisHibernate(Long id, String name, String professionalName, String icdCode, String icdName, List<String> specialistNameList) {
+        this.id = id;
+        this.name = name;
+        this.professionalName = professionalName;
+        this.icdCode = icdCode;
+        this.icdName = icdName;
+        this.specialistNameList = specialistNameList;
+    }
 }

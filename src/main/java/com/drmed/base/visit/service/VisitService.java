@@ -1,5 +1,6 @@
 package com.drmed.base.visit.service;
 
+import com.drmed.api.apimedic.diagnosis.domain.Diagnosis;
 import com.drmed.api.apimedic.symptoms.mapper.SymptomMapper;
 import com.drmed.api.apimedic.symptoms.service.SymptomService;
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.VisitNotFoundException;
@@ -19,6 +20,7 @@ import com.drmed.base.visit.mapper.VisitMapper;
 import com.drmed.base.visit.repository.VisitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +80,11 @@ public class VisitService {
         visit.setOrderList(orderList);
     }
 
+    public Visit saveDiagnosisForVisit(Diagnosis diagnosis, Visit visit) {
+        return visitRepository.saveDiagnosisForVisit(diagnosis, visit);
+    }
+
+    @Transactional
     public Visit getVisitById(Long visitId) throws VisitNotFoundException {
         return visitRepository.getVisitById(visitId);
     }

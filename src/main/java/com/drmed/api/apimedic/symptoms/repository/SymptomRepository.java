@@ -1,6 +1,6 @@
 package com.drmed.api.apimedic.symptoms.repository;
 
-import com.drmed.api.apimedic.exception.dataNotFoundInDatabase.SymptomNotFoundException;
+import com.drmed.api.apimedic.additional.exception.dataNotFoundInDatabase.SymptomNotFoundException;
 import com.drmed.api.apimedic.symptoms.domain.Symptom;
 import com.drmed.api.apimedic.symptoms.mapper.SymptomMapper;
 import org.springframework.beans.factory.annotation.Autowired;

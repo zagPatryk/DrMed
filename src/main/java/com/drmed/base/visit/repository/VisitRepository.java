@@ -1,5 +1,8 @@
 package com.drmed.base.visit.repository;
 
+import com.drmed.api.apimedic.diagnosis.domain.Diagnosis;
+import com.drmed.api.apimedic.diagnosis.mapper.DiagnosisMapper;
+import com.drmed.api.apimedic.diagnosis.repository.DiagnosisHibernate;
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.VisitNotFoundException;
 import com.drmed.base.visit.domain.Visit;
 import com.drmed.base.visit.mapper.VisitMapper;
@@ -16,6 +19,8 @@ public class VisitRepository {
     private VisitCrudRepository visitCrudRepository;
     @Autowired
     private VisitMapper visitMapper;
+    @Autowired
+    private DiagnosisMapper diagnosisMapper;
 
     @Transactional
     public Visit getVisitById(Long visitId) throws VisitNotFoundException {
@@ -38,5 +43,14 @@ public class VisitRepository {
         VisitHibernate visitHibernate = visitMapper.mapToVisitHibernate(visit);
         visitCrudRepository.save(visitHibernate);
         return visitMapper.mapToVisit(visitHibernate);
+    }
+
+    public Visit saveDiagnosisForVisit(Diagnosis diagnosis, Visit visit) {
+        DiagnosisHibernate diagnosisHibernate = diagnosisMapper.mapToDiagnosisHibernate(diagnosis);
+        VisitHibernate visitHibernate = visitMapper.mapToVisitHibernate(visit);
+        diagnosisHibernate.setVisit(visitHibernate);
+        visitHibernate.setDiagnosis(diagnosisHibernate);
+        visitCrudRepository.save(visitHibernate);
+       return visitMapper.mapToVisit(visitHibernate);
     }
 }

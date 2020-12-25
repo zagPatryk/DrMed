@@ -1,7 +1,7 @@
 package com.drmed.api.apimedic.symptoms.service;
 
-import com.drmed.api.apimedic.exception.dataNotFoundInDatabase.SymptomNotFoundException;
-import com.drmed.api.apimedic.symptoms.client.ApiMedicSymptomsClient;
+import com.drmed.api.apimedic.additional.exception.dataNotFoundInDatabase.SymptomNotFoundException;
+import com.drmed.api.apimedic.client.ApiMedicClient;
 import com.drmed.api.apimedic.symptoms.domain.Symptom;
 import com.drmed.api.apimedic.symptoms.dto.SymptomDto;
 import com.drmed.api.apimedic.symptoms.mapper.SymptomMapper;
@@ -22,11 +22,11 @@ public class SymptomService {
     @Autowired
     private SymptomMapper symptomMapper;
     @Autowired
-    private ApiMedicSymptomsClient apiMedicSymptomsClient;
+    private ApiMedicClient apiMedicClient;
 
     public List<Symptom> downloadSymptomsToBase() throws InvalidKeyException, NoSuchAlgorithmException {
         List<Symptom> symptomList = new ArrayList<>();
-        SymptomResponse[] symptomResponseChar = apiMedicSymptomsClient.downloadAllSymptoms();
+        SymptomResponse[] symptomResponseChar = apiMedicClient.downloadAllSymptoms();
         if (symptomResponseChar.length > 0) {
             symptomRepository.deleteAllSymptoms();
             for (SymptomResponse symptomResponse : symptomResponseChar) {

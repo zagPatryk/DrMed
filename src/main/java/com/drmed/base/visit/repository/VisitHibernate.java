@@ -33,7 +33,7 @@ public class VisitHibernate {
     @Column(name = "DATE_TIME")
     private LocalDate dateOfVisit;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "PATIENT_ID", referencedColumnName = "PATIENT_ID")
     private PatientHibernate patient;
 
@@ -56,7 +56,6 @@ public class VisitHibernate {
     )
     private List<SymptomHibernate> symptomsList = new ArrayList<>();
 
-    @OneToOne(mappedBy = "visit", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
+    @OneToOne(mappedBy = "visit", cascade=CascadeType.ALL)
     private DiagnosisHibernate diagnosis;
 }

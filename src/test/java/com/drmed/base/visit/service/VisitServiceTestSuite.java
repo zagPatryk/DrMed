@@ -1,5 +1,9 @@
 package com.drmed.base.visit.service;
 
+import com.drmed.api.apimedic.diagnosis.service.DiagnosisService;
+import com.drmed.api.apimedic.symptoms.dto.SymptomDto;
+import com.drmed.api.apimedic.symptoms.service.SymptomService;
+import com.drmed.base.additional.Gender;
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.DoctorNotFoundException;
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.PatientNotFoundException;
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.VisitNotFoundException;
@@ -19,7 +23,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -31,6 +39,10 @@ class VisitServiceTestSuite {
     private PatientService patientService;
     @Autowired
     private VisitService visitService;
+    @Autowired
+    private SymptomService symptomService;
+    @Autowired
+    private DiagnosisService diagnosisService;
     @Autowired
     private PatientCrudRepository patientCrudRepository;
     @Autowired
@@ -49,7 +61,6 @@ class VisitServiceTestSuite {
 
         NewVisitDto newVisitDto = new NewVisitDto("visitCode", LocalDate.of(1999,1,1),
                 patientDto.getId(), doctorDto.getId());
-        // dodać symptomy
 
         // When
         VisitDto visitDto = visitService.addNewVisit(newVisitDto);
@@ -70,6 +81,31 @@ class VisitServiceTestSuite {
 
     @Test
     void updateVisit() {
+    }
+
+    @Test
+    void addDiagnosisForVisit() throws DoctorNotFoundException, PatientNotFoundException, VisitNotFoundException, NoSuchAlgorithmException, InvalidKeyException {
+        // Given
+        NewPatientDto newPatientDto = new NewPatientDto("patientCode", "firstName",
+                "lastName", LocalDate.of(1999,12,1), Gender.FEMALE);
+        PatientDto patientDto = patientService.addNewPatient(newPatientDto);
+
+        NewDoctorDto newDoctorDto = new NewDoctorDto();
+        DoctorDto doctorDto = doctorService.addNewDoctor(newDoctorDto);
+
+        if (symptomService.getAllSymptomDtoList().size() == 0) {
+            symptomService.downloadSymptomsToBase();
+        }
+        SymptomDto symptomDto = symptomService.getAllSymptomDtoList().get(0);
+        List<SymptomDto> symptomList = new ArrayList<>();
+        symptomList.add(symptomDto);
+
+        NewVisitDto newVisitDto = new NewVisitDto("visitCode", LocalDate.of(1999,1,1),
+                patientDto.getId(), doctorDto.getId(), symptomList);
+
+        // When
+        VisitDto visitDto = visitService.addNewVisit(newVisitDto);
+        diagnosisService.createDiagnosisForPatient(visitDto.getId());
     }
 
     @Test

@@ -31,7 +31,7 @@ public class VisitMapper {
     private DiagnosisMapper diagnosisMapper;
 
     public VisitHibernate mapToVisitHibernate(Visit visit) {
-        return new VisitHibernate(
+        return visit == null ? null : new VisitHibernate(
                 visit.getId(),
                 visit.getCode(),
                 visit.getDateOfVisit(),
@@ -40,7 +40,6 @@ public class VisitMapper {
                 orderMapper.mapToOrderHibernate(visit.getOrderList()),
                 symptomMapper.mapToSymptomHibernateList(visit.getSymptomList()),
                 diagnosisMapper.mapToDiagnosisHibernate(visit.getDiagnosis())
-
         );
     }
 

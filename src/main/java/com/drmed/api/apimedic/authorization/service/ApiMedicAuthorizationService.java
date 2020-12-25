@@ -1,6 +1,6 @@
 package com.drmed.api.apimedic.authorization.service;
 
-import com.drmed.api.apimedic.authorization.client.ApiMedicAuthorizationClient;
+import com.drmed.api.apimedic.client.ApiMedicClient;
 import com.drmed.api.apimedic.authorization.domain.Token;
 import com.drmed.api.apimedic.authorization.repository.TokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class ApiMedicAuthorizationService {
     @Autowired
-    private ApiMedicAuthorizationClient apiMedicAuthorizationClient;
+    private ApiMedicClient apiMedicClient;
     @Autowired
     private TokenRepository tokenRepository;
 
@@ -31,7 +31,7 @@ public class ApiMedicAuthorizationService {
     }
 
     private Token getAndSaveTokenFromServer() throws NoSuchAlgorithmException, InvalidKeyException {
-        return tokenRepository.saveToken(apiMedicAuthorizationClient.getToken());
+        return tokenRepository.saveToken(apiMedicClient.getToken());
     }
 }
 

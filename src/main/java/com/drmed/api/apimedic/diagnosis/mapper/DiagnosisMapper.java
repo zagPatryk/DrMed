@@ -9,6 +9,7 @@ import com.drmed.base.visit.mapper.VisitMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 @Component
@@ -22,7 +23,7 @@ public class DiagnosisMapper {
                 .setProfessionalName(diagnosisResponse.getIssueResponse().getProfessionalName())
                 .setIcdCode(diagnosisResponse.getIssueResponse().getIcd())
                 .setIcdName(diagnosisResponse.getIssueResponse().getIcdName())
-                .setSpecialistNameList(diagnosisResponse.getSpecialisationResponseList().stream()
+                .setSpecialistNameList(Arrays.stream(diagnosisResponse.getSpecialisationResponseChar())
                         .map(SpecialisationResponse::getName).collect(Collectors.toList()))
                 .build();
     }
@@ -35,7 +36,6 @@ public class DiagnosisMapper {
                 .setIcdCode(diagnosisHibernate.getIcdCode())
                 .setIcdName(diagnosisHibernate.getIcdName())
                 .setSpecialistNameList(diagnosisHibernate.getSpecialistNameList())
-                .setVisit(visitMapper.mapToVisit(diagnosisHibernate.getVisit()))
                 .build();
     }
 

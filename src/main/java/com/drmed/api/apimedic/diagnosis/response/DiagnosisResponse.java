@@ -6,8 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,5 +14,5 @@ public class DiagnosisResponse {
     @JsonProperty("Issue")
     private IssueResponse issueResponse;
     @JsonProperty("Specialisation")
-    private List<SpecialisationResponse> specialisationResponseList;
+    private SpecialisationResponse[] specialisationResponseChar;
 }

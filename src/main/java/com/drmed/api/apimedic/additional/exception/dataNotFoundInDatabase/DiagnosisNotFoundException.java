@@ -1,4 +1,4 @@
-package com.drmed.api.apimedic.exception.dataNotFoundInDatabase;
+package com.drmed.api.apimedic.additional.exception.dataNotFoundInDatabase;
 
 import com.drmed.base.additional.exceptions.DataNotFoundInDatabase;
 
