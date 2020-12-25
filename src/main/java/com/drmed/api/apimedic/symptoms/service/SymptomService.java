@@ -1,6 +1,7 @@
 package com.drmed.api.apimedic.symptoms.service;
 
 import com.drmed.api.apimedic.exception.dataNotFoundInDatabase.SymptomNotFoundException;
+import com.drmed.api.apimedic.symptoms.client.ApiMedicSymptomsClient;
 import com.drmed.api.apimedic.symptoms.domain.Symptom;
 import com.drmed.api.apimedic.symptoms.dto.SymptomDto;
 import com.drmed.api.apimedic.symptoms.mapper.SymptomMapper;
@@ -9,8 +10,10 @@ import com.drmed.api.apimedic.symptoms.response.SymptomResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class SymptomService {
@@ -18,14 +21,20 @@ public class SymptomService {
     private SymptomRepository symptomRepository;
     @Autowired
     private SymptomMapper symptomMapper;
+    @Autowired
+    private ApiMedicSymptomsClient apiMedicSymptomsClient;
 
-    public Symptom addNewSymptom(SymptomResponse symptomResponse) {
-        Symptom symptom = symptomMapper.mapToSymptom(symptomResponse);
-        return symptomRepository.saveSymptom(symptom);
-    }
-
-    public List<Symptom> addNewSymptoms(List<SymptomResponse> symptomResponseList) {
-        return symptomResponseList.stream().map(this::addNewSymptom).collect(Collectors.toList());
+    public List<Symptom> downloadSymptomsToBase() throws InvalidKeyException, NoSuchAlgorithmException {
+        List<Symptom> symptomList = new ArrayList<>();
+        SymptomResponse[] symptomResponseChar = apiMedicSymptomsClient.downloadAllSymptoms();
+        if (symptomResponseChar.length > 0) {
+            symptomRepository.deleteAllSymptoms();
+            for (SymptomResponse symptomResponse : symptomResponseChar) {
+                Symptom symptom = symptomMapper.mapToSymptom(symptomResponse);
+                symptomList.add(symptomRepository.saveSymptom(symptom));
+            }
+        }
+        return symptomList;
     }
 
     public List<SymptomDto> getAllSymptomDtoList() {

@@ -7,8 +7,11 @@ import org.springframework.stereotype.Component;
 @Getter
 @Component
 public class ApiMedicConfig {
+    @Value("${apimedic.app.endpoint.auth}")
+    private String apimedicApiAuthEndpoint;
+
     @Value("${apimedic.app.endpoint.prod}")
-    private String apimedicApiEndpoint;
+    private String apimedicApiProdEndpoint;
 
     @Value("${apimedic.app.key}")
     private String apimedicAppKey;

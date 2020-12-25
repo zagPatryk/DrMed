@@ -3,7 +3,7 @@ package com.drmed.api.apimedic.authorization.repository;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,9 +23,9 @@ public class TokenHibernate {
     private String apiMedicToken;
 
     @Column(name = "VALID_UNTIL")
-    private LocalTime validUntil;
+    private LocalDateTime validUntil;
 
-    public TokenHibernate(String apiMedicToken, LocalTime validUntil) {
+    public TokenHibernate(String apiMedicToken, LocalDateTime validUntil) {
         this.apiMedicToken = apiMedicToken;
         this.validUntil = validUntil;
     }

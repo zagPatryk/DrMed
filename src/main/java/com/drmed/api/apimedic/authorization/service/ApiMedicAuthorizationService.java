@@ -1,6 +1,6 @@
 package com.drmed.api.apimedic.authorization.service;
 
-import com.drmed.api.apimedic.authorization.client.ApiMedicClient;
+import com.drmed.api.apimedic.authorization.client.ApiMedicAuthorizationClient;
 import com.drmed.api.apimedic.authorization.domain.Token;
 import com.drmed.api.apimedic.authorization.repository.TokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class ApiMedicAuthorizationService {
     @Autowired
-    private ApiMedicClient apiMedicClient;
+    private ApiMedicAuthorizationClient apiMedicAuthorizationClient;
     @Autowired
     private TokenRepository tokenRepository;
 
@@ -22,7 +22,7 @@ public class ApiMedicAuthorizationService {
         List<Token> tokenList = tokenRepository.getTokenFromBase();
         if (tokenList.size() == 0) {
             return getAndSaveTokenFromServer();
-        } else if (tokenList.get(0).getValidUntil().minusMinutes(1).isBefore(LocalTime.now())) {
+        } else if (tokenList.get(0).getValidUntil().minusMinutes(1).isBefore(LocalDateTime.now())) {
             tokenRepository.deleteTokenFromBase();
             return getAndSaveTokenFromServer();
         } else {
@@ -31,7 +31,7 @@ public class ApiMedicAuthorizationService {
     }
 
     private Token getAndSaveTokenFromServer() throws NoSuchAlgorithmException, InvalidKeyException {
-        return tokenRepository.saveToken(apiMedicClient.getToken());
+        return tokenRepository.saveToken(apiMedicAuthorizationClient.getToken());
     }
 }
 

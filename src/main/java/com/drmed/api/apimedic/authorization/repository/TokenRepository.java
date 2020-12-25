@@ -23,7 +23,8 @@ public class TokenRepository {
     }
 
     public Token saveToken(TokenResponse tokenResponse) {
-        TokenHibernate tokenHibernate = tokenCrudRepository.save(tokenMapper.mapToTokenHibernate(tokenResponse));
+        TokenHibernate tokenHibernate = tokenMapper.mapToTokenHibernate(tokenResponse);
+        tokenCrudRepository.save(tokenHibernate);
         return tokenMapper.mapToToken(tokenHibernate);
     }
 

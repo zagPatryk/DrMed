@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SymptomResponse {
-    @JsonProperty("id")
+    @JsonProperty("ID")
     private Long id;
-    @JsonProperty("name")
+    @JsonProperty("Name")
     private String name;
 }

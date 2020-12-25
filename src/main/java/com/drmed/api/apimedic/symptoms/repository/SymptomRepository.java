@@ -39,4 +39,8 @@ public class SymptomRepository {
         symptomCrudRepository.save(symptomHibernate);
         return symptomMapper.mapToSymptom(symptomHibernate);
     }
+
+    public void deleteAllSymptoms() {
+        symptomCrudRepository.deleteAll();
+    }
 }

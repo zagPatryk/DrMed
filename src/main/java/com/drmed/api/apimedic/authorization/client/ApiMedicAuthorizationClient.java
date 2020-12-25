@@ -20,14 +20,14 @@ import java.util.Base64;
 import java.util.Collections;
 
 @Component
-public class ApiMedicClient {
+public class ApiMedicAuthorizationClient {
     @Autowired
     private ApiMedicConfig apiMedicConfig;
     @Autowired
     private RestTemplate restTemplate;
 
     public TokenResponse getToken() throws InvalidKeyException, NoSuchAlgorithmException {
-        String loginUrl = apiMedicConfig.getApimedicApiEndpoint() + "/login";
+        String loginUrl = apiMedicConfig.getApimedicApiAuthEndpoint() + "/login";
         String authToken = apiMedicConfig.getApimedicAppKey() + ":" + createHashedCredentials(loginUrl);
 
         HttpHeaders headers = new HttpHeaders();

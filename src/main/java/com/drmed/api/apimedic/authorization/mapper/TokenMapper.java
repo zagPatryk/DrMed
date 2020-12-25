@@ -5,7 +5,7 @@ import com.drmed.api.apimedic.authorization.repository.TokenHibernate;
 import com.drmed.api.apimedic.authorization.response.TokenResponse;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +26,6 @@ public class TokenMapper {
     public TokenHibernate mapToTokenHibernate(TokenResponse tokenResponse) {
         return tokenResponse == null ? null : new TokenHibernate(
                 tokenResponse.getToken(),
-                LocalTime.now().plusSeconds(tokenResponse.getValidThrough()));
+                LocalDateTime.now().plusSeconds(tokenResponse.getValidThrough()));
     }
 }

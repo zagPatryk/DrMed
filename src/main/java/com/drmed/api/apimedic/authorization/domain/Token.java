@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -13,5 +13,5 @@ import java.time.LocalTime;
 @NoArgsConstructor
 public class Token {
     private String token;
-    private LocalTime validUntil;
+    private LocalDateTime validUntil;
 }

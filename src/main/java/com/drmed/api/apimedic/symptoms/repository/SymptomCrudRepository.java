@@ -14,4 +14,5 @@ public interface SymptomCrudRepository extends CrudRepository<SymptomHibernate, 
     Optional<SymptomHibernate> findBySymptomId(Long symptomExternalId);
     Iterable<SymptomHibernate> findAll();
     <S extends SymptomHibernate> S save(S entity);
+    void deleteAll();
 }
