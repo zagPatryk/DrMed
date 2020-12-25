@@ -1,5 +1,6 @@
 package com.drmed.base.visit.repository;
 
+import com.drmed.api.apimedic.diagnosis.repository.DiagnosisHibernate;
 import com.drmed.api.apimedic.symptoms.repository.SymptomHibernate;
 import com.drmed.base.doctor.repository.DoctorHibernate;
 import com.drmed.base.order.repository.OrderHibernate;
@@ -49,9 +50,13 @@ public class VisitHibernate {
 
     @ManyToMany
     @JoinTable(
-            name = "JOIN_SYMPTOM_VISIT",
+            name = "API_MEDIC_JOIN_SYMPTOM_VISIT",
             joinColumns = {@JoinColumn(name = "VISIT_ID", referencedColumnName = "VISIT_ID")},
             inverseJoinColumns = {@JoinColumn(name = "SYMPTOM_INTERNAL_ID", referencedColumnName = "SYMPTOM_INTERNAL_ID")}
     )
     private List<SymptomHibernate> symptomsList = new ArrayList<>();
+
+    @OneToOne(mappedBy = "visit", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private DiagnosisHibernate diagnosis;
 }

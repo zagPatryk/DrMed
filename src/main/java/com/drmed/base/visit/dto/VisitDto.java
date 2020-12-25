@@ -1,5 +1,6 @@
 package com.drmed.base.visit.dto;
 
+import com.drmed.api.apimedic.diagnosis.dto.DiagnosisDto;
 import com.drmed.api.apimedic.symptoms.dto.SymptomDto;
 import com.drmed.base.doctor.dto.DoctorInfoDto;
 import com.drmed.base.order.dto.OrderInfoDto;
@@ -24,4 +25,5 @@ public class VisitDto {
     private DoctorInfoDto doctor;
     private List<SymptomDto> symptomList;
     private List<OrderInfoDto> orderList;
+    private DiagnosisDto diagnosisDto;
 }

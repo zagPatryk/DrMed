@@ -1,23 +1,35 @@
 package com.drmed.api.apimedic.diagnosis.domain;
 
+import com.drmed.base.visit.domain.Visit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
 public class Diagnosis {
-    private final String name;
-    private final String professionalName;
-    private final String icdCode;
-    private final String icdName;
-    private final String specialistName;
+    private Long id;
+    private String name;
+    private String professionalName;
+    private String icdCode;
+    private String icdName;
+    private List<String> specialistNameList;
+    private Visit visit;
 
     public static class DiagnosisBuilder {
+        private Long id;
         private String name;
         private String professionalName;
         private String icdCode;
         private String icdName;
-        private String specialistName;
+        private List<String> specialistNameList;
+        private Visit visit;
+
+        public DiagnosisBuilder setId(Long id) {
+            this.id = id;
+            return this;
+        }
 
         public DiagnosisBuilder setName(String name) {
             this.name = name;
@@ -39,13 +51,18 @@ public class Diagnosis {
             return this;
         }
 
-        public DiagnosisBuilder setSpecialistName(String specialistName) {
-            this.specialistName = specialistName;
+        public DiagnosisBuilder setSpecialistNameList(List<String> specialistNameList) {
+            this.specialistNameList = specialistNameList;
+            return this;
+        }
+
+        public DiagnosisBuilder setVisit(Visit visit) {
+            this.visit = visit;
             return this;
         }
 
         public Diagnosis build() {
-            return new Diagnosis(name, professionalName, icdCode, icdName, specialistName);
+            return new Diagnosis(id, name, professionalName, icdCode, icdName, specialistNameList, visit);
         }
     }
 }

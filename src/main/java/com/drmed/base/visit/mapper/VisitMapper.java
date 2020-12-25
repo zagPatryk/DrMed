@@ -1,5 +1,6 @@
 package com.drmed.base.visit.mapper;
 
+import com.drmed.api.apimedic.diagnosis.mapper.DiagnosisMapper;
 import com.drmed.api.apimedic.symptoms.mapper.SymptomMapper;
 import com.drmed.base.doctor.mapper.DoctorMapper;
 import com.drmed.base.order.mapper.OrderMapper;
@@ -26,6 +27,8 @@ public class VisitMapper {
     private OrderMapper orderMapper;
     @Autowired
     private SymptomMapper symptomMapper;
+    @Autowired
+    private DiagnosisMapper diagnosisMapper;
 
     public VisitHibernate mapToVisitHibernate(Visit visit) {
         return new VisitHibernate(
@@ -35,7 +38,8 @@ public class VisitMapper {
                 patientMapper.mapToPatientHibernate(visit.getPatient()),
                 doctorMapper.mapToDoctorHibernate(visit.getDoctor()),
                 orderMapper.mapToOrderHibernate(visit.getOrderList()),
-                symptomMapper.mapToSymptomHibernateList(visit.getSymptomList())
+                symptomMapper.mapToSymptomHibernateList(visit.getSymptomList()),
+                diagnosisMapper.mapToDiagnosisHibernate(visit.getDiagnosis())
 
         );
     }
@@ -48,7 +52,8 @@ public class VisitMapper {
                 patientMapper.mapToPatient(visitHibernate.getPatient()),
                 doctorMapper.mapToDoctor(visitHibernate.getDoctor()),
                 symptomMapper.mapToSymptomList(visitHibernate.getSymptomsList()),
-                visitHibernate.getOrders().stream().map(OrderHibernate::getId).collect(Collectors.toList())
+                visitHibernate.getOrders().stream().map(OrderHibernate::getId).collect(Collectors.toList()),
+                diagnosisMapper.mapToDiagnosis(visitHibernate.getDiagnosis())
         );
     }
 
@@ -68,7 +73,8 @@ public class VisitMapper {
                 patientMapper.mapToPatientInfoDto(visit.getPatient()),
                 doctorMapper.mapToDoctorInfoDto(visit.getDoctor()),
                 symptomMapper.mapToSymptomDtoList(visit.getSymptomList()),
-                orderMapper.mapToOrderInfoDtoList(visit.getOrderList())
+                orderMapper.mapToOrderInfoDtoList(visit.getOrderList()),
+                diagnosisMapper.mapToDiagnosisDto(visit.getDiagnosis())
         );
     }
 

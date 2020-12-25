@@ -1,5 +1,6 @@
 package com.drmed.base.visit.domain;
 
+import com.drmed.api.apimedic.diagnosis.domain.Diagnosis;
 import com.drmed.api.apimedic.symptoms.domain.Symptom;
 import com.drmed.base.doctor.domain.Doctor;
 import com.drmed.base.order.domain.Order;
@@ -25,9 +26,10 @@ public class Visit {
     private List<Symptom> symptomList;
     private List<Long> orderIdsList;
     private List<Order> orderList;
+    private Diagnosis diagnosis;
 
     public Visit(Long id, String code, LocalDate dateOfVisit, Patient patient, Doctor doctor, List<Symptom> symptomList,
-                 List<Long> orderIdsList) {
+                 List<Long> orderIdsList, Diagnosis diagnosis) {
         this.id = id;
         this.code = code;
         this.dateOfVisit = dateOfVisit;
@@ -35,6 +37,7 @@ public class Visit {
         this.doctor = doctor;
         this.symptomList = symptomList;
         this.orderIdsList = orderIdsList;
+        this.diagnosis = diagnosis;
     }
 
     public static class VisitBuilder {
@@ -46,6 +49,7 @@ public class Visit {
         private List<Symptom> symptomList;
         private List<Long> orderIdsList;
         private List<Order> orderList;
+        private Diagnosis diagnosis;
 
         public VisitBuilder setId(Long id) {
             this.id = id;
@@ -87,8 +91,13 @@ public class Visit {
             return this;
         }
 
+        public VisitBuilder setDiagnosis(Diagnosis diagnosis) {
+            this.diagnosis = diagnosis;
+            return this;
+        }
+
         public Visit build() {
-            return new Visit(id, code, dateOfVisit, patient, doctor, symptomList, orderIdsList, orderList);
+            return new Visit(id, code, dateOfVisit, patient, doctor, symptomList, orderIdsList, orderList, diagnosis);
         }
     }
 }
