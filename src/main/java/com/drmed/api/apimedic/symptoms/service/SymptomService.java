@@ -24,7 +24,7 @@ public class SymptomService {
     @Autowired
     private ApiMedicClient apiMedicClient;
 
-    public List<Symptom> downloadSymptomsToBase() throws InvalidKeyException, NoSuchAlgorithmException {
+    public List<SymptomDto> downloadSymptomsToBase() throws InvalidKeyException, NoSuchAlgorithmException {
         List<Symptom> symptomList = new ArrayList<>();
         SymptomResponse[] symptomResponseChar = apiMedicClient.downloadAllSymptoms();
         if (symptomResponseChar.length > 0) {
@@ -34,7 +34,7 @@ public class SymptomService {
                 symptomList.add(symptomRepository.saveSymptom(symptom));
             }
         }
-        return symptomList;
+        return symptomMapper.mapToSymptomDtoList(symptomList);
     }
 
     public List<SymptomDto> getAllSymptomDtoList() {

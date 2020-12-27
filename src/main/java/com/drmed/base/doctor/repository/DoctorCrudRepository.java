@@ -1,5 +1,6 @@
 package com.drmed.base.doctor.repository;
 
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -17,4 +18,7 @@ public interface DoctorCrudRepository extends CrudRepository<DoctorHibernate, Lo
     Iterable<DoctorHibernate> findByFirstNameContainsAndLastNameContains(String firstName, String lastName);
     Iterable<DoctorHibernate> findAll();
     <S extends DoctorHibernate> S save(S doctorHibernate);
+
+    @Query("UPDATE DoctorHibernate SET email = 'testingEmail@com' WHERE email like '%@%'")
+    void updateAllDoctorsEmails();
 }

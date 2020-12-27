@@ -1,8 +1,9 @@
 package com.drmed.base.doctor.service;
 
-import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.VisitNotFoundException;
 import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.DoctorNotFoundException;
+import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.VisitNotFoundException;
 import com.drmed.base.additional.statuses.ActivityStatus;
+import com.drmed.base.config.CoreConfig;
 import com.drmed.base.doctor.domain.Doctor;
 import com.drmed.base.doctor.dto.DoctorDto;
 import com.drmed.base.doctor.dto.DoctorInfoDto;
@@ -12,12 +13,15 @@ import com.drmed.base.doctor.repository.DoctorRepository;
 import com.drmed.base.visit.domain.Visit;
 import com.drmed.base.visit.service.VisitService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@EnableScheduling
 public class DoctorService {
     @Autowired
     private DoctorRepository doctorRepository;
@@ -25,6 +29,8 @@ public class DoctorService {
     private DoctorMapper doctorMapper;
     @Autowired
     private VisitService visitService;
+    @Autowired
+    private CoreConfig coreConfig;
 
     public DoctorDto addNewDoctor(NewDoctorDto newDoctorDto) {
         Doctor doctor = new Doctor.DoctorBuilder()
@@ -74,6 +80,13 @@ public class DoctorService {
             visitList.add(visit);
         }
         doctor.setVisitList(visitList);
+    }
+
+    @Scheduled(cron = "0 0 10 * * *")
+    public void cleanDoctorEmails() {
+        if (coreConfig.getTestingMode()) {
+            doctorRepository.updateAllDoctorsEmails();
+        }
     }
 
     public DoctorDto getDoctorDtoById(Long doctorId) throws DoctorNotFoundException {

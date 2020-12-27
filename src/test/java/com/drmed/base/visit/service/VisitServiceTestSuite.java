@@ -1,5 +1,7 @@
 package com.drmed.base.visit.service;
 
+import com.drmed.api.apimedic.diagnosis.dto.DiagnosisDto;
+import com.drmed.api.apimedic.diagnosis.repository.DiagnosisCrudRepository;
 import com.drmed.api.apimedic.diagnosis.service.DiagnosisService;
 import com.drmed.api.apimedic.symptoms.dto.SymptomDto;
 import com.drmed.api.apimedic.symptoms.service.SymptomService;
@@ -19,6 +21,7 @@ import com.drmed.base.visit.domain.Visit;
 import com.drmed.base.visit.dto.NewVisitDto;
 import com.drmed.base.visit.dto.VisitDto;
 import com.drmed.base.visit.repository.VisitCrudRepository;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -49,6 +52,8 @@ class VisitServiceTestSuite {
     private DoctorCrudRepository doctorCrudRepository;
     @Autowired
     private VisitCrudRepository visitCrudRepository;
+    @Autowired
+    private DiagnosisCrudRepository diagnosisCrudRepository;
 
     @Test
     void addNewVisit() throws DoctorNotFoundException, PatientNotFoundException, VisitNotFoundException {
@@ -80,10 +85,6 @@ class VisitServiceTestSuite {
     }
 
     @Test
-    void updateVisit() {
-    }
-
-    @Test
     void addDiagnosisForVisit() throws DoctorNotFoundException, PatientNotFoundException, VisitNotFoundException, NoSuchAlgorithmException, InvalidKeyException {
         // Given
         NewPatientDto newPatientDto = new NewPatientDto("patientCode", "firstName",
@@ -103,9 +104,26 @@ class VisitServiceTestSuite {
         NewVisitDto newVisitDto = new NewVisitDto("visitCode", LocalDate.of(1999,1,1),
                 patientDto.getId(), doctorDto.getId(), symptomList);
 
-        // When
         VisitDto visitDto = visitService.addNewVisit(newVisitDto);
-        diagnosisService.createDiagnosisForPatient(visitDto.getId());
+
+        // When
+        DiagnosisDto diagnosisDto = diagnosisService.createDiagnosisForVisit(visitDto.getId());
+
+        // Then
+        Assertions.assertNotNull(diagnosisDto.getIcdCode());
+        Assertions.assertNotNull(diagnosisDto.getIcdName());
+        Assertions.assertNotNull(diagnosisDto.getName());
+        Assertions.assertNotNull(diagnosisDto.getProfessionalName());
+        Assertions.assertNotNull(diagnosisDto.getSpecialistNameList());
+
+        // Clean
+        visitCrudRepository.deleteById(visitDto.getId());
+        patientCrudRepository.deleteById(patientDto.getId());
+        doctorCrudRepository.deleteById(doctorDto.getId());
+    }
+
+    @Test
+    void updateVisit() {
     }
 
     @Test

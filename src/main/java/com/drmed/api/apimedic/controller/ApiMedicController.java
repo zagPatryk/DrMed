@@ -1,14 +1,12 @@
 package com.drmed.api.apimedic.controller;
 
-import com.drmed.api.apimedic.authorization.domain.Token;
-import com.drmed.api.apimedic.authorization.service.ApiMedicAuthorizationService;
-import com.drmed.api.apimedic.symptoms.domain.Symptom;
+import com.drmed.api.apimedic.diagnosis.dto.DiagnosisDto;
+import com.drmed.api.apimedic.diagnosis.service.DiagnosisService;
+import com.drmed.api.apimedic.symptoms.dto.SymptomDto;
 import com.drmed.api.apimedic.symptoms.service.SymptomService;
+import com.drmed.base.additional.exceptions.dataNotFoundInDatabase.VisitNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -19,17 +17,22 @@ import java.util.List;
 @RequestMapping("/v1/apimedic")
 public class ApiMedicController {
     @Autowired
-    private ApiMedicAuthorizationService apiMedicAuthorizationService;
+    private SymptomService symptomService;
     @Autowired
-    private SymptomService symptomsClient;
+    private DiagnosisService diagnosisService;
 
-    @GetMapping(value = "getToken")
-    public Token getToken() throws NoSuchAlgorithmException, InvalidKeyException {
-        return apiMedicAuthorizationService.getTokenForApiMedic();
+    @GetMapping(value = "getAllSymptoms")
+    public List<SymptomDto> getAllSymptoms() {
+        return symptomService.getAllSymptomDtoList();
     }
 
-    @GetMapping(value = "get")
-    public List<Symptom> getSymptoms() throws InvalidKeyException, NoSuchAlgorithmException {
-        return symptomsClient.downloadSymptomsToBase();
+    @GetMapping(value = "downloadSymptoms")
+    public List<SymptomDto> downloadSymptomsToBase() throws InvalidKeyException, NoSuchAlgorithmException {
+        return symptomService.downloadSymptomsToBase();
+    }
+
+    @GetMapping(value = "diagnosisForVisit")
+    public DiagnosisDto createDiagnosisForVisit(@RequestParam Long visitId) throws InvalidKeyException, NoSuchAlgorithmException, VisitNotFoundException {
+        return diagnosisService.createDiagnosisForVisit(visitId);
     }
 }

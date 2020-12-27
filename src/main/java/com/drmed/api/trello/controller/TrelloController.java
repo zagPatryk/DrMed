@@ -25,11 +25,6 @@ public class TrelloController {
     @Autowired
     private TrelloService trelloService;
 
-    @GetMapping(value = "getPendingOrdersForDoctor")
-    public List<TrelloCardDto> getPendingOrdersForDoctor(@RequestParam Long doctorId) throws TrelloException {
-        return trelloService.getPendingOrdersForDoctor(doctorId);
-    }
-
     @PostMapping(value = "createBoardForDoctor")
     public CreatedTrelloBoardDto createBoardForDoctor(@RequestBody DoctorInfoDto doctorInfoDto) throws DataNotFoundInDatabase {
         return trelloService.createBoardForDoctor(doctorInfoDto);
@@ -39,6 +34,11 @@ public class TrelloController {
     public CreatedTrelloCardDto createCardForOrder(@RequestBody OrderInfoWithDoctorDto orderInfoWithDoctorDto)
             throws TrelloException, DataNotFoundInDatabase {
         return trelloService.createCardForOrder(orderInfoWithDoctorDto);
+    }
+
+    @GetMapping(value = "getPendingOrdersForDoctor")
+    public List<TrelloCardDto> getPendingOrdersForDoctor(@RequestParam Long doctorId) throws TrelloException {
+        return trelloService.getPendingOrdersForDoctor(doctorId);
     }
 
     @PutMapping(value = "changeStatusOfOrder")

@@ -18,6 +18,10 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    set('vaadinVersion', "14.4.4")
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -30,7 +34,17 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     compile group: 'mysql', name: 'mysql-connector-java'
 
+    implementation 'com.vaadin:vaadin-spring-boot-starter'
     compile group: 'com.vaadin', name: 'vaadin', version: '14.4.4'
+
+    compile('io.springfox:springfox-swagger2:2.7.0')
+    compile('io.springfox:springfox-swagger-ui:2.7.0')
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "com.vaadin:vaadin-bom:${vaadinVersion}"
+    }
 }
 
 test {

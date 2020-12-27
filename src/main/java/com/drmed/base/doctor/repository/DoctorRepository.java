@@ -55,4 +55,8 @@ public class DoctorRepository {
         doctorCrudRepository.save(doctorHibernate);
         return doctorMapper.mapToDoctor(doctorHibernate);
     }
+
+    public void updateAllDoctorsEmails() {
+        doctorCrudRepository.updateAllDoctorsEmails();
+    }
 }

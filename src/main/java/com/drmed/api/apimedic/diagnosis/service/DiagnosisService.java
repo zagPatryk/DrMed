@@ -35,7 +35,7 @@ public class DiagnosisService {
         return diagnosisMapper.mapToDiagnosisDto(diagnosisRepository.getDiagnosisForVisit(visitId));
     }
 
-    public DiagnosisDto createDiagnosisForPatient(Long visitId) throws InvalidKeyException, NoSuchAlgorithmException, VisitNotFoundException {
+    public DiagnosisDto createDiagnosisForVisit(Long visitId) throws InvalidKeyException, NoSuchAlgorithmException, VisitNotFoundException {
         Visit visit = visitService.getVisitById(visitId);
         DiagnosisResponse[] diagnosisResponse = apiMedicClient.getDiagnosisForVisit(visit);
         Diagnosis diagnosis = diagnosisMapper.mapToDiagnosis(diagnosisResponse[0]);
