@@ -15,7 +15,7 @@ Web application that allows patients to register for a medical visit. Additional
 - For testing: JUnit4, Mockito, [Selenium]
 - App builder: Gradle
 - Version control: Git
-- DataBases: MySQL, PostgreSQL for Heroku
+- DataBases: MySQL, [PostgreSQL for Heroku]
 - Patterns: builder for most of components, [observer for doctors - mail when test is resulted], singleton for repositories, [decorator for bill creation]
 - Additionally: lombok, [thymeleaf]
 - External Api: Trello - information about orders, new board for all doctors, ApiMedic - symptoms and diagnosis for visits
