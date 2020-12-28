@@ -29,8 +29,24 @@ Web application that allows patients to register for a medical visit. Additional
 
 # Frontend
 
+This is what the target application plan looks like:
+
+![S](https://github.com/zagPatryk/DrMed/blob/master/info/S.png)
+
 You can currently add a new doctor or view all of them. After selecting a doctor from the list and pressing 'Go to' you can edit his details.
 
 ![F1](https://github.com/zagPatryk/DrMed/blob/master/info/F1.png)
 ![F2](https://github.com/zagPatryk/DrMed/blob/master/info/F2.png)
 ![F3](https://github.com/zagPatryk/DrMed/blob/master/info/F3.png)
+
+# Base
+
+Base use:
+
+![B](https://github.com/zagPatryk/DrMed/blob/master/info/B.png)
+
+# Tests
+
+This will be extended to all backend and frontend functionalities. Current tests cover:
+
+![T](https://github.com/zagPatryk/DrMed/blob/master/info/T.png)
