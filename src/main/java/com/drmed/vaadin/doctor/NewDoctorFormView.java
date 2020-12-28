@@ -21,7 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Route(value = "new-doctor-form", layout = MainView.class)
 @PageTitle("Doctor Form")
-@CssImport("./styles/views/personform/person-form-view.css")
+@CssImport("./styles/views/doctor/doctor-view.css")
 public class NewDoctorFormView extends Div {
     @Autowired
     private DoctorServiceVaadin doctorServiceVaadin;

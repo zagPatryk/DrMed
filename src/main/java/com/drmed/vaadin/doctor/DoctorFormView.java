@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 @Route(value = "doctor-form", layout = MainView.class)
 @PageTitle("Doctor Form")
-@CssImport("./styles/views/personform/person-form-view.css")
+@CssImport("./styles/views/doctor/doctor-view.css")
 public class DoctorFormView extends Div implements HasUrlParameter<String> {
     @Autowired
     private DoctorServiceVaadin doctorServiceVaadin;
@@ -29,7 +29,7 @@ public class DoctorFormView extends Div implements HasUrlParameter<String> {
     private TextField firstName = new TextField("First name");
     private TextField lastName = new TextField("Last name");
     private EmailField email = new EmailField("Email address");
-//    private ComboBox<ActivityStatus> activityStatus = new ComboBox<>("Activity Status");
+
     private Button cancel = new Button("Cancel");
     private Button save = new Button("Save");
 
@@ -84,7 +84,7 @@ public class DoctorFormView extends Div implements HasUrlParameter<String> {
     private Component createFormLayout() {
         FormLayout formLayout = new FormLayout();
         email.setErrorMessage("Please enter a valid email address");
-//        formLayout.add(code, firstName, lastName, email, activityStatus);
+
         formLayout.add(code, firstName, lastName, email);
         return formLayout;
     }
