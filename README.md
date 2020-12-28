@@ -26,3 +26,8 @@ Web application that allows patients to register for a medical visit. Additional
 ![E1](https://github.com/zagPatryk/DrMed/blob/master/info/EndPoints1.png)
 ![E2](https://github.com/zagPatryk/DrMed/blob/master/info/EndPoints2.png)
 ![E3](https://github.com/zagPatryk/DrMed/blob/master/info/EndPoints3.png)
+
+# Frontend
+![F1](https://github.com/zagPatryk/DrMed/blob/master/info/F1.png)
+![F2](https://github.com/zagPatryk/DrMed/blob/master/info/F2.png)
+![F3](https://github.com/zagPatryk/DrMed/blob/master/info/F3.png)
