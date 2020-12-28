@@ -1,5 +1,5 @@
 # Attention! 
-This is not a fully completed project. It is being developed all the time. The current frontend is only demonstration and does not represent the entire project but a fraction of it.
+This is not a fully completed project. It is being developed all the time. The current version is only demonstration and does not represent the entire project but a fraction of it.
 
 # Description
 
