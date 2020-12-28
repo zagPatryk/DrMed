@@ -19,6 +19,7 @@ Web application that allows patients to register for a medical visit. Additional
 - Patterns: builder for most of components, [observer for doctors - mail when test is resulted], singleton for repositories, [decorator for bill creation]
 - Additionally: lombok, [thymeleaf]
 - External Api: Trello - information about orders, new board for all doctors, ApiMedic - symptoms and diagnosis for visits
+
 [In square brackets I mark elements not yet implemented]
 
 # Endpoints
