@@ -25,7 +25,17 @@ Web application that allows patients to register for a medical visit. Additional
 # Microservices 
 
 The project will be divided and enriched into microservices responsible for individual api. Currently, the base / configuration microservices are available in the link below.
-`<link>` : <https://github.com/zagPatryk/Microservices>
+`<GitHub>` : <https://github.com/zagPatryk/Microservices>
+
+# ApiMedic
+
+"ApiMedic offers a medical symptom checker primarily for patients. Based on the entered symptoms it tells the patient what possible diseases he has. It directs him to more medical information and shows the right doctor for further clarifications. The symptom checker can be integrated via the flexible API (Application Programming Interface). This is a modular programming interface, which offers the symptom checker functionalities for a main program."
+`<ApiMedic>` : <https://apimedic.com/>
+
+# TrelloApi
+
+"Trello’s boards, lists, and cards enable teams to organize and prioritize projects in a fun, flexible, and rewarding way."
+`<TrelloApi>` : <https://developer.atlassian.com/cloud/trello/rest/api-group-actions/>
 
 
 # Endpoints
