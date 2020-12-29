@@ -22,6 +22,12 @@ Web application that allows patients to register for a medical visit. Additional
 
 [In square brackets I mark elements not yet implemented]
 
+# Microservices 
+
+The project will be divided and enriched into microservices responsible for individual api. Currently, the base / configuration microservices are available in the link below.
+`<link>` : <https://github.com/zagPatryk/Microservices>
+
+
 # Endpoints
 ![E1](https://github.com/zagPatryk/DrMed/blob/master/info/EndPoints1.png)
 ![E2](https://github.com/zagPatryk/DrMed/blob/master/info/EndPoints2.png)
