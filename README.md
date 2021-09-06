@@ -1,5 +1,7 @@
 # Attention! 
-This is not a fully completed project. It is being developed all the time. The current version is only demonstration and does not represent the entire project but a fraction of it.
+I dropped this project. It was prepared for the end of the course I attended.
+
+This is not a fully completed project. The current version is only demonstration.
 
 # Description
 
